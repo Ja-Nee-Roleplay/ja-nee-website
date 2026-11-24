@@ -1,9 +1,28 @@
 import siteConfig from '../config/siteConfig.js'
 
+const bundledStaffAssets = import.meta.glob('../assets/staff/*', {
+  eager: true,
+  query: '?url',
+  import: 'default',
+})
+
 export function assetUrl(path) {
   if (!path) return ''
   if (/^(https?:|data:)/i.test(path)) return path
   return import.meta.env.BASE_URL + path.replace(/^\//, '')
+}
+
+export function staffAvatarUrl(path) {
+  if (!path) return ''
+  if (/^(https?:|data:)/i.test(path)) return path
+
+  const normalizedPath = path.replace(/\\/g, '/').replace(/^\.\//, '').replace(/^\//, '')
+  const assetName = normalizedPath
+    .replace(/^src\/assets\/staff\//, '')
+    .replace(/^assets\/staff\//, '')
+  const bundledAsset = bundledStaffAssets['../assets/staff/' + assetName]
+
+  return bundledAsset || assetUrl(path)
 }
 
 export function imageBackgroundStyle(image = {}) {

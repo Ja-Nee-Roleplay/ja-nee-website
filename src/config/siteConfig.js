@@ -459,7 +459,7 @@ const siteConfig = {
     { name: 'Facebook', icon: 'facebook', url: '', image: '', description: 'News and community updates.', color: '#9ebcde' },
   ],
 
-  // STAFF TEAM: add a name and local public asset path or HTTPS avatar URL for each person.
+  // STAFF TEAM: add a name and an avatar path in src/assets/staff, public/assets/staff, or an HTTPS URL.
   staffTeam: {
     enabled: true,
     members: [{ name: 'Sakkie de Kok • Owner', avatar: 'assets/staff/sakkie.png'}, { name: 'Meyer Hunter • Owner', avatar: 'assets/staff/meyer.png'}, { name: 'Rico Moretti • Dev', avatar: 'assets/staff/rico.png'}, { name: 'Eddie Rose • Admin', avatar: 'assets/staff/eddie.png'},

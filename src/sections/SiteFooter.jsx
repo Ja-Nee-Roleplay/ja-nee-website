@@ -1,7 +1,7 @@
 import siteConfig from '../config/siteConfig.js'
 import Brand from '../components/Brand.jsx'
 import Icon from '../components/Icon.jsx'
-import { assetUrl, getVisibleSocials, imageBackgroundStyle } from '../utils/siteHelpers.js'
+import { getVisibleSocials, imageBackgroundStyle, staffAvatarUrl } from '../utils/siteHelpers.js'
 
 const currentYear = new Date().getFullYear()
 
@@ -40,7 +40,7 @@ export default function SiteFooter() {
                   {staff.map((member, index) => (
                     <li key={member.name + '-' + index}>
                       <span className="staff-avatar" role="img" tabIndex={0} aria-label={member.name}>
-                        <img src={assetUrl(member.avatar)} alt="" loading="lazy" decoding="async" />
+                        <img src={staffAvatarUrl(member.avatar)} alt="" loading="lazy" decoding="async" />
                         <span className="staff-tooltip" aria-hidden="true">{member.name}</span>
                       </span>
                     </li>
