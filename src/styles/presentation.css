@@ -1000,6 +1000,8 @@ body {
 }
 
 .rules-aside {
+  display: flex;
+  flex-direction: column;
   align-self: start;
   min-height: 250px;
   padding: 21px 18px;
@@ -1067,7 +1069,10 @@ body {
 
 .rules-aside-foot {
   display: block;
-  margin-top: 21px;
+  position: static;
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 254, 249, .08);
   color: rgba(255, 254, 249, .38);
   font-family: var(--font-body);
   font-size: 8px;
@@ -2167,6 +2172,12 @@ body {
   .rule-tabs button.is-active::before,
   .rules-aside-foot {
     display: none;
+  }
+
+  .rules-aside-foot {
+    display: block;
+    margin-top: 14px;
+    padding-top: 12px;
   }
 
   .rules-panel {

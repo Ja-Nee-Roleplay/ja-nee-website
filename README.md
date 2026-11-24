@@ -73,7 +73,7 @@ Put artwork in **public/assets/images/** and point to its path in the images gro
 
 Each background setting supports src, position, size, repeat, overlayColor, overlayOpacity, gradient, and blur. The settings are prepared for hero, about, features, rules, FAQs, socials, join, footer, and social preview areas. A blank background path leaves the section’s colour and CSS styling in place. The About illustration has its own image path in the about group.
 
-Other asset folders are ready for their intended files: logos for brand marks, icons for custom interface graphics, and cursors for cursor images. The site bundles Montserrat (including ExtraBold) and STIX Two Text in **src/assets/fonts/**, so headings and supporting text use the requested fonts without relying on a remote font service. Their SIL Open Font License notices are included beside the font files. If you replace either font, keep its filename or update the matching `@font-face` path in **src/styles/brand-overrides.css**. Vite includes these files in the production build, including when the site is published beneath a GitHub project URL.
+Other asset folders are ready for logos and custom interface icons. The site bundles Montserrat (including ExtraBold) and STIX Two Text in **src/assets/fonts/**, so headings and supporting text use the requested fonts without relying on a remote font service. Their SIL Open Font License notices are included beside the font files. If you replace either font, keep its filename or update the matching `@font-face` path in **src/styles/brand-overrides.css**. Vite includes these files in the production build, including when the site is published beneath a GitHub project URL.
 
 ## Change colours and copy
 
@@ -118,9 +118,9 @@ When statusApiEndpoint is set, it takes priority over the direct host. The respo
 
 ## Configure the custom cursor
 
-Put the cursor images in **public/assets/cursors/**. In the cursor group, set enabled to true, then assign defaultImage, pointerImage, textImage, and interactionImage as needed. Set width, height, hotspotX, and hotspotY to match the assets. Set animate only if the cursor pack includes an appropriate subtle animation. Leave enabled false until you have supplied an image pack.
+The Ja-Nee cursor pack is split into transparent default, hover, link-hand, and text caret images in **public/assets/cursors/**. It is enabled in the cursor group of **src/config/siteConfig.js**. Edit defaultImage, pointerImage, textImage, and interactionImage there to replace a state. The `hotspots` object aligns the arrow tip, link fingertip, and text caret with the actual pointer location; adjust each state’s x/y values if you replace the sprite artwork. Change width and height to resize all cursor states, or set enabled to false to restore the browser cursor.
 
-The custom cursor is used only with a fine mouse pointer. It is hidden on touchscreen devices, does not intercept pointer events, and falls back to the normal cursor if an interaction-specific image is not set.
+The custom cursor is used only with a fine mouse pointer. It is hidden on touchscreen devices, does not intercept pointer events, and falls back to the default sprite if a state-specific image is not set. Text fields and selectable text use the text caret image; links use the link hand, and buttons use the green hover arrow.
 
 ## GitHub Pages deployment
 

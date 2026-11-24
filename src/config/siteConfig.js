@@ -309,17 +309,23 @@ const siteConfig = {
     socialPreview: { src: 'assets/images/hero-city.svg' },
   },
 
-  // CUSTOM CURSOR: keep disabled until your cursor pack has been added.
+  // CUSTOM CURSOR: cursor pack artwork is stored in public/assets/cursors/.
   cursor: {
-    enabled: false,
-    defaultImage: '',
-    pointerImage: '',
-    textImage: '',
-    interactionImage: '',
-    width: 28,
-    height: 28,
-    hotspotX: 3,
-    hotspotY: 3,
+    enabled: true,
+    defaultImage: 'assets/cursors/ja-nee-default.png',
+    pointerImage: 'assets/cursors/ja-nee-hover.png',
+    textImage: 'assets/cursors/ja-nee-text.png',
+    interactionImage: 'assets/cursors/ja-nee-link.png',
+    width: 48,
+    height: 48,
+    hotspotX: 7,
+    hotspotY: 6,
+    hotspots: {
+      default: { x: 7, y: 6 },
+      pointer: { x: 7, y: 6 },
+      text: { x: 19, y: 24 },
+      interaction: { x: 18, y: 5 },
+    },
     animate: false,
   },
 

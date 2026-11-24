@@ -5,8 +5,20 @@ import { assetUrl } from '../utils/siteHelpers.js'
 export default function CustomCursor() {
   const cursorRef = useRef(null)
   const cursor = siteConfig.cursor
-  const [image, setImage] = useState(() => cursor.defaultImage ? assetUrl(cursor.defaultImage) : '')
+  const [cursorType, setCursorType] = useState('default')
   const [visible, setVisible] = useState(false)
+
+  const imagePath = {
+    default: cursor.defaultImage,
+    pointer: cursor.pointerImage || cursor.defaultImage,
+    text: cursor.textImage || cursor.defaultImage,
+    interaction: cursor.interactionImage || cursor.pointerImage || cursor.defaultImage,
+  }[cursorType]
+  const image = imagePath ? assetUrl(imagePath) : ''
+  const hotspot = cursor.hotspots?.[cursorType] || cursor.hotspots?.default || {
+    x: cursor.hotspotX,
+    y: cursor.hotspotY,
+  }
 
   useEffect(() => {
     const supportsFinePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches
@@ -26,15 +38,12 @@ export default function CustomCursor() {
       const target = event.target instanceof Element ? event.target : null
       if (!target) return
 
-      const interactive = target.closest('a, button, summary, [role="button"], [data-cursor="interactive"]')
       const textField = target.closest('input, textarea, [contenteditable="true"], [data-cursor="text"]')
-      const nextImage = textField
-        ? (cursor.textImage || cursor.defaultImage)
-        : interactive
-          ? (cursor.interactionImage || cursor.pointerImage || cursor.defaultImage)
-          : cursor.defaultImage
-
-      if (nextImage) setImage(assetUrl(nextImage))
+      const link = target.closest('a[href], [role="link"]')
+      const button = target.closest('button, summary, [role="button"], [data-cursor="interactive"]')
+      const text = target.closest('h1, h2, h3, h4, h5, h6, p, li, label, blockquote, figcaption, strong, em, [data-cursor="text"]')
+      const nextType = textField ? 'text' : link ? 'interaction' : button ? 'pointer' : text ? 'text' : 'default'
+      setCursorType((current) => current === nextType ? current : nextType)
     }
 
     function hideCursor() {
@@ -73,8 +82,8 @@ export default function CustomCursor() {
       style={{
         width: cursor.width,
         height: cursor.height,
-        marginLeft: -cursor.hotspotX,
-        marginTop: -cursor.hotspotY,
+        marginLeft: -hotspot.x,
+        marginTop: -hotspot.y,
         opacity: visible ? 1 : 0,
       }}
     />
