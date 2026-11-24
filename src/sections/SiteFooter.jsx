@@ -1,12 +1,15 @@
 import siteConfig from '../config/siteConfig.js'
 import Brand from '../components/Brand.jsx'
 import Icon from '../components/Icon.jsx'
-import { getVisibleSocials, imageBackgroundStyle } from '../utils/siteHelpers.js'
+import { assetUrl, getVisibleSocials, imageBackgroundStyle } from '../utils/siteHelpers.js'
 
 const currentYear = new Date().getFullYear()
 
 export default function SiteFooter() {
   const socials = getVisibleSocials()
+  const staff = siteConfig.staffTeam.enabled
+    ? siteConfig.staffTeam.members.filter((member) => member.name?.trim() && member.avatar?.trim())
+    : []
   const copy = siteConfig.copy.footer
   const copyrightYear = siteConfig.footer.copyrightYear || currentYear
   const footerLinks = siteConfig.navigation.filter(
@@ -29,6 +32,21 @@ export default function SiteFooter() {
               <a className="footer-status-link" href="#home">
                 <span className="footer-status-dot" /> {siteConfig.copy.status.checkLink} <Icon name="arrow" size={15} />
               </a>
+            )}
+            {staff.length > 0 && (
+              <div className="footer-staff" role="group" aria-label={siteConfig.copy.footer.staffLabel}>
+                <span className="footer-column-label">{siteConfig.copy.footer.staffLabel}</span>
+                <ul className="staff-list">
+                  {staff.map((member, index) => (
+                    <li key={member.name + '-' + index}>
+                      <span className="staff-avatar" role="img" tabIndex={0} aria-label={member.name}>
+                        <img src={assetUrl(member.avatar)} alt="" loading="lazy" decoding="async" />
+                        <span className="staff-tooltip" aria-hidden="true">{member.name}</span>
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             )}
           </div>
 

@@ -108,12 +108,15 @@ Edit the socials list in siteConfig.js. Enter the official URL, platform name, i
 
 The Discord invite is configured separately in the discord group.
 
+## Show the staff team
+
+Save profile pictures in **public/assets/staff/** and add each person under `staffTeam.members` in **src/config/siteConfig.js** with a `name` and an `avatar` path, such as `assets/staff/staff-name.png`. You can also use a complete HTTPS avatar URL. Set `staffTeam.enabled` to `true` to show the row in the footer; leave it `false` to hide the roster. Names appear when visitors hover over or keyboard-focus an avatar, and remain visible on touch screens. Entries missing either a name or avatar are skipped.
+
 ## Configure the Discord invite
 
 In the discord group in siteConfig.js:
 
 - Set inviteUrl to the complete official Discord invite URL, beginning with https://.
-- Update heading and message to your approved invitation copy.
 
 The site does not embed a Discord server preview. Its invite button opens the configured invite in a new tab. Do not place bots, API secrets, or private credentials in this frontend project.
 
@@ -183,6 +186,7 @@ public/
     icons/
     images/
     logos/
+    staff/
 src/
   assets/fonts/
   components/

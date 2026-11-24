@@ -247,6 +247,7 @@ const siteConfig = {
     footer: {
       exploreLabel: 'EXPLORE',
       connectLabel: 'CONNECT',
+      staffLabel: 'STAFF TEAM',
       discordLink: 'Discord community',
       socialsLink: 'Explore social channels',
       editionName: 'JA-NEE RP',
@@ -455,6 +456,14 @@ const siteConfig = {
     { name: 'Instagram', icon: 'instagram', url: '', image: '', description: 'Scenes and updates from Ja-Nee RP.', color: '#e4a78e' },
     { name: 'Facebook', icon: 'facebook', url: '', image: '', description: 'News and community updates.', color: '#9ebcde' },
   ],
+
+  // STAFF TEAM: add a name and local public asset path or HTTPS avatar URL for each person.
+  staffTeam: {
+    enabled: false,
+    members: [
+      // { name: 'Staff display name', avatar: 'assets/staff/staff-name.png' },
+    ],
+  },
 
   // FIVE M SERVER STATUS: direct access may be blocked by browser security rules.
   // Use an HTTPS API endpoint with CORS enabled if the host cannot be reached directly.
