@@ -65,7 +65,6 @@ export default function SiteFooter() {
         <div className="footer-bottom">
           <span>{siteConfig.footer.copyrightSymbol} {copyrightYear} {siteConfig.footer.copyrightName}. {copy.copyrightSuffix}</span>
           <span className="footer-edition">{copy.editionName} <i /> {copy.editionLabel}</span>
-          <a href="#home" aria-label={copy.backToTopAria}>{copy.backToTopLink}</a>
         </div>
       </div>
     </footer>

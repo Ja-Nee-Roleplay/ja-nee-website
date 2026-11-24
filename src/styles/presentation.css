@@ -1494,8 +1494,7 @@ body {
   font-size: 11px;
 }
 
-.footer-links-column li a:hover,
-.footer-bottom > a {
+.footer-links-column li a:hover {
   color: var(--color-amber);
 }
 
@@ -1523,10 +1522,6 @@ body {
   font-family: var(--font-body);
   font-size: 7px;
   font-weight: 750;
-}
-
-.footer-bottom > a {
-  text-decoration: none;
 }
 
 /* Reveal motion stays subtle and follows the visitor's motion preference */
@@ -2170,10 +2165,6 @@ body {
 
   .footer-edition {
     order: 2;
-  }
-
-  .footer-bottom > a {
-    display: none;
   }
 
   .update-notice {

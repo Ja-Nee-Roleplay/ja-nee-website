@@ -251,8 +251,6 @@ const siteConfig = {
       socialsLink: 'Explore social channels',
       editionName: 'JA-NEE RP',
       editionLabel: 'COMMUNITY / ROLEPLAY',
-      backToTopLink: 'BACK TO TOP ↑',
-      backToTopAria: 'Return to the top of the page',
       copyrightSuffix: 'All rights reserved.',
     },
     update: {

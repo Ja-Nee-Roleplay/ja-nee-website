@@ -606,8 +606,7 @@ h4,
 
 .footer-status-link,
 .footer-links-column li a:hover,
-.footer-edition i,
-.footer-bottom > a {
+.footer-edition i {
   color: var(--color-gold);
 }
 
