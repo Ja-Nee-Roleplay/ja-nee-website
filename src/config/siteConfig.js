@@ -387,7 +387,7 @@ const siteConfig = {
     starterNotice: "",
     // Add a PDF or document path here, e.g. assets/rules/Ja-Nee-RP-Rulebook.pdf.
     // Files in src/assets work from nested folders; public/assets paths work too.
-    documentUrl: "",
+    documentUrl: "assets/rules/JA•NEE RP OFFICAL SERVER RULES.pdf",
     categories: [
       {
         id: "general",
