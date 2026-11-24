@@ -1,28 +1,52 @@
 import siteConfig from '../config/siteConfig.js'
 
-const bundledStaffAssets = import.meta.glob('../assets/staff/*', {
+const bundledAssets = import.meta.glob('../assets/**/*', {
   eager: true,
   query: '?url',
   import: 'default',
 })
 
+const bundledAssetsByPath = new Map()
+const bundledAssetsByName = new Map()
+const duplicatedAssetNames = new Set()
+
+Object.entries(bundledAssets).forEach(([modulePath, url]) => {
+  const relativePath = modulePath.replace(/^\.\.\/assets\//, '')
+  const pathKey = relativePath.toLowerCase()
+  const nameKey = relativePath.split('/').pop().toLowerCase()
+
+  bundledAssetsByPath.set(pathKey, url)
+  if (bundledAssetsByName.has(nameKey)) duplicatedAssetNames.add(nameKey)
+  else bundledAssetsByName.set(nameKey, url)
+})
+
+duplicatedAssetNames.forEach((name) => bundledAssetsByName.delete(name))
+
+function sourceAssetUrl(path) {
+  const normalizedPath = path
+    .replace(/\\/g, '/')
+    .replace(/^(?:\.\.\/|\.\/)+/, '')
+    .replace(/^\/+/, '')
+    .replace(/^(?:src\/)?assets\//i, '')
+    .toLowerCase()
+
+  return bundledAssetsByPath.get(normalizedPath)
+    || (!normalizedPath.includes('/') ? bundledAssetsByName.get(normalizedPath) : '')
+}
+
 export function assetUrl(path) {
   if (!path) return ''
-  if (/^(https?:|data:)/i.test(path)) return path
-  return import.meta.env.BASE_URL + path.replace(/^\//, '')
+  if (/^(https?:|data:|blob:)/i.test(path)) return path
+
+  const bundledAsset = sourceAssetUrl(path)
+  if (bundledAsset) return bundledAsset
+
+  const publicPath = path.replace(/\\/g, '/').replace(/^\/+/, '')
+  return import.meta.env.BASE_URL + publicPath
 }
 
 export function staffAvatarUrl(path) {
-  if (!path) return ''
-  if (/^(https?:|data:)/i.test(path)) return path
-
-  const normalizedPath = path.replace(/\\/g, '/').replace(/^\.\//, '').replace(/^\//, '')
-  const assetName = normalizedPath
-    .replace(/^src\/assets\/staff\//, '')
-    .replace(/^assets\/staff\//, '')
-  const bundledAsset = bundledStaffAssets['../assets/staff/' + assetName]
-
-  return bundledAsset || assetUrl(path)
+  return assetUrl(path)
 }
 
 export function imageBackgroundStyle(image = {}) {

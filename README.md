@@ -54,7 +54,7 @@ The production build is written to the dist folder. The preview command serves t
 
 ## The central settings file
 
-Edit **src/config/siteConfig.js** for site changes. It contains the page metadata, palette, fonts, every section's text, navigation, section visibility, logos and images, social and invite links, FiveM status source, cursor art, motion, and footer content. The **copy** group contains shared interface labels and accessibility wording; longer paragraphs and headings live with their section data.
+Edit **src/config/siteConfig.js** for site changes. It contains the page metadata, palette, fonts, every section's text, navigation, section visibility, logos and images, social and invite links, FiveM status source, cursor art, motion, launch announcement, staff team, and footer content. Each major group has a comment explaining what it controls, and the launch options are documented next to their settings.
 
 The **design** group controls the site-wide layout widths and gutters, desktop and mobile section spacing, hero and navigation sizing, scene-title placement and status-card overlap, text scale, corner radii, translucent surface colours, blur, shadows, and transition feel. For a one-off detail that has no named setting, add CSS to **design.cssOverrides** at the bottom of that group. Enter it as a JavaScript template string, for example:
 
@@ -71,16 +71,11 @@ Starter About text is flagged by starterCopy. Feature examples use isExample. Sa
 
 ## Change the logo
 
-1. Put your main logo in **public/assets/logos/**. SVG, PNG, WebP, or another browser-supported image format is suitable.
-2. In the branding group in siteConfig.js, set logo to a path such as assets/logos/janee-logo.svg.
-3. Set logoAlt, logoHeight, logoMaxWidth, and logoPosition to describe and size it.
-4. Set alternativeLogo if you have a separate footer version. The footer uses it when present.
-
-Leave logo empty to use the built-in Ja-Nee text mark. Keep asset filenames simple and use a web-ready image size.
+Put the logo anywhere inside **src/assets/**, including nested folders, and set `branding.logo` to its path relative to that folder, such as `assets/logos/JA·NEE Roleplay Logo.png`. A unique filename also works without its folder path. Tune `logoHeight`, `logoMaxWidth`, and `logoPosition` in the branding group. Files in **public/assets/** can also be used by entering their web path, such as `assets/logos/logo.png`. Leave `logo` empty to use the built-in text mark.
 
 ## Add or replace images
 
-Put artwork in **public/assets/images/** and point to its path in the images group. The included city and map SVGs are starter artwork. Replace them with compressed WebP, AVIF, or SVG files if you prefer.
+Put artwork anywhere under **src/assets/** or **public/assets/** and point to it in the matching image field in the config. Source assets are discovered recursively, so nested folders work; use the project path (for example, `assets/scenes/city.webp`) or a unique filename. Files in `public/assets/` use their public path (for example, `assets/images/hero-city.svg`). Adding an image makes it available to the site; choose the setting where it should appear. The included city and map SVGs are starter artwork.
 
 Each background setting supports src, position, size, repeat, overlayColor, overlayOpacity, imageOpacity, gradient, and blur. The settings cover the hero, About, features, rules, FAQs, socials, and footer areas. A blank background path leaves the section’s colour and CSS styling in place. The About illustration has its own image path in the about group.
 
@@ -111,6 +106,12 @@ The Discord invite is configured separately in the discord group.
 ## Show the staff team
 
 Save profile pictures in **src/assets/staff/** or **public/assets/staff/** and add each person under `staffTeam.members` in **src/config/siteConfig.js** with a `name` and an `avatar` path, such as `assets/staff/staff-name.png`. Files in `src/assets/staff/` are bundled and fingerprinted for GitHub Pages; files in `public/assets/staff/` are copied as-is. You can also use a complete HTTPS avatar URL. Set `staffTeam.enabled` to `true` to show the row in the footer; leave it `false` to hide the roster. Names appear when visitors hover over or keyboard-focus an avatar, and remain visible on touch screens. Entries missing either a name or avatar are skipped.
+
+## Announce a launch
+
+In the `launch` group, set `enabled` to `true` to replace the complete site with the launch screen. Set `mode` to `countdown` and enter a date and time with its time-zone offset in `launchAt` (for example, `2027-03-01T18:00:00+02:00`). Edit `title`, `message`, and `liveMessage` for the launch announcement. When the timer reaches zero, the page shows `liveMessage` and remains in launch mode until you set `enabled` to `false`.
+
+If the launch date is undecided, choose `message` mode or leave `launchAt` blank; only the configured launch text appears. The countdown labels are editable in `copy.launch`.
 
 ## Configure the Discord invite
 

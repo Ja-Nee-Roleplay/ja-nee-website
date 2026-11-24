@@ -11,6 +11,7 @@ import FAQs from './sections/FAQs.jsx'
 import Socials from './sections/Socials.jsx'
 import SiteFooter from './sections/SiteFooter.jsx'
 import { useActiveSection } from './utils/useActiveSection.js'
+import LaunchScreen from './components/LaunchScreen.jsx'
 
 const sectionIds = [
   'home',
@@ -107,7 +108,7 @@ function UpdateNotice() {
   )
 }
 
-export default function App() {
+function MainSite() {
   useEffect(() => {
     if (!siteConfig.animations.enabled || !siteConfig.animations.scrollReveal) {
       document.querySelectorAll('[data-reveal]').forEach((element) => element.classList.add('is-visible'))
@@ -171,4 +172,8 @@ export default function App() {
       <CustomCursor />
     </div>
   )
+}
+
+export default function App() {
+  return siteConfig.launch.enabled ? <LaunchScreen /> : <MainSite />
 }
