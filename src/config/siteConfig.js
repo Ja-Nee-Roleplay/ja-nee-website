@@ -22,7 +22,7 @@ const siteConfig = {
 
   // BRANDING: leave logo blank to use the built-in text wordmark.
   branding: {
-    logo: '',
+    logo: 'https://r2.fivemanage.com/mdsjuy4lvhuMYHC2IZ7O5/JANEERoleplayLogo.png',
     alternativeLogo: '',
     logoAlt: 'Ja-Nee RP',
     logoHeight: 42,
@@ -250,7 +250,7 @@ const siteConfig = {
 
   // SOCIAL LINKS: only entries marked enabled with a valid URL will appear.
   socials: [
-    { name: 'TikTok', icon: 'tiktok', url: '', image: '', description: 'Short clips and moments from the city.', color: '#a8a4c7', enabled: false },
+    { name: 'TikTok', icon: 'tiktok', url: 'https://www.tiktok.com/@janeerp?is_from_webapp=1&sender_device=pc', image: '', description: 'Short clips and moments from the city.', color: '#a8a4c7', enabled: false },
     { name: 'YouTube', icon: 'youtube', url: '', image: '', description: 'Videos, highlights, and community stories.', color: '#ff8668', enabled: false },
     { name: 'Instagram', icon: 'instagram', url: '', image: '', description: 'Scenes and updates from Ja-Nee RP.', color: '#e4a78e', enabled: false },
     { name: 'Facebook', icon: 'facebook', url: '', image: '', description: 'News and community updates.', color: '#9ebcde', enabled: false },
