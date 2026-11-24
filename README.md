@@ -56,7 +56,7 @@ The production build is written to the dist folder. The preview command serves t
 
 Edit **src/config/siteConfig.js** for site changes. It contains the page metadata, palette, fonts, every section's text, navigation, section visibility, logos and images, social and invite links, FiveM status source, cursor art, motion, and footer content. The **copy** group contains shared interface labels and accessibility wording; longer paragraphs and headings live with their section data.
 
-The **design** group controls the site-wide layout widths and gutters, desktop and mobile section spacing, hero and navigation sizing, text scale, corner radii, translucent surface colours, blur, shadows, and transition feel. For a one-off detail that has no named setting, add CSS to **design.cssOverrides** at the bottom of that group. Enter it as a JavaScript template string, for example:
+The **design** group controls the site-wide layout widths and gutters, desktop and mobile section spacing, hero and navigation sizing, scene-title placement and status-card overlap, text scale, corner radii, translucent surface colours, blur, shadows, and transition feel. For a one-off detail that has no named setting, add CSS to **design.cssOverrides** at the bottom of that group. Enter it as a JavaScript template string, for example:
 
 ~~~js
 cssOverrides: `

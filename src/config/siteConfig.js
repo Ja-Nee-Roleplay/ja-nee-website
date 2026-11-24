@@ -91,6 +91,8 @@ const siteConfig = {
       heroPaddingTopTablet: '126px',
       heroPaddingTopMobile: '116px',
       heroPaddingBottomMobile: '100px',
+      heroStatusOverlap: '52px',
+      heroSceneCaptionBottom: 'clamp(145px, 14vw, 170px)',
       scrollOffset: '92px',
       scrollOffsetMobile: '78px',
       sectionScrollMargin: '82px',

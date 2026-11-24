@@ -1812,32 +1812,16 @@ body {
   }
 }
 
-@media (min-width: 861px) {
-  .hero-shell {
-    row-gap: 14px;
+@media (min-width: 721px) {
+  .hero-scene-caption {
+    bottom: var(--layout-hero-scene-caption-bottom, clamp(145px, 14vw, 170px));
   }
 
   .hero-status-wrap {
-    position: relative;
-    grid-column: 2;
-    grid-row: 2;
-    right: auto;
-    bottom: auto;
-    justify-self: end;
-    width: min(350px, 100%);
-    margin-top: -18px;
-  }
-}
-
-@media (max-width: 860px) and (min-width: 721px) {
-  .hero-status-wrap {
-    position: relative;
-    grid-column: 1;
-    right: auto;
-    bottom: auto;
-    justify-self: end;
-    width: min(350px, 100%);
-    margin-top: -18px;
+    position: absolute;
+    right: -22px;
+    bottom: calc(0px - var(--layout-hero-status-overlap, 52px));
+    width: min(350px, 84%);
   }
 }
 
