@@ -521,11 +521,11 @@ const siteConfig = {
         avatar: "assets/staff/sakkie.png"
       },
       {
-        name: "Meyer Hunter • Owner",
+        name: "Meyer Hunter • Co-Owner",
         avatar: "assets/staff/meyer.png"
       },
       {
-        name: "Rico Moretti • Dev",
+        name: "Rico Moretti • Co-Owner",
         avatar: "assets/staff/rico.png"
       },
       {
