@@ -67,7 +67,7 @@ cssOverrides: `
 
 Those rules load after the built-in styles, so this gives you a final override for any element while keeping your customisation in the central file.
 
-Starter About text is flagged by starterCopy. Feature examples use isExample. Sample rule categories and questions are grouped in arrays so you can add, remove, rename, and reorder them without editing component markup. A social appears as soon as it has a valid HTTP or HTTPS URL; set enabled to false to hide it without deleting its settings.
+Starter About text is flagged by starterCopy. Feature examples use isExample. Rules and FAQ entries are grouped in arrays so you can add, remove, rename, and reorder them without editing component markup. A social appears as soon as it has a valid HTTP or HTTPS URL; set enabled to false to hide it without deleting its settings.
 
 ## Change the logo
 
@@ -89,13 +89,13 @@ Edit the hero group for the intro heading, description, and buttons. Edit about 
 
 ## Edit rules
 
-Open the rules group in siteConfig.js. Each category has an id, label, and rules list. A rule can contain title, description, and note. Add, remove, or reorder items in those arrays. The category selector and accordion are generated from the data.
+Open the `rules` group in **src/config/siteConfig.js**. Each category has an id, label, and rules list. A rule can contain title, description, and note. Add, remove, or reorder items in those arrays. The category selector and accordion are generated from the data. Example badges are not shown in the Rules or FAQ accordions.
 
-The bundled rule text is illustrative only. Replace it with Ja-Nee RP’s official rules before publishing. Set rules.starterNotice to your own short introduction when the examples have been reviewed. If a category has no rules, the page displays a clear empty state.
+To link a separate full rulebook, place the PDF in **src/assets/** or **public/assets/** and set `rules.documentUrl` to its path, for example `assets/rules/Ja-Nee-RP-Rulebook.pdf`. The “Read the complete rules” button appears when this field is set and opens the file in a new tab. Leave it blank to hide the button. The on-page categories can stay concise while the complete document lives in the file.
 
 ## Edit FAQs
 
-Edit the faqs list in siteConfig.js. Each item supports category, question, answer, and isExample. The category filters and accordion are generated from that list. Replace each sample answer with verified information and set isExample to false or remove it.
+Edit the `faqs` list in **src/config/siteConfig.js**. Each item supports category, question, and answer. The category filters and accordion are generated from that list. Example badges are no longer displayed.
 
 ## Add social links
 

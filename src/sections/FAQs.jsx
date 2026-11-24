@@ -50,7 +50,6 @@ export default function FAQs() {
               key={faq.question}
               index={'faq-' + index + '-' + faq.question.replace(/[^a-z0-9]/gi, '-').toLowerCase()}
               title={faq.question}
-              example={faq.isExample}
             >
               {faq.answer}
             </AccordionItem>

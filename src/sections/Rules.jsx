@@ -1,13 +1,15 @@
 import { useState } from 'react'
 import siteConfig from '../config/siteConfig.js'
 import { SectionHeading, AccordionItem } from '../components/ContentBlocks.jsx'
-import { imageBackgroundStyle } from '../utils/siteHelpers.js'
+import { assetUrl, imageBackgroundStyle, isSafeExternalUrl } from '../utils/siteHelpers.js'
 
 export default function Rules() {
   const copy = siteConfig.copy.rules
   const categories = siteConfig.rules.categories
   const [activeCategory, setActiveCategory] = useState(categories[0]?.id || '')
   const currentCategory = categories.find((category) => category.id === activeCategory) || categories[0]
+  const documentUrl = siteConfig.rules.documentUrl
+  const documentHref = isSafeExternalUrl(documentUrl) ? documentUrl : assetUrl(documentUrl)
 
   return (
     <section
@@ -29,6 +31,18 @@ export default function Rules() {
           <aside className="rules-aside" data-reveal>
             <span className="aside-kicker">{copy.asideKicker}</span>
             <p>{copy.asideDescription}</p>
+            {documentUrl && (
+              <a
+                className="button button--gold rules-document-link"
+                href={documentHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={copy.fullRulesAria}
+              >
+                {copy.fullRulesLabel}
+                <span aria-hidden="true">↗</span>
+              </a>
+            )}
             <div className="rule-tabs" role="tablist" aria-label={copy.tabsLabel}>
               {categories.map((category) => (
                 <button
@@ -77,7 +91,9 @@ export default function Rules() {
               </div>
               <span className="rules-count">{String(currentCategory?.rules.length || 0).padStart(2, '0')} {copy.itemCountSuffix}</span>
             </div>
-            <p className="placeholder-banner" role="note">{siteConfig.rules.starterNotice}</p>
+            {siteConfig.rules.starterNotice && (
+              <p className="placeholder-banner" role="note">{siteConfig.rules.starterNotice}</p>
+            )}
             {currentCategory?.rules.length ? (
               <div className="accordion-list">
                 {currentCategory.rules.map((rule, index) => (
@@ -87,7 +103,6 @@ export default function Rules() {
                     title={rule.title}
                     note={rule.note}
                     warning={rule.warning}
-                    example
                   >
                     {rule.description}
                   </AccordionItem>

@@ -250,6 +250,8 @@ const siteConfig = {
       asideKicker: "THE COMMUNITY GUIDE",
       asideDescription: "Choose a chapter to explore.",
       tabsLabel: "Rule categories",
+      fullRulesLabel: "Read the complete rules",
+      fullRulesAria: "Open the complete Ja-Nee RP rulebook in a new tab",
       footerNote: [
         "RULES CAN CHANGE",
         "CHECK OFFICIAL UPDATES"
@@ -276,7 +278,6 @@ const siteConfig = {
       emptyIndex: "SOCIALS / 00"
     },
     common: {
-      example: "EXAMPLE",
       warningPrefix: "WARNING:"
     },
     footer: {
@@ -384,6 +385,9 @@ const siteConfig = {
     title: "A good scene starts with shared ground.",
     description: "A little shared understanding makes it easier for everyone to settle in and enjoy the story.",
     starterNotice: "",
+    // Add a PDF or document path here, e.g. assets/rules/Ja-Nee-RP-Rulebook.pdf.
+    // Files in src/assets work from nested folders; public/assets paths work too.
+    documentUrl: "",
     categories: [
       {
         id: "general",
@@ -459,32 +463,27 @@ const siteConfig = {
     {
       category: "Getting started",
       question: "How do I join Ja-Nee RP?",
-      answer: "Join our Discord Server through this website, fill in an application and get started",
-      isExample: false
+      answer: "Join our Discord Server through this website, fill in an application and get started"
     },
     {
       category: "Getting started",
       question: "What do I need to play?",
-      answer: "**A legitimate copy of GTA V, a quad-core CPU, 4–8 GB RAM (16 GB recommended), a 1–2 GB GPU, and 110–133 GB of storage for GTA V and FiveM.**",
-      isExample: false
+      answer: "**A legitimate copy of GTA V, a quad-core CPU, 4–8 GB RAM (16 GB recommended), a 1–2 GB GPU, and 110–133 GB of storage for GTA V and FiveM.**"
     },
     {
       category: "The community",
       question: "Where can I read the rules?",
-      answer: "You can read the rules both in the Discord server and on this website, by clicking on the link in the previous section",
-      isExample: false
+      answer: "You can read the rules both in the Discord server and on this website, by clicking on the link in the previous section"
     },
     {
       category: "The community",
       question: "How can I contact staff?",
-      answer: "Open a support ticket in the Discord server",
-      isExample: false
+      answer: "Open a support ticket in the Discord server"
     },
     {
       category: "The community",
       question: "What if the server is restarting or under maintenance?",
-      answer: "Unfortunately the server may restart or be under maintenance from time to time, but you can always check the status here, on discord, and on the announcements channel on Discord",
-      isExample: false
+      answer: "Unfortunately the server may restart or be under maintenance from time to time, but you can always check the status here, on discord, and on the announcements channel on Discord"
     }
   ],
   // FAQ SECTION HEADING AND INTRODUCTION

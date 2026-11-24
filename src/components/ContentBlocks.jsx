@@ -2,7 +2,7 @@ import { useState } from 'react'
 import siteConfig from '../config/siteConfig.js'
 import Icon from './Icon.jsx'
 
-export function AccordionItem({ title, children, note, warning, index, example = false }) {
+export function AccordionItem({ title, children, note, warning, index }) {
   const [isOpen, setIsOpen] = useState(false)
   const panelId = 'accordion-panel-' + index
 
@@ -17,7 +17,6 @@ export function AccordionItem({ title, children, note, warning, index, example =
           onClick={() => setIsOpen((open) => !open)}
         >
           <span>{title}</span>
-          {example && <span className="example-chip">{siteConfig.copy.common.example}</span>}
           <span className="accordion-icon"><Icon name="plus" size={18} /></span>
         </button>
       </h3>
