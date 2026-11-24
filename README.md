@@ -109,9 +109,15 @@ Save profile pictures in **src/assets/staff/** or **public/assets/staff/** and a
 
 ## Announce a launch
 
-In the `launch` group, set `enabled` to `true` to replace the complete site with the launch screen. Set `mode` to `countdown` and enter a date and time with its time-zone offset in `launchAt` (for example, `2027-03-01T18:00:00+02:00`). Edit `title`, `message`, and `liveMessage` for the launch announcement. When the timer reaches zero, the page shows `liveMessage` and remains in launch mode until you set `enabled` to `false`.
+Leave `enabled` as `false` while you edit and preview the site. When the launch screen is ready for visitors, set it to `true` and push the change. Set `launchAt` to a future local date and time with its UTC offset, such as `2026-12-01T18:00:00+02:00` for South Africa.
 
-If the launch date is undecided, choose `message` mode or leave `launchAt` blank; only the configured launch text appears. The countdown labels are editable in `copy.launch`.
+Choose `mode` to control what visitors see:
+
+- `timer`: the candle and countdown only.
+- `message`: the candle, title, message, and Discord link, with no countdown. This is useful before the launch date is decided.
+- `both`: the candle, title, message, countdown, and Discord link.
+
+For example, set `enabled: true`, `mode: "both"`, and add your date to `launchAt` when you are ready to publish the countdown. When a valid countdown reaches its date and time, the full website automatically returns. A message-only announcement stays visible until you turn `enabled` off. The timer uses the visitor’s clock, so the date must include the correct offset. `discordUrl` can override the main invite for this screen; leave it blank to use the `discord.inviteUrl` setting. Turn `showDiscordLink` off if you want to hide that link. Countdown labels are editable in `copy.launch`. The candle animation stops for visitors who request reduced motion.
 
 ## Configure the Discord invite
 

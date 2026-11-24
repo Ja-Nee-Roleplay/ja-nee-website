@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import siteConfig from './config/siteConfig.js'
 import themeStyle from './config/siteTheme.js'
 import CustomCursor from './components/CustomCursor.jsx'
@@ -175,5 +175,10 @@ function MainSite() {
 }
 
 export default function App() {
-  return siteConfig.launch.enabled ? <LaunchScreen /> : <MainSite />
+  const [launchActive, setLaunchActive] = useState(siteConfig.launch.enabled)
+  const completeLaunch = useCallback(() => setLaunchActive(false), [])
+
+  return launchActive
+    ? <LaunchScreen onComplete={completeLaunch} />
+    : <MainSite />
 }

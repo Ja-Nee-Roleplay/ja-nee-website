@@ -201,6 +201,9 @@ const siteConfig = {
     launch: {
       eyebrow: "JA-NEE RP / OPENING SOON",
       countdownAria: "Time remaining until the server launch",
+      timerOnlyAria: "Countdown until the server opens",
+      discordLabel: "Join the Discord community",
+      discordAria: "Open the Ja-Nee RP Discord invite in a new tab",
       units: {
         days: "DAYS",
         hours: "HOURS",
@@ -536,15 +539,17 @@ const siteConfig = {
   },
   // FULL-SCREEN LAUNCH ANNOUNCEMENT AND COUNTDOWN
   launch: {
-    // true hides the regular site until this setting is turned off.
-    // mode is "countdown" or "message"; message works without a date.
-    // launchAt needs an explicit time-zone offset, e.g. +02:00.
+    // Leave false while editing. Set true when the launch screen is ready to publish.
     enabled: false,
-    mode: "countdown",
+    // Choose "timer" (timer only), "message" (message only), or "both" (message + timer).
+    mode: "both",
+    // Use YYYY-MM-DDTHH:mm:ss+02:00 for South African local time.
     launchAt: "",
     title: "A new chapter is on the horizon.",
     message: "We’re getting the city ready. We’ll open the doors soon.",
-    liveMessage: "We’re live. Welcome to the city."
+    // Leave blank to use discord.inviteUrl. The link is hidden when that URL is not valid.
+    discordUrl: "",
+    showDiscordLink: true
   },
   // FIVEM STATUS CONNECTION SETTINGS
   fivem: {
