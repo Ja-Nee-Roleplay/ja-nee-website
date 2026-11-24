@@ -312,7 +312,7 @@ const siteConfig = {
   // ABOUT SECTION COPY AND IMAGE
   about: {
     index: "01",
-    eyebrow: "01 / ABOUT JA-NEE",
+    eyebrow: "ABOUT JA-NEE",
     title: "A place for the stories you bring.",
     introduction: "Ja-Nee RP is a roleplay community with room for new characters, unexpected turns, and stories made together.",
     community: "Every person arrives with a point of view. The best scenes leave space for others to shape what happens next.",
@@ -326,7 +326,7 @@ const siteConfig = {
   // FEATURES SECTION HEADING AND INTRODUCTION
   featureSection: {
     index: "02",
-    eyebrow: "02 / THE JA-NEE EXPERIENCE",
+    eyebrow: "THE JA-NEE EXPERIENCE",
     title: "What could your story hold?",
     description: "A few small things that make a shared story feel worth coming back to."
   },
@@ -380,54 +380,76 @@ const siteConfig = {
   // RULES INTRODUCTION, CATEGORIES, AND RULE TEXT
   rules: {
     index: "03",
-    eyebrow: "03 / BEFORE YOU PLAY",
+    eyebrow: "BEFORE YOU PLAY",
     title: "A good scene starts with shared ground.",
     description: "A little shared understanding makes it easier for everyone to settle in and enjoy the story.",
-    starterNotice: "Sample content only. Replace these examples with Ja-Nee RP’s official rules before publishing.",
+    starterNotice: "",
     categories: [
       {
         id: "general",
-        label: "General",
+        label: "GENERAL",
         rules: [
           {
-            title: "Treat people with respect",
-            description: "Example only: add the exact conduct guidance approved for your community.",
-            note: "Sample rule — confirm or remove.",
+            title: "RESPECT EVERYONE",
+            description: "Treat everyone with respect, both in and outside the city",
+            note: "Discrimination, racism, sexism, harassment, hate speech and targeted bullying will not be tolerated",
             warning: ""
           },
           {
-            title: "Keep community guidance close",
-            description: "Example only: link or summarise the official community standards here.",
-            note: "Sample rule — confirm or remove.",
+            title: "COMMON SENSE",
+            description: "Not every possible situation will have its own rule",
+            note: "If something is clearly unfair, disruptive or intended to ruin another person's experience, don't do it.",
+            warning: ""
+          },
+          {
+            title: "CHEATING & THIRD-PARTY SOFTWARE",
+            description: "Any use of cheats, hacks, mod menus, scripts or third-party software that provides an unfair advantage is strictly prohibited.",
+            note: "If you are found using these software, you will get permanently banned",
             warning: ""
           }
         ]
       },
       {
         id: "roleplay",
-        label: "Roleplay",
+        label: "ROLEPLAY",
         rules: [
           {
-            title: "Give scenes room to develop",
-            description: "Example only: add Ja-Nee RP’s definitions and expectations for roleplay here.",
-            note: "Sample rule — confirm or remove."
+            title: "STAY IN CHARACTER (IC)",
+            description: "Once you fly into city, you are expected to remain in character",
+            note: "Avoid discussing Discord conversations, staff matters or other out-of-character information during roleplay"
           },
           {
-            title: "Know where to ask for help",
-            description: "Example only: explain the approved way to resolve questions or scene concerns.",
-            note: "Sample rule — confirm or remove."
+            title: "METAGAMING",
+            description: "Using info your character has not obtained through roleplay is considered metagaming.",
+            note: "Examples: Watching someone's stream to find their location, using Discord to locate other players, etc."
+          },
+          {
+            title: "POWERGAMING",
+            description: "Forcing actions or situations onto another player without giving them a reasonable opportunity to respond is NOT allowed.",
+            note: "Examples: Performing unrealistic actions that would not be possible in real life, abusing game mechanics to gain an unfair advantage."
           }
         ]
       },
       {
-        id: "characters",
-        label: "Characters",
+        id: "crime",
+        label: "CRIME & ILLEGAL ACTIVITIES",
         rules: [
           {
-            title: "Make your character your own",
-            description: "Example only: add character creation guidance, limits, or application requirements.",
-            note: "Sample rule — confirm or remove."
+            title: "VALID INITIATION",
+            description: "Criminal activities must have a reasonable roleplay initiation.",
+            note: "You cannot simply shoot someone because you feel like it."
+          },
+          {
+            title: "ROBBERIES",
+            description: "Robberies must involve proper roleplay.",
+            note: "Give the other party an opportunity to respond and don't use robberies as an excuse to randomly kill players."
+          },
+          {
+            title: "REVENGE KILLING",
+            description: "You may not return to kill someone simply because they killed you previously.",
+            note: "Your character must have a valid reason and must follow the New Life Rule"
           }
+          
         ]
       }
     ]
@@ -437,38 +459,38 @@ const siteConfig = {
     {
       category: "Getting started",
       question: "How do I join Ja-Nee RP?",
-      answer: "Add the verified joining steps here, including any required Discord or application process.",
-      isExample: true
+      answer: "Join our Discord Server through this website, fill in an application and get started",
+      isExample: false
     },
     {
       category: "Getting started",
       question: "What do I need to play?",
-      answer: "List confirmed platform, game, and setup requirements here.",
-      isExample: true
+      answer: "**A legitimate copy of GTA V, a quad-core CPU, 4–8 GB RAM (16 GB recommended), a 1–2 GB GPU, and 110–133 GB of storage for GTA V and FiveM.**",
+      isExample: false
     },
     {
       category: "The community",
       question: "Where can I read the rules?",
-      answer: "Add the official rules location or confirm that the Rules section on this page is current.",
-      isExample: true
+      answer: "You can read the rules both in the Discord server and on this website, by clicking on the link in the previous section",
+      isExample: false
     },
     {
       category: "The community",
       question: "How can I contact staff?",
-      answer: "Add the official support route and any response-time expectations here.",
-      isExample: true
+      answer: "Open a support ticket in the Discord server",
+      isExample: false
     },
     {
       category: "The community",
       question: "What if the server is restarting or under maintenance?",
-      answer: "Explain where official service updates are posted and what players should do.",
-      isExample: true
+      answer: "Unfortunately the server may restart or be under maintenance from time to time, but you can always check the status here, on discord, and on the announcements channel on Discord",
+      isExample: false
     }
   ],
   // FAQ SECTION HEADING AND INTRODUCTION
   faqSection: {
     index: "04",
-    eyebrow: "04 / QUICK ANSWERS",
+    eyebrow: "QUICK ANSWERS",
     title: "Before you step inside.",
     description: "A few quick answers to make the first steps feel simple."
   },
