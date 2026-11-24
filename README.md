@@ -124,7 +124,7 @@ The custom cursor is used only with a fine mouse pointer. It is hidden on touchs
 
 ## GitHub Pages deployment
 
-The project includes **.github/workflows/deploy.yml**. It runs the lint check and production build, then publishes the dist folder when you push to main or master. It can also be started manually from the repository’s Actions tab. The workflow uses GitHub Pages’ Actions deployment.
+The project includes **.github/workflows/deploy.yml**. It runs the lint check and production build, uploads the dist folder as the `github-pages` artifact, then publishes it from a separate job when you push to main or master. Keeping deployment in a dependent job avoids GitHub’s intermittent artifact lookup race. It can also be started manually from the repository’s Actions tab. The workflow uses GitHub Pages’ Actions deployment.
 
 If you are publishing this folder for the first time:
 
@@ -160,6 +160,7 @@ The site uses landmark elements, a skip link, labelled navigation, keyboard-focu
 - **Discord button returns to the Join section:** Add a complete official HTTPS invite URL in the discord group.
 - **An image is missing:** Check the filename and path relative to the public folder. Paths in siteConfig start with assets/, not public/.
 - **GitHub Pages shows a blank page:** Check the Actions run and Pages source setting. Confirm the repository name is available to the workflow and the deployed artifact contains the built files.
+- **GitHub Actions says “No artifacts named github-pages”:** Confirm the build job’s “Upload website” step succeeded. The deploy job waits for the build job so GitHub has time to register the uploaded artifact.
 - **The workflow does not start:** Push to main or master, or add your branch name to deploy.yml.
 - **A mobile menu remains open:** Use its menu button to close it; selecting a section link closes the menu automatically.
 - **The custom cursor does not appear:** Confirm the image path and enabled flag, then test with a mouse on a desktop-sized pointer. It is intentionally disabled by default and hidden on touchscreens.
