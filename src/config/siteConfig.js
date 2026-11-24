@@ -238,8 +238,8 @@ const siteConfig = {
 
   // DISCORD: supply your own invite and server ID. No server details are assumed.
   discord: {
-    inviteUrl: '',
-    serverId: '',
+    inviteUrl: 'https://discord.gg/jKx5JRHE86',
+    serverId: '1334077584039874581',
     widgetEnabled: true,
     widgetTheme: 'dark',
     widgetWidth: 340,
