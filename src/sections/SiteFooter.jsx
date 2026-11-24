@@ -1,14 +1,13 @@
 import siteConfig from '../config/siteConfig.js'
 import Brand from '../components/Brand.jsx'
 import Icon from '../components/Icon.jsx'
-import { imageBackgroundStyle, isSafeExternalUrl } from '../utils/siteHelpers.js'
+import { getVisibleSocials, imageBackgroundStyle } from '../utils/siteHelpers.js'
 
 const currentYear = new Date().getFullYear()
 
 export default function SiteFooter() {
-  const socials = siteConfig.socials.filter(
-    (social) => social.enabled && isSafeExternalUrl(social.url),
-  )
+  const socials = getVisibleSocials()
+  const copy = siteConfig.copy.footer
   const footerLinks = siteConfig.navigation.filter(
     (item) => item.id === 'home' || siteConfig.sections[item.id],
   )
@@ -25,35 +24,38 @@ export default function SiteFooter() {
           <div className="footer-brand-column">
             <Brand className="brand--footer" alternate />
             <p>{siteConfig.footer.description}</p>
-            <a className="footer-status-link" href="#home">
-              <span className="footer-status-dot" /> Check FiveM server status <Icon name="arrow" size={15} />
-            </a>
+            {siteConfig.footer.statusLinkEnabled && (
+              <a className="footer-status-link" href="#home">
+                <span className="footer-status-dot" /> {siteConfig.copy.status.checkLink} <Icon name="arrow" size={15} />
+              </a>
+            )}
           </div>
 
           <div className="footer-links-column">
-            <span className="footer-column-label">EXPLORE</span>
+            <span className="footer-column-label">{copy.exploreLabel}</span>
             <ul>
               {footerLinks.map((link) => (
                 <li key={link.id}><a href={'#' + link.id}>{link.label}</a></li>
               ))}
-              {siteConfig.sections.join && <li><a href="#join">Join us</a></li>}
+              {siteConfig.sections.join && <li><a href="#join">{copy.joinLink}</a></li>}
             </ul>
           </div>
 
-          <div className="footer-links-column">
-            <span className="footer-column-label">CONNECT</span>
-            <ul>
-              {socials.map((social) => (
-                <li key={social.name}>
-                  <a href={social.url} target="_blank" rel="noopener noreferrer">{social.name}<Icon name="external" size={13} /></a>
-                </li>
-              ))}
-              {!socials.length && (
-                <li><a href="#socials">Social profiles coming soon<Icon name="arrow" size={13} /></a></li>
-              )}
-              {siteConfig.sections.join && <li><a href="#join">Discord community<Icon name="arrow" size={13} /></a></li>}
-            </ul>
-          </div>
+          {(socials.length > 0 || (siteConfig.sections.join && siteConfig.discord.inviteUrl)) && (
+            <div className="footer-links-column">
+              <span className="footer-column-label">{copy.connectLabel}</span>
+              <ul>
+                {socials.map((social) => (
+                  <li key={social.name}>
+                    <a href={social.url} target="_blank" rel="noopener noreferrer">{social.name}<Icon name="external" size={13} /></a>
+                  </li>
+                ))}
+                {siteConfig.sections.join && siteConfig.discord.inviteUrl && (
+                  <li><a href={siteConfig.discord.inviteUrl} target="_blank" rel="noopener noreferrer">{copy.discordLink}<Icon name="external" size={13} /></a></li>
+                )}
+              </ul>
+            </div>
+          )}
 
           <button className="back-to-top" type="button" onClick={scrollToTop} aria-label={siteConfig.footer.backToTopLabel}>
             <Icon name="up" size={18} /><span>{siteConfig.footer.backToTopLabel}</span>
@@ -61,9 +63,9 @@ export default function SiteFooter() {
         </div>
 
         <div className="footer-bottom">
-          <span>© {currentYear} {siteConfig.footer.copyrightName}. All rights reserved.</span>
-          <span className="footer-edition">JA-NEE RP <i /> COMMUNITY / ROLEPLAY</span>
-          <a href="#home" aria-label="Return to the top of the page">BACK TO TOP ↑</a>
+          <span>© {currentYear} {siteConfig.footer.copyrightName}. {copy.copyrightSuffix}</span>
+          <span className="footer-edition">{copy.editionName} <i /> {copy.editionLabel}</span>
+          <a href="#home" aria-label={copy.backToTopAria}>{copy.backToTopLink}</a>
         </div>
       </div>
     </footer>

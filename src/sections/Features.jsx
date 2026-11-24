@@ -4,6 +4,8 @@ import Icon from '../components/Icon.jsx'
 import { assetUrl, imageBackgroundStyle } from '../utils/siteHelpers.js'
 
 export default function Features() {
+  const copy = siteConfig.copy.features
+  const section = siteConfig.featureSection
   return (
     <section
       id="features"
@@ -15,13 +17,13 @@ export default function Features() {
         <div className="features-heading-row">
           <SectionHeading
             id="features-title"
-            eyebrow="02 / THE JA-NEE EXPERIENCE"
-            title="What could your story hold?"
-            description="A few small things that make a shared story feel worth coming back to."
+            eyebrow={section.eyebrow}
+            title={section.title}
+            description={section.description}
             dark
-            index="02"
+            index={section.index}
           />
-          <span className="features-side-label">YOUR STORY<br />SETS THE PACE</span>
+          <span className="features-side-label">{copy.sideLabel.map((line) => <span key={line}>{line}</span>)}</span>
         </div>
         <div className="features-list">
           {siteConfig.features.map((feature) => (
@@ -43,13 +45,13 @@ export default function Features() {
                 ) : feature.icon ? (
                   <span className="feature-image feature-icon"><Icon name={feature.icon} size={20} /></span>
                 ) : null}
-                {feature.isExample && <span className="example-chip">EXAMPLE COPY</span>}
+                {feature.isExample && <span className="example-chip">{copy.exampleLabel}</span>}
               </div>
               <span className="feature-orbit" aria-hidden="true" />
             </article>
           ))}
         </div>
-        <p className="features-footnote"><Icon name="spark" size={15} /> Every good story is better when it’s made together.</p>
+        <p className="features-footnote"><Icon name="spark" size={15} /> {copy.footnote}</p>
       </div>
     </section>
   )

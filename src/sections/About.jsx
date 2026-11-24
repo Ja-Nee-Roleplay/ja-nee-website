@@ -4,6 +4,7 @@ import Icon from '../components/Icon.jsx'
 import { assetUrl, imageBackgroundStyle } from '../utils/siteHelpers.js'
 
 export default function About() {
+  const copy = siteConfig.copy.about
   return (
     <section
       id="about"
@@ -15,12 +16,12 @@ export default function About() {
         <div className="about-art" data-reveal>
           <div className="art-frame">
             <img src={assetUrl(siteConfig.about.image)} alt={siteConfig.about.imageAlt} loading="lazy" />
-            <span className="art-stamp"><Icon name="spark" size={17} /> STORY / PLACE / PEOPLE</span>
-            <span className="art-coordinate">JA-NEE RP · 01</span>
+            <span className="art-stamp"><Icon name="spark" size={17} /> {copy.artStamp}</span>
+            <span className="art-coordinate">{copy.artCoordinate}</span>
           </div>
           <div className="about-note">
-            <span className="note-number">01</span>
-            <p>Every story starts somewhere.</p>
+            <span className="note-number">{siteConfig.about.index}</span>
+            <p>{copy.storyNote}</p>
           </div>
         </div>
 
@@ -29,28 +30,28 @@ export default function About() {
             id="about-title"
             eyebrow={siteConfig.about.eyebrow}
             title={siteConfig.about.title}
-            index="01"
+            index={siteConfig.about.index}
           />
           <p className="about-lead">{siteConfig.about.introduction}</p>
           <div className="about-details">
             <article data-reveal>
               <span className="detail-symbol"><Icon name="pin" size={19} /></span>
               <div>
-                <h3>The community</h3>
+                <h3>{copy.communityHeading}</h3>
                 <p>{siteConfig.about.community}</p>
               </div>
             </article>
             <article data-reveal>
               <span className="detail-symbol"><Icon name="spark" size={19} /></span>
               <div>
-                <h3>Our philosophy</h3>
+                <h3>{copy.philosophyHeading}</h3>
                 <p>{siteConfig.about.philosophy}</p>
               </div>
             </article>
             <article data-reveal>
               <span className="detail-symbol"><Icon name="arrow" size={19} /></span>
               <div>
-                <h3>What to expect</h3>
+                <h3>{copy.expectationsHeading}</h3>
                 <p>{siteConfig.about.expectations}</p>
               </div>
             </article>

@@ -1,16 +1,15 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import siteConfig from '../config/siteConfig.js'
 import { SectionHeading, AccordionItem } from '../components/ContentBlocks.jsx'
 import { imageBackgroundStyle } from '../utils/siteHelpers.js'
 
 export default function FAQs() {
-  const categories = useMemo(
-    () => ['All questions', ...new Set(siteConfig.faqs.map((faq) => faq.category).filter(Boolean))],
-    [],
-  )
+  const copy = siteConfig.copy.faqs
+  const section = siteConfig.faqSection
+  const categories = [copy.allCategory, ...new Set(siteConfig.faqs.map((faq) => faq.category).filter(Boolean))]
   const [activeCategory, setActiveCategory] = useState(categories[0])
   const visibleFaqs = siteConfig.faqs.filter(
-    (faq) => activeCategory === 'All questions' || faq.category === activeCategory,
+    (faq) => activeCategory === copy.allCategory || faq.category === activeCategory,
   )
 
   return (
@@ -24,12 +23,12 @@ export default function FAQs() {
         <div className="faq-intro">
           <SectionHeading
             id="faq-title"
-            eyebrow="04 / QUICK ANSWERS"
-            title="Before you step inside."
-            description="A few quick answers to make the first steps feel simple."
-            index="04"
+            eyebrow={section.eyebrow}
+            title={section.title}
+            description={section.description}
+            index={section.index}
           />
-          <div className="faq-category-picker" aria-label="Filter questions by topic">
+          <div className="faq-category-picker" aria-label={copy.filterLabel}>
             {categories.map((category) => (
               <button
                 key={category}
@@ -42,7 +41,7 @@ export default function FAQs() {
               </button>
             ))}
           </div>
-          <p className="faq-placeholder-note">SOME DETAILS ARE STILL BEING PREPARED</p>
+          <p className="faq-placeholder-note">{copy.statusNote}</p>
         </div>
 
         <div className="faq-list" data-reveal>
@@ -57,7 +56,7 @@ export default function FAQs() {
             </AccordionItem>
           ))}
           {!visibleFaqs.length && (
-            <p className="empty-content">No questions in this topic yet. Add one in the FAQ list in <code>siteConfig.js</code>.</p>
+            <p className="empty-content">{copy.emptyState} <span>{copy.emptyStateHint}</span></p>
           )}
         </div>
       </div>

@@ -6,7 +6,7 @@ const EMPTY_STATUS = {
   players: null,
   maxPlayers: null,
   lastUpdated: null,
-  message: 'Live status is not connected yet.',
+  message: siteConfig.copy.status.notConnected,
 }
 
 function parseCount(value) {
@@ -58,7 +58,7 @@ function getStatusUrl(settings) {
 export function useServerStatus() {
   const url = getStatusUrl(siteConfig.fivem)
   const [status, setStatus] = useState(() => url
-    ? { ...EMPTY_STATUS, message: 'Checking live status.' }
+    ? { ...EMPTY_STATUS, message: siteConfig.copy.status.checking }
     : EMPTY_STATUS)
 
   useEffect(() => {
@@ -84,11 +84,11 @@ export function useServerStatus() {
           headers: { Accept: 'application/json' },
           signal: controller.signal,
         })
-        if (!response.ok) throw new Error('Status source returned ' + response.status)
+        if (!response.ok) throw new Error('http')
 
         const payload = await response.json()
         const parsed = readServerPayload(payload)
-        if (!parsed) throw new Error('Status source returned an unsupported response')
+        if (!parsed) throw new Error('unsupported')
 
         lastSuccessfulUpdate = new Date()
         if (!stopped) {
@@ -106,8 +106,10 @@ export function useServerStatus() {
             maxPlayers: null,
             lastUpdated: lastSuccessfulUpdate,
             message: error.name === 'AbortError'
-              ? 'Live status check timed out.'
-              : 'Live status could not be reached.',
+              ? siteConfig.copy.status.timedOut
+              : error.message === 'unsupported'
+                ? siteConfig.copy.status.unsupportedResponse
+                : siteConfig.copy.status.unreachable,
           })
         }
       } finally {

@@ -1,10 +1,6 @@
-const statusLabels = {
-  online: 'ONLINE',
-  offline: 'OFFLINE',
-  restarting: 'RESTARTING',
-  maintenance: 'MAINTENANCE',
-  unknown: 'UNKNOWN',
-}
+import siteConfig from '../config/siteConfig.js'
+
+const statusLabels = siteConfig.copy.status
 
 export default function StatusPill({ state = 'unknown', compact = false }) {
   const safeState = statusLabels[state] ? state : 'unknown'

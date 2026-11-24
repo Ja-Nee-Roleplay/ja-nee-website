@@ -54,9 +54,9 @@ The production build is written to the dist folder. The preview command serves t
 
 ## The central settings file
 
-Edit **src/config/siteConfig.js** for the normal site changes. It contains grouped settings for the title and description, theme colours, fonts, navigation, visible sections, branding, About content, features, rules, FAQs, Discord, social links, FiveM status, images, cursor assets, animations, and footer copy.
+Edit **src/config/siteConfig.js** for the normal site changes. It contains grouped settings for the title and description, theme colours, fonts, navigation, visible sections, branding, all visible interface copy, About content, features, rules, FAQs, Discord, social links, FiveM status, images, cursor assets, animations, and footer copy. The **copy** group holds shared labels, accessibility text, section captions, empty states, and footer labels. Longer section text lives with its section data, so headings and full paragraphs are editable too.
 
-Starter About text is flagged by starterCopy. Feature examples use isExample. Sample rule categories and questions are grouped in arrays so you can add, remove, rename, and reorder them without editing component markup. Social entries only appear when enabled is true and the URL is a valid HTTP or HTTPS address.
+Starter About text is flagged by starterCopy. Feature examples use isExample. Sample rule categories and questions are grouped in arrays so you can add, remove, rename, and reorder them without editing component markup. A social appears as soon as it has a valid HTTP or HTTPS URL; set enabled to false to hide it without deleting its settings.
 
 ## Change the logo
 
@@ -79,7 +79,7 @@ Other asset folders are ready for logos and custom interface icons. The site bun
 
 The theme group in siteConfig.js contains the main palette and font stacks. The default palette uses #165209 as its forest green, near-black evergreen page surfaces, lighter translucent green panels, and #D4AF37 gold accents. The default headers use STIX Two Text; Montserrat is used for supporting copy and controls, with ExtraBold emphasis on key subtext. Change the theme values there to restyle the site. The general group contains the browser title, site description, favicon, theme colour, and Open Graph title, description, and image.
 
-Edit the hero group for the intro heading and buttons. Edit about for the community introduction and philosophy. The included About text is generic starter copy; set starterCopy to false after replacing it with approved wording. Set section visibility switches in sections to hide a complete section. Navigation entries are generated from the navigation list.
+Edit the hero group for the intro heading, description, and buttons. Edit about for the community introduction and philosophy, featureSection for the experience heading, faqSection for FAQ headings, rules for the rules heading and chapters, and discord for the Join heading and invite copy. Shared button labels, interface text, decorative captions, and footer wording are in copy. The included About text is generic starter copy; set starterCopy to false after replacing it with approved wording. Set section visibility switches in sections to hide a complete section. Navigation entries are generated from the navigation list.
 
 ## Edit rules
 
@@ -93,7 +93,7 @@ Edit the faqs list in siteConfig.js. Each item supports category, question, answ
 
 ## Add social links
 
-Edit the socials list in siteConfig.js. Set enabled to true and enter the official URL, platform name, icon name, description, and optional colour. Supported built-in icons are instagram, youtube, facebook, and tiktok. Social links open in a new tab. Disabled entries and invalid URLs are not shown, so an unused platform does not appear as a broken link.
+Edit the socials list in siteConfig.js. Enter the official URL, platform name, icon name, description, and optional colour. A valid URL makes the card visible automatically; set enabled to false to temporarily hide an entry. Supported built-in icons are instagram, youtube, facebook, and tiktok. Social links open in a new tab. Empty or invalid URLs are not shown.
 
 Discord is configured separately in the discord group.
 
@@ -103,10 +103,10 @@ In the discord group in siteConfig.js:
 
 - Set inviteUrl to the complete official Discord invite URL, beginning with https://.
 - Set serverId only if you want the embedded widget.
-- Set widgetEnabled, widgetTheme, widgetWidth, and widgetHeight to control the embed.
+- Set widgetEnabled, widgetTheme, widgetWidth, widgetHeight, and widgetCheckTimeoutMs to control the embed and its connection check.
 - Update heading and message to your approved invitation copy.
 
-The visible invite button opens the configured invite in a new tab. Until a valid invite is added, it points visitors to the Join section, where the pending community connection is stated clearly. The widget is optional and has a designed fallback if no Server ID is set or the frame fails to load. Enable the server widget in Discord’s server settings before expecting it to display. Do not place bots, API secrets, or private credentials in this frontend project.
+The visible invite button opens the configured invite in a new tab. Before showing the embed, the page checks Discord’s public widget endpoint. If Discord refuses the request, the page gives a clear setup or network message and keeps the invite button available instead of leaving the preview loading forever. Confirm the Server ID, then enable the server widget in Discord’s Server Settings → Widget. Do not place bots, API secrets, or private credentials in this frontend project.
 
 ## Configure FiveM status
 
@@ -156,14 +156,14 @@ The site uses landmark elements, a skip link, labelled navigation, keyboard-focu
 ## Troubleshooting
 
 - **Status remains UNKNOWN:** Confirm the server host or HTTPS status endpoint, port, endpoint path, timeout, response format, CORS headers, and HTTPS compatibility. UNKNOWN is expected when the browser cannot confirm the source.
-- **Discord widget is blank:** Confirm widgetEnabled, Server ID, and Discord’s server widget setting. The Discord invite still works independently.
+- **Discord preview says unavailable:** Confirm the Server ID and enable the server widget in Discord’s Server Settings → Widget. The invite button still works independently. If the preview cannot connect because of a browser/network restriction, visitors see a fallback rather than a permanent loading state.
 - **Discord button returns to the Join section:** Add a complete official HTTPS invite URL in the discord group.
 - **An image is missing:** Check the filename and path relative to the public folder. Paths in siteConfig start with assets/, not public/.
 - **GitHub Pages shows a blank page:** Check the Actions run and Pages source setting. Confirm the repository name is available to the workflow and the deployed artifact contains the built files.
 - **GitHub Actions says “No artifacts named github-pages”:** Confirm the build job’s “Upload website” step succeeded. The deploy job waits for the build job so GitHub has time to register the uploaded artifact.
 - **The workflow does not start:** Push to main or master, or add your branch name to deploy.yml.
 - **A mobile menu remains open:** Use its menu button to close it; selecting a section link closes the menu automatically.
-- **The custom cursor does not appear:** Confirm the image path and enabled flag, then test with a mouse on a desktop-sized pointer. It is intentionally disabled by default and hidden on touchscreens.
+- **The custom cursor does not appear:** Confirm the image path and enabled flag, then test with a mouse on a desktop-sized pointer. It is hidden on touchscreen devices.
 
 ## Project structure
 

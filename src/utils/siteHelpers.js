@@ -30,6 +30,17 @@ export function isSafeExternalUrl(value) {
   }
 }
 
+export function getVisibleSocials() {
+  return siteConfig.socials.filter(
+    (social) => social.enabled !== false && isSafeExternalUrl(social.url),
+  )
+}
+
+export function discordWidgetDataUrl(serverId = siteConfig.discord.serverId) {
+  if (!serverId) return ''
+  return 'https://discord.com/api/guilds/' + encodeURIComponent(serverId) + '/widget.json'
+}
+
 export function discordWidgetUrl() {
   if (!siteConfig.discord.serverId) return ''
   const params = new URLSearchParams({

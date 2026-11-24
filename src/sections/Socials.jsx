@@ -1,12 +1,11 @@
 import siteConfig from '../config/siteConfig.js'
 import { SectionHeading } from '../components/ContentBlocks.jsx'
 import Icon from '../components/Icon.jsx'
-import { assetUrl, imageBackgroundStyle, isSafeExternalUrl } from '../utils/siteHelpers.js'
+import { assetUrl, getVisibleSocials, imageBackgroundStyle } from '../utils/siteHelpers.js'
 
 export default function Socials() {
-  const socials = siteConfig.socials.filter(
-    (social) => social.enabled && isSafeExternalUrl(social.url),
-  )
+  const socials = getVisibleSocials()
+  const copy = siteConfig.copy.socials
 
   return (
     <section
@@ -19,10 +18,10 @@ export default function Socials() {
         <div className="socials-heading-row">
           <SectionHeading
             id="socials-title"
-            eyebrow="05 / FOLLOW THE STORY"
-            title="Find Ja-Nee out there."
-            description="When Ja-Nee RP is ready to share its official channels, you’ll find them here."
-            index="05"
+            eyebrow={copy.eyebrow}
+            title={copy.title}
+            description={copy.description}
+            index={siteConfig.socialsSection.index}
           />
           <div className="social-orbit" aria-hidden="true"><Icon name="spark" size={30} /></div>
         </div>
@@ -52,10 +51,10 @@ export default function Socials() {
           <div className="social-empty" data-reveal>
             <span className="social-empty-mark"><Icon name="spark" size={20} /></span>
             <div>
-              <strong>More ways to stay connected, soon.</strong>
-              <p>Official Ja-Nee RP channels will be shared here when they’re ready.</p>
+              <strong>{copy.emptyTitle}</strong>
+              <p>{copy.emptyDescription}</p>
             </div>
-            <span className="social-empty-meta">SOCIALS / 00</span>
+            <span className="social-empty-meta">{copy.emptyIndex}</span>
           </div>
         )}
       </div>

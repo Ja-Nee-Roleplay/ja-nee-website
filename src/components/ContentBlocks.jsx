@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import siteConfig from '../config/siteConfig.js'
 import Icon from './Icon.jsx'
 
 export function AccordionItem({ title, children, note, warning, index, example = false }) {
@@ -16,14 +17,14 @@ export function AccordionItem({ title, children, note, warning, index, example =
           onClick={() => setIsOpen((open) => !open)}
         >
           <span>{title}</span>
-          {example && <span className="example-chip">EXAMPLE</span>}
+          {example && <span className="example-chip">{siteConfig.copy.common.example}</span>}
           <span className="accordion-icon"><Icon name="plus" size={18} /></span>
         </button>
       </h3>
       <div id={panelId} className="accordion-panel" aria-hidden={!isOpen}>
         <div className="accordion-panel-inner">
           <p>{children}</p>
-          {warning && <span className="rule-warning">WARNING: {warning}</span>}
+          {warning && <span className="rule-warning">{siteConfig.copy.common.warningPrefix} {warning}</span>}
           {note && <span className="accordion-note">{note}</span>}
         </div>
       </div>

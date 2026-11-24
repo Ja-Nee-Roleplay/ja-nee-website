@@ -76,6 +76,138 @@ const siteConfig = {
     footer: true,
   },
 
+  // SITE-WIDE INTERFACE COPY: edit labels, captions, empty states, and accessibility text here.
+  copy: {
+    brand: {
+      homeLabel: 'Ja-Nee RP home',
+      initials: 'JN',
+      name: 'JA-NEE',
+      descriptor: 'ROLEPLAY',
+    },
+    navigation: {
+      mainLabel: 'Main navigation',
+      sectionLabel: 'Page sections',
+      openMenu: 'Open navigation menu',
+      closeMenu: 'Close navigation menu',
+      goToSection: 'Go to {label} section',
+      skipToContent: 'Skip to content',
+      joinLabel: 'Join the community',
+      detailsLabel: 'Community details',
+      inviteUnavailable: 'Discord invite is unavailable. See the join section for details.',
+    },
+    hero: {
+      inviteUnavailable: 'The community invite is unavailable right now.',
+      sceneBrand: 'JA-NEE RP',
+      sceneTagline: 'YOUR NEXT CHAPTER',
+      sceneKicker: 'A CITY OF STORIES',
+      sceneTitle: ['There’s room', 'for your story.'],
+      scrollCue: 'SCROLL TO EXPLORE',
+      scrollCueAria: 'Scroll to explore Ja-Nee RP',
+    },
+    status: {
+      heading: 'FIVEM SERVER STATUS',
+      serverName: 'JA-NEE RP',
+      noUpdate: 'No successful update yet',
+      updatedPrefix: 'Updated',
+      waiting: 'Waiting for a verified status source.',
+      notConnected: 'Live status is not connected yet.',
+      checking: 'Checking live status.',
+      timedOut: 'Live status check timed out.',
+      unreachable: 'Live status could not be reached.',
+      unsupportedResponse: 'Live status returned an unsupported response.',
+      playersSuffix: 'PLAYERS',
+      online: 'ONLINE',
+      offline: 'OFFLINE',
+      restarting: 'RESTARTING',
+      maintenance: 'MAINTENANCE',
+      unknown: 'UNKNOWN',
+      checkLink: 'Check FiveM server status',
+    },
+    about: {
+      artStamp: 'STORY / PLACE / PEOPLE',
+      artCoordinate: 'JA-NEE RP · 01',
+      storyNote: 'Every story starts somewhere.',
+      communityHeading: 'The community',
+      philosophyHeading: 'Our philosophy',
+      expectationsHeading: 'What to expect',
+    },
+    features: {
+      sideLabel: ['YOUR STORY', 'SETS THE PACE'],
+      exampleLabel: 'EXAMPLE COPY',
+      footnote: 'Every good story is better when it’s made together.',
+    },
+    rules: {
+      asideKicker: 'THE COMMUNITY GUIDE',
+      asideDescription: 'Choose a chapter to explore.',
+      tabsLabel: 'Rule categories',
+      footerNote: ['RULES CAN CHANGE', 'CHECK OFFICIAL UPDATES'],
+      panelEyebrow: 'JA-NEE RP / COMMUNITY GUIDE',
+      defaultCategory: 'Rules',
+      itemCountSuffix: 'ITEMS',
+      emptyState: 'No rules are listed in this chapter yet.',
+      emptyStateHint: 'Add official entries in siteConfig.js.',
+    },
+    faqs: {
+      allCategory: 'All questions',
+      filterLabel: 'Filter questions by topic',
+      statusNote: 'SOME DETAILS ARE STILL BEING PREPARED',
+      emptyState: 'No questions in this topic yet.',
+      emptyStateHint: 'Add one in the FAQ list in siteConfig.js.',
+    },
+    socials: {
+      eyebrow: '05 / FOLLOW THE STORY',
+      title: 'Find Ja-Nee out there.',
+      description: 'Choose a channel below to follow Ja-Nee RP around the web.',
+      emptyTitle: 'Your community, around the web.',
+      emptyDescription: 'No social links have been added yet.',
+      emptyIndex: 'SOCIALS / 00',
+    },
+    join: {
+      eyebrow: '06 / COME SAY HELLO',
+      index: '06',
+      inviteLabel: 'Join the community',
+      inviteUnavailable: 'The community invite is unavailable right now.',
+      promise: 'One landing page. All the details you need before you join.',
+      widgetHeading: 'DISCORD COMMUNITY',
+      widgetMark: 'JN / RP',
+      widgetLoadingTitle: 'Connecting to Discord…',
+      widgetLoadingMessage: 'Checking that the public community preview is available.',
+      widgetUnavailableTitle: 'Community preview unavailable',
+      widgetIframeTitle: 'Ja-Nee RP Discord server widget',
+      widgetPlaceholder: 'JA-NEE RP / COMMUNITY',
+      widgetDisabledMessage: 'Discord refused the public preview. Check the Server ID in siteConfig.js and confirm Server Settings → Widget is enabled. The invite button still works.',
+      widgetServerNotFoundMessage: 'Discord could not find this server ID. Check the ID in siteConfig.js. The invite button still works.',
+      widgetTimeoutMessage: 'Discord took too long to respond. You can still join with the invite button.',
+      widgetNetworkMessage: 'Discord could not be reached just now. You can still use the community invite.',
+      widgetNotConfiguredMessage: 'Add the Discord server ID and enable the widget in siteConfig.js to show a live preview.',
+      widgetFooterBrand: 'JA-NEE RP',
+      widgetFooterLabel: 'COMMUNITY / CONNECTION',
+      widgetCaption: 'The live preview is optional. The community invite works on its own.',
+      decoration: ['SEE YOU', 'IN THE CITY'],
+    },
+    common: {
+      example: 'EXAMPLE',
+      warningPrefix: 'WARNING:',
+    },
+    footer: {
+      exploreLabel: 'EXPLORE',
+      connectLabel: 'CONNECT',
+      joinLink: 'Join us',
+      discordLink: 'Discord community',
+      socialsLink: 'Explore social channels',
+      editionName: 'JA-NEE RP',
+      editionLabel: 'COMMUNITY / ROLEPLAY',
+      backToTopLink: 'BACK TO TOP ↑',
+      backToTopAria: 'Return to the top of the page',
+      copyrightSuffix: 'All rights reserved.',
+    },
+    update: {
+      available: 'A newer Ja-Nee RP website is available.',
+      refresh: 'Refresh page',
+      dismiss: 'Dismiss update notice',
+    },
+  },
+
   // HERO: introductory copy and image are starter material, ready to personalise.
   hero: {
     eyebrow: 'JA-NEE ROLEPLAY  /  YOUR NEXT CHAPTER',
@@ -90,6 +222,7 @@ const siteConfig = {
 
   // ABOUT US: starter copy is intentionally general; replace with approved details.
   about: {
+    index: '01',
     eyebrow: '01 / ABOUT JA-NEE',
     title: 'A place for the stories you bring.',
     introduction: 'Ja-Nee RP is a roleplay community with room for new characters, unexpected turns, and stories made together.',
@@ -100,6 +233,13 @@ const siteConfig = {
     starterCopy: true,
     image: 'assets/images/story-map.svg',
     imageAlt: 'Abstract illustrated map of a city with connected story paths',
+  },
+
+  featureSection: {
+    index: '02',
+    eyebrow: '02 / THE JA-NEE EXPERIENCE',
+    title: 'What could your story hold?',
+    description: 'A few small things that make a shared story feel worth coming back to.',
   },
 
   // FEATURES: these are examples only, not claims about the live server.
@@ -152,6 +292,10 @@ const siteConfig = {
 
   // RULES: replace the illustrative sample rules with your official rules before publishing.
   rules: {
+    index: '03',
+    eyebrow: '03 / BEFORE YOU PLAY',
+    title: 'A good scene starts with shared ground.',
+    description: 'A little shared understanding makes it easier for everyone to settle in and enjoy the story.',
     starterNotice: 'Sample content only. Replace these examples with Ja-Nee RP’s official rules before publishing.',
     categories: [
       {
@@ -236,6 +380,17 @@ const siteConfig = {
     },
   ],
 
+  faqSection: {
+    index: '04',
+    eyebrow: '04 / QUICK ANSWERS',
+    title: 'Before you step inside.',
+    description: 'A few quick answers to make the first steps feel simple.',
+  },
+
+  socialsSection: {
+    index: '05',
+  },
+
   // DISCORD: supply your own invite and server ID. No server details are assumed.
   discord: {
     inviteUrl: 'https://discord.gg/jKx5JRHE86',
@@ -244,16 +399,17 @@ const siteConfig = {
     widgetTheme: 'dark',
     widgetWidth: 340,
     widgetHeight: 400,
+    widgetCheckTimeoutMs: 9000,
     heading: 'Your next story starts with a hello.',
     message: 'Meet the Ja-Nee RP community, get the details you need, and find your way into the city.',
   },
 
-  // SOCIAL LINKS: only entries marked enabled with a valid URL will appear.
+  // SOCIAL LINKS: any valid URL appears automatically; set enabled: false to hide an entry.
   socials: [
-    { name: 'TikTok', icon: 'tiktok', url: 'https://www.tiktok.com/@janeerp?is_from_webapp=1&sender_device=pc', image: '', description: 'Short clips and moments from the city.', color: '#a8a4c7', enabled: false },
-    { name: 'YouTube', icon: 'youtube', url: '', image: '', description: 'Videos, highlights, and community stories.', color: '#ff8668', enabled: false },
-    { name: 'Instagram', icon: 'instagram', url: '', image: '', description: 'Scenes and updates from Ja-Nee RP.', color: '#e4a78e', enabled: false },
-    { name: 'Facebook', icon: 'facebook', url: '', image: '', description: 'News and community updates.', color: '#9ebcde', enabled: false },
+    { name: 'TikTok', icon: 'tiktok', url: 'https://www.tiktok.com/@janeerp?is_from_webapp=1&sender_device=pc', image: '', description: 'Short clips and moments from the city.', color: '#D4AF37' },
+    { name: 'YouTube', icon: 'youtube', url: '', image: '', description: 'Videos, highlights, and community stories.', color: '#ff8668' },
+    { name: 'Instagram', icon: 'instagram', url: '', image: '', description: 'Scenes and updates from Ja-Nee RP.', color: '#e4a78e' },
+    { name: 'Facebook', icon: 'facebook', url: '', image: '', description: 'News and community updates.', color: '#9ebcde' },
   ],
 
   // FIVE M SERVER STATUS: direct access may be blocked by browser security rules.
@@ -344,6 +500,7 @@ const siteConfig = {
     description: 'A place for the stories you bring.',
     copyrightName: 'Ja-Nee RP',
     backToTopLabel: 'Back to top',
+    statusLinkEnabled: true,
   },
 }
 

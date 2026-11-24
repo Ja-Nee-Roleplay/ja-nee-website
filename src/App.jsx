@@ -56,7 +56,7 @@ function ChapterRail({ activeSection }) {
   const activeIndex = Math.max(0, links.findIndex((item) => item.id === activeSection))
 
   return (
-    <nav className="chapter-rail" aria-label="Page sections">
+    <nav className="chapter-rail" aria-label={siteConfig.copy.navigation.sectionLabel}>
       <span className="chapter-rail-count" aria-hidden="true">
         {String(activeIndex + 1).padStart(2, '0')} <i>/ {String(links.length).padStart(2, '0')}</i>
       </span>
@@ -66,7 +66,7 @@ function ChapterRail({ activeSection }) {
             <a
               href={'#' + link.id}
               className={activeSection === link.id ? 'is-active' : ''}
-              aria-label={'Go to ' + link.label + ' section'}
+              aria-label={siteConfig.copy.navigation.goToSection.replace('{label}', link.label)}
               aria-current={activeSection === link.id ? 'location' : undefined}
             >
               <span className="chapter-rail-index">{String(index + 1).padStart(2, '0')}</span>
@@ -114,11 +114,11 @@ function UpdateNotice() {
 
   return (
     <div className="update-notice" role="status">
-      <span>A newer Ja-Nee RP website is available.</span>
+      <span>{siteConfig.copy.update.available}</span>
       <button type="button" onClick={() => window.location.reload()}>
-        Refresh page <span aria-hidden="true">↻</span>
+        {siteConfig.copy.update.refresh} <span aria-hidden="true">↻</span>
       </button>
-      <button className="update-dismiss" type="button" aria-label="Dismiss update notice" onClick={() => setUpdateAvailable(false)}>×</button>
+      <button className="update-dismiss" type="button" aria-label={siteConfig.copy.update.dismiss} onClick={() => setUpdateAvailable(false)}>×</button>
     </div>
   )
 }
@@ -174,7 +174,7 @@ export default function App() {
 
   return (
     <div className={'site-shell' + (siteConfig.animations.enabled ? ' motion-enabled' : ' motion-disabled') + (siteConfig.animations.hoverEffects ? ' hover-effects-enabled' : ' hover-effects-disabled')} style={themeStyle}>
-      <a className="skip-link" href="#main-content">Skip to content</a>
+      <a className="skip-link" href="#main-content">{siteConfig.copy.navigation.skipToContent}</a>
       <UpdateNotice />
       <SiteNav activeSection={activeSection} />
       <ChapterRail activeSection={activeSection} />

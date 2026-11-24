@@ -4,6 +4,7 @@ import { SectionHeading, AccordionItem } from '../components/ContentBlocks.jsx'
 import { imageBackgroundStyle } from '../utils/siteHelpers.js'
 
 export default function Rules() {
+  const copy = siteConfig.copy.rules
   const categories = siteConfig.rules.categories
   const [activeCategory, setActiveCategory] = useState(categories[0]?.id || '')
   const currentCategory = categories.find((category) => category.id === activeCategory) || categories[0]
@@ -18,17 +19,17 @@ export default function Rules() {
       <div className="page-shell">
         <SectionHeading
           id="rules-title"
-          eyebrow="03 / BEFORE YOU PLAY"
-          title="A good scene starts with shared ground."
-          description="A little shared understanding makes it easier for everyone to settle in and enjoy the story."
-          index="03"
+          eyebrow={siteConfig.rules.eyebrow}
+          title={siteConfig.rules.title}
+          description={siteConfig.rules.description}
+          index={siteConfig.rules.index}
         />
 
         <div className="rules-layout">
           <aside className="rules-aside" data-reveal>
-            <span className="aside-kicker">THE COMMUNITY GUIDE</span>
-            <p>Choose a chapter to explore.</p>
-            <div className="rule-tabs" role="tablist" aria-label="Rule categories">
+            <span className="aside-kicker">{copy.asideKicker}</span>
+            <p>{copy.asideDescription}</p>
+            <div className="rule-tabs" role="tablist" aria-label={copy.tabsLabel}>
               {categories.map((category) => (
                 <button
                   key={category.id}
@@ -59,7 +60,7 @@ export default function Rules() {
                 </button>
               ))}
             </div>
-            <span className="rules-aside-foot">RULES CAN CHANGE<br />CHECK OFFICIAL UPDATES</span>
+            <span className="rules-aside-foot">{copy.footerNote.map((line) => <span key={line}>{line}</span>)}</span>
           </aside>
 
           <div
@@ -71,10 +72,10 @@ export default function Rules() {
           >
             <div className="rules-panel-head">
               <div>
-                <span className="eyebrow">JA-NEE RP / COMMUNITY GUIDE</span>
-                <h3>{currentCategory?.label || 'Rules'}</h3>
+                <span className="eyebrow">{copy.panelEyebrow}</span>
+                <h3>{currentCategory?.label || copy.defaultCategory}</h3>
               </div>
-              <span className="rules-count">{String(currentCategory?.rules.length || 0).padStart(2, '0')} ITEMS</span>
+              <span className="rules-count">{String(currentCategory?.rules.length || 0).padStart(2, '0')} {copy.itemCountSuffix}</span>
             </div>
             <p className="placeholder-banner" role="note">{siteConfig.rules.starterNotice}</p>
             {currentCategory?.rules.length ? (
@@ -93,7 +94,7 @@ export default function Rules() {
                 ))}
               </div>
             ) : (
-              <p className="empty-content">No rules are listed in this chapter yet. Add official entries in <code>siteConfig.js</code>.</p>
+              <p className="empty-content">{copy.emptyState} <span>{copy.emptyStateHint}</span></p>
             )}
           </div>
         </div>

@@ -7,8 +7,8 @@ import { useServerStatus } from '../utils/useServerStatus.js'
 import { isSafeExternalUrl } from '../utils/siteHelpers.js'
 
 function formatUpdated(date) {
-  if (!date) return 'No successful update yet'
-  return 'Updated ' + new Intl.DateTimeFormat('en', {
+  if (!date) return siteConfig.copy.status.noUpdate
+  return siteConfig.copy.status.updatedPrefix + ' ' + new Intl.DateTimeFormat('en', {
     hour: '2-digit',
     minute: '2-digit',
   }).format(date)
@@ -18,22 +18,22 @@ export function ServerStatusCard() {
   const status = useServerStatus()
   const count = status.players !== null && siteConfig.fivem.showPlayerCount
     ? status.maxPlayers !== null
-      ? status.players + ' / ' + status.maxPlayers + ' PLAYERS'
-      : status.players + ' PLAYERS'
+      ? status.players + ' / ' + status.maxPlayers + ' ' + siteConfig.copy.status.playersSuffix
+      : status.players + ' ' + siteConfig.copy.status.playersSuffix
     : null
 
   return (
     <div className="server-status-card" aria-live="polite">
       <div className="server-status-top">
-        <span className="status-label">FIVEM SERVER STATUS</span>
+        <span className="status-label">{siteConfig.copy.status.heading}</span>
         <StatusPill state={status.state} />
       </div>
       <div className="server-status-bottom">
-        <span className="server-status-name">JA-NEE RP</span>
+        <span className="server-status-name">{siteConfig.copy.status.serverName}</span>
         {count && <span className="server-player-count">{count}</span>}
       </div>
       <div className="server-status-foot">
-            <span>{status.message || 'Waiting for a verified status source.'}</span>
+        <span>{status.message || siteConfig.copy.status.waiting}</span>
         <span className="status-last-updated">{formatUpdated(status.lastUpdated)}</span>
       </div>
     </div>
@@ -65,14 +65,14 @@ export default function SiteNav({ activeSection }) {
         <button
           type="button"
           className="menu-toggle"
-          aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-label={menuOpen ? siteConfig.copy.navigation.closeMenu : siteConfig.copy.navigation.openMenu}
           aria-expanded={menuOpen}
           aria-controls="site-navigation"
           onClick={() => setMenuOpen((open) => !open)}
         >
           <Icon name={menuOpen ? 'close' : 'menu'} size={22} />
         </button>
-        <nav id="site-navigation" className={'site-navigation' + (menuOpen ? ' is-open' : '')} aria-label="Main navigation">
+        <nav id="site-navigation" className={'site-navigation' + (menuOpen ? ' is-open' : '')} aria-label={siteConfig.copy.navigation.mainLabel}>
           <ul>
             {links.map((link) => (
               <li key={link.id}>
@@ -91,7 +91,7 @@ export default function SiteNav({ activeSection }) {
         </nav>
         {siteConfig.sections.join && (
           <a className="nav-cta" href="#join" onClick={closeMenu}>
-            <span>{siteConfig.discord.inviteUrl ? 'Join the community' : 'Community details'}</span><Icon name="arrow" size={15} />
+            <span>{siteConfig.discord.inviteUrl ? siteConfig.copy.navigation.joinLabel : siteConfig.copy.navigation.detailsLabel}</span><Icon name="arrow" size={15} />
           </a>
         )}
       </div>
@@ -114,7 +114,7 @@ export function DiscordAction({ className = '', children }) {
       {label}
     </a>
   ) : (
-    <a className={className + ' button--needs-config'} href={siteConfig.sections.join ? '#join' : '#home'} aria-label="Discord invite is not configured. See the join section for setup details.">
+    <a className={className + ' button--needs-config'} href={siteConfig.sections.join ? '#join' : '#home'} aria-label={siteConfig.copy.navigation.inviteUnavailable}>
       {label}
     </a>
   )

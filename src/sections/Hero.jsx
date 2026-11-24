@@ -4,6 +4,7 @@ import { ServerStatusCard, DiscordAction } from '../components/SiteNav.jsx'
 import { assetUrl, imageBackgroundStyle } from '../utils/siteHelpers.js'
 
 export default function Hero() {
+  const copy = siteConfig.copy.hero
   const exploreId = ['about', 'features', 'rules', 'faqs', 'socials', 'join']
     .find((id) => siteConfig.sections[id]) || 'home'
 
@@ -37,16 +38,16 @@ export default function Hero() {
               <Icon name="arrow" size={17} />
             </a>
           </div>
-          {!siteConfig.discord.inviteUrl && <p className="hero-config-note">Official community invite coming soon.</p>}
+          {!siteConfig.discord.inviteUrl && <p className="hero-config-note">{copy.inviteUnavailable}</p>}
         </div>
 
         <div className="hero-visual" role="img" aria-label={siteConfig.hero.imageAlt} data-reveal>
           <img className="hero-scene" src={assetUrl(siteConfig.images.hero.src)} alt="" />
           <div className="hero-scene-overlay" aria-hidden="true" />
-          <div className="hero-scene-topline"><span>JA-NEE RP</span><span>YOUR NEXT CHAPTER</span></div>
+          <div className="hero-scene-topline"><span>{copy.sceneBrand}</span><span>{copy.sceneTagline}</span></div>
           <div className="hero-scene-caption">
-            <span className="hero-scene-kicker">A CITY OF STORIES</span>
-            <strong>There’s room<br />for your story.</strong>
+            <span className="hero-scene-kicker">{copy.sceneKicker}</span>
+            <strong>{copy.sceneTitle.map((line) => <span key={line}>{line}</span>)}</strong>
           </div>
           <span className="hero-scene-sun" aria-hidden="true" />
         </div>
@@ -57,8 +58,8 @@ export default function Hero() {
       </div>
 
       {siteConfig.hero.showScrollCue && (
-        <a className="scroll-cue" href={'#' + exploreId} aria-label="Scroll to explore Ja-Nee RP">
-          <span>SCROLL TO EXPLORE</span><span className="scroll-cue-line" aria-hidden="true" />
+        <a className="scroll-cue" href={'#' + exploreId} aria-label={copy.scrollCueAria}>
+          <span>{copy.scrollCue}</span><span className="scroll-cue-line" aria-hidden="true" />
         </a>
       )}
     </section>
