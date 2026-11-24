@@ -20,13 +20,13 @@ export default function Rules() {
           id="rules-title"
           eyebrow="03 / BEFORE YOU PLAY"
           title="A good scene starts with shared ground."
-          description="Take a moment to review the guidance before joining a scene. The examples below need to be replaced with the official Ja-Nee RP rules."
+          description="A little shared understanding makes it easier for everyone to settle in and enjoy the story."
           index="03"
         />
 
         <div className="rules-layout">
           <aside className="rules-aside" data-reveal>
-            <span className="aside-kicker">RULEBOOK / INDEX</span>
+            <span className="aside-kicker">THE COMMUNITY GUIDE</span>
             <p>Choose a chapter to explore.</p>
             <div className="rule-tabs" role="tablist" aria-label="Rule categories">
               {categories.map((category) => (

@@ -1,7 +1,7 @@
 import siteConfig from '../config/siteConfig.js'
 import Icon from '../components/Icon.jsx'
 import { ServerStatusCard, DiscordAction } from '../components/SiteNav.jsx'
-import { imageBackgroundStyle } from '../utils/siteHelpers.js'
+import { assetUrl, imageBackgroundStyle } from '../utils/siteHelpers.js'
 
 export default function Hero() {
   const exploreId = ['about', 'features', 'rules', 'faqs', 'socials', 'join']
@@ -29,7 +29,7 @@ export default function Hero() {
           <p className="hero-description">{siteConfig.hero.description}</p>
           <div className="hero-actions">
             <DiscordAction className="button button--gold">
-              {siteConfig.discord.inviteUrl ? siteConfig.hero.primaryLabel : 'Add your Discord invite'}
+              {siteConfig.hero.primaryLabel}
               <Icon name="arrow" size={17} />
             </DiscordAction>
             <a className="button button--outline-light" href={'#' + exploreId}>
@@ -37,19 +37,18 @@ export default function Hero() {
               <Icon name="arrow" size={17} />
             </a>
           </div>
-          <p className="hero-config-note">Connect the official invite in <code>siteConfig.js</code> when ready.</p>
+          {!siteConfig.discord.inviteUrl && <p className="hero-config-note">Official community invite coming soon.</p>}
         </div>
 
-        <div className="hero-visual" aria-label={siteConfig.hero.imageAlt} data-reveal>
-          <div className="hero-orbit hero-orbit--one" aria-hidden="true" />
-          <div className="hero-orbit hero-orbit--two" aria-hidden="true" />
-          <div className="hero-coordinate hero-coordinate--top">CITY / 01<br />STORIES IN MOTION</div>
-          <div className="hero-coordinate hero-coordinate--bottom">JA-NEE RP<br />OPEN YOUR NEXT CHAPTER</div>
-          <div className="hero-signal" aria-hidden="true">
-            <span />
-            <span />
-            <span />
+        <div className="hero-visual" role="img" aria-label={siteConfig.hero.imageAlt} data-reveal>
+          <img className="hero-scene" src={assetUrl(siteConfig.images.hero.src)} alt="" />
+          <div className="hero-scene-overlay" aria-hidden="true" />
+          <div className="hero-scene-topline"><span>JA-NEE RP</span><span>YOUR NEXT CHAPTER</span></div>
+          <div className="hero-scene-caption">
+            <span className="hero-scene-kicker">A CITY OF STORIES</span>
+            <strong>There’s room<br />for your story.</strong>
           </div>
+          <span className="hero-scene-sun" aria-hidden="true" />
         </div>
 
         <div className="hero-status-wrap" data-reveal>

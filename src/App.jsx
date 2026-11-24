@@ -35,7 +35,9 @@ const themeStyle = {
   '--color-paper-warm': siteConfig.theme.paperWarm,
   '--color-white': siteConfig.theme.white,
   '--color-muted': siteConfig.theme.muted,
+  '--color-muted-light': siteConfig.theme.mutedLight,
   '--color-line': siteConfig.theme.line,
+  '--color-line-dark': siteConfig.theme.lineDark,
   '--color-gold': siteConfig.theme.gold,
   '--color-coral': siteConfig.theme.coral,
   '--color-amber': siteConfig.theme.amber,
@@ -45,6 +47,36 @@ const themeStyle = {
   '--font-mono': siteConfig.theme.monoFont,
   '--motion-speed': siteConfig.animations.speed + 's',
   '--reveal-distance': siteConfig.animations.revealDistance + 'px',
+}
+
+function ChapterRail({ activeSection }) {
+  const links = siteConfig.navigation.filter(
+    (item) => item.id === 'home' || siteConfig.sections[item.id],
+  )
+  const activeIndex = Math.max(0, links.findIndex((item) => item.id === activeSection))
+
+  return (
+    <nav className="chapter-rail" aria-label="Page sections">
+      <span className="chapter-rail-count" aria-hidden="true">
+        {String(activeIndex + 1).padStart(2, '0')} <i>/ {String(links.length).padStart(2, '0')}</i>
+      </span>
+      <ol>
+        {links.map((link, index) => (
+          <li key={link.id}>
+            <a
+              href={'#' + link.id}
+              className={activeSection === link.id ? 'is-active' : ''}
+              aria-label={'Go to ' + link.label + ' section'}
+              aria-current={activeSection === link.id ? 'location' : undefined}
+            >
+              <span className="chapter-rail-index">{String(index + 1).padStart(2, '0')}</span>
+              <span className="chapter-rail-name">{link.label}</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  )
 }
 
 function UpdateNotice() {
@@ -145,6 +177,7 @@ export default function App() {
       <a className="skip-link" href="#main-content">Skip to content</a>
       <UpdateNotice />
       <SiteNav activeSection={activeSection} />
+      <ChapterRail activeSection={activeSection} />
       <main id="main-content">
         <Hero />
         {siteConfig.sections.about && <About />}

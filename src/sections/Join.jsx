@@ -29,14 +29,13 @@ export default function Join() {
             index="06"
           />
           <div className="join-actions">
-            <DiscordAction className="button button--gold button--large">
-              {siteConfig.discord.inviteUrl ? 'Join our Discord' : 'Discord invite needed'}
-              <Icon name="arrow" size={18} />
-            </DiscordAction>
-            {!siteConfig.discord.inviteUrl && (
-              <p className="join-config-note">
-                Add the official invite URL in <code>siteConfig.js</code>. This button will open it in a new tab.
-              </p>
+            {siteConfig.discord.inviteUrl ? (
+              <DiscordAction className="button button--gold button--large">
+                Join the community
+                <Icon name="arrow" size={18} />
+              </DiscordAction>
+            ) : (
+              <p className="join-config-note"><span className="community-link-dot" /> The official community link will be shared here once it’s ready.</p>
             )}
           </div>
           <div className="join-promise">
@@ -65,13 +64,13 @@ export default function Join() {
             ) : (
               <div className="widget-fallback" role="note">
                 <span className="widget-fallback-icon"><Icon name="discord" size={32} /></span>
-                <strong>{widgetFailed ? 'Widget could not load.' : 'Your Discord widget goes here.'}</strong>
+                <strong>{widgetFailed ? 'Community preview unavailable.' : 'A little more of the community.'}</strong>
                 <p>
                   {widgetFailed
-                    ? 'The invite button remains available when the official invite is configured.'
-                    : 'Add the Discord Server ID and enable the server widget in siteConfig.js.'}
+                    ? 'The official invite will remain available here when the community link is ready.'
+                    : 'The community preview will appear here when it’s available.'}
                 </p>
-                <span className="widget-placeholder-code">WIDGET / {siteConfig.discord.serverId ? 'CHECK SETTINGS' : 'AWAITING SERVER ID'}</span>
+                <span className="widget-placeholder-code">JA-NEE RP / COMMUNITY</span>
               </div>
             )}
             <div className="widget-frame-foot">

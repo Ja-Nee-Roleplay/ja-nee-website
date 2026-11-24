@@ -31,9 +31,6 @@ export default function About() {
             title={siteConfig.about.title}
             index="01"
           />
-          {siteConfig.about.starterCopy && (
-            <p className="starter-copy-note"><span /> STARTER COPY — PERSONALISE BEFORE LAUNCH</p>
-          )}
           <p className="about-lead">{siteConfig.about.introduction}</p>
           <div className="about-details">
             <article data-reveal>

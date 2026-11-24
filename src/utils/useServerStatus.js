@@ -6,7 +6,7 @@ const EMPTY_STATUS = {
   players: null,
   maxPlayers: null,
   lastUpdated: null,
-  message: 'Status source is not configured.',
+  message: 'Live status is not connected yet.',
 }
 
 function parseCount(value) {
@@ -58,7 +58,7 @@ function getStatusUrl(settings) {
 export function useServerStatus() {
   const url = getStatusUrl(siteConfig.fivem)
   const [status, setStatus] = useState(() => url
-    ? { ...EMPTY_STATUS, message: 'Waiting for the first status check.' }
+    ? { ...EMPTY_STATUS, message: 'Checking live status.' }
     : EMPTY_STATUS)
 
   useEffect(() => {
@@ -106,8 +106,8 @@ export function useServerStatus() {
             maxPlayers: null,
             lastUpdated: lastSuccessfulUpdate,
             message: error.name === 'AbortError'
-              ? 'Status source timed out.'
-              : 'Status source is unavailable.',
+              ? 'Live status check timed out.'
+              : 'Live status could not be reached.',
           })
         }
       } finally {

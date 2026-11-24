@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'Montserrat';
-  src: url('/assets/fonts/montserrat-latin.woff2') format('woff2');
+  src: url('../assets/fonts/montserrat-latin.woff2') format('woff2');
   font-style: normal;
   font-weight: 400 900;
   font-display: swap;
@@ -8,7 +8,7 @@
 
 @font-face {
   font-family: 'STIX Two Text';
-  src: url('/assets/fonts/stix-two-text-latin.woff2') format('woff2');
+  src: url('../assets/fonts/stix-two-text-latin.woff2') format('woff2');
   font-style: normal;
   font-weight: 400 700;
   font-display: swap;

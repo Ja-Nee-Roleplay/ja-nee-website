@@ -17,7 +17,7 @@ export default function Features() {
             id="features-title"
             eyebrow="02 / THE JA-NEE EXPERIENCE"
             title="What could your story hold?"
-            description="A few starting points to help you imagine your place in Ja-Nee RP. Confirm or replace every example with details about your server."
+            description="A few small things that make a shared story feel worth coming back to."
             dark
             index="02"
           />
@@ -49,7 +49,7 @@ export default function Features() {
             </article>
           ))}
         </div>
-        <p className="features-footnote"><Icon name="spark" size={15} /> Sample descriptions are not confirmed server features. Edit the feature list in <code>siteConfig.js</code>.</p>
+        <p className="features-footnote"><Icon name="spark" size={15} /> Every good story is better when it’s made together.</p>
       </div>
     </section>
   )

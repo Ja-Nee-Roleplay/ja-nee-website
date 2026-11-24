@@ -7,8 +7,8 @@ import { useServerStatus } from '../utils/useServerStatus.js'
 import { isSafeExternalUrl } from '../utils/siteHelpers.js'
 
 function formatUpdated(date) {
-  if (!date) return 'Awaiting first successful check'
-  return 'Last successful update: ' + new Intl.DateTimeFormat('en', {
+  if (!date) return 'No successful update yet'
+  return 'Updated ' + new Intl.DateTimeFormat('en', {
     hour: '2-digit',
     minute: '2-digit',
   }).format(date)
@@ -33,7 +33,7 @@ export function ServerStatusCard() {
         {count && <span className="server-player-count">{count}</span>}
       </div>
       <div className="server-status-foot">
-        <span>{status.message || 'Status source responded.'}</span>
+            <span>{status.message || 'Waiting for a verified status source.'}</span>
         <span className="status-last-updated">{formatUpdated(status.lastUpdated)}</span>
       </div>
     </div>
@@ -91,7 +91,7 @@ export default function SiteNav({ activeSection }) {
         </nav>
         {siteConfig.sections.join && (
           <a className="nav-cta" href="#join" onClick={closeMenu}>
-            <span>Join the community</span><Icon name="external" size={15} />
+            <span>{siteConfig.discord.inviteUrl ? 'Join the community' : 'Community details'}</span><Icon name="arrow" size={15} />
           </a>
         )}
       </div>
@@ -102,7 +102,7 @@ export default function SiteNav({ activeSection }) {
 export function DiscordAction({ className = '', children }) {
   const invite = siteConfig.discord.inviteUrl
   const validInvite = isSafeExternalUrl(invite)
-  const label = children || (validInvite ? siteConfig.hero.primaryLabel : 'Discord invite needed')
+  const label = children || siteConfig.hero.primaryLabel
 
   return validInvite ? (
     <a

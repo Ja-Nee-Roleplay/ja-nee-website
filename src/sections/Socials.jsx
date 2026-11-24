@@ -21,7 +21,7 @@ export default function Socials() {
             id="socials-title"
             eyebrow="05 / FOLLOW THE STORY"
             title="Find Ja-Nee out there."
-            description="Official social channels will appear here when their links are added to the central site settings."
+            description="When Ja-Nee RP is ready to share its official channels, you’ll find them here."
             index="05"
           />
           <div className="social-orbit" aria-hidden="true"><Icon name="spark" size={30} /></div>
@@ -52,8 +52,8 @@ export default function Socials() {
           <div className="social-empty" data-reveal>
             <span className="social-empty-mark"><Icon name="spark" size={20} /></span>
             <div>
-              <strong>No social links configured yet.</strong>
-              <p>Add only Ja-Nee RP’s official, verified profiles in <code>siteConfig.js</code>.</p>
+              <strong>More ways to stay connected, soon.</strong>
+              <p>Official Ja-Nee RP channels will be shared here when they’re ready.</p>
             </div>
             <span className="social-empty-meta">SOCIALS / 00</span>
           </div>

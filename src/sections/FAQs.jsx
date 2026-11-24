@@ -26,7 +26,7 @@ export default function FAQs() {
             id="faq-title"
             eyebrow="04 / QUICK ANSWERS"
             title="Before you step inside."
-            description="The essentials belong in one place. Review these sample prompts and add verified answers for new players."
+            description="A few quick answers to make the first steps feel simple."
             index="04"
           />
           <div className="faq-category-picker" aria-label="Filter questions by topic">
@@ -42,7 +42,7 @@ export default function FAQs() {
               </button>
             ))}
           </div>
-          <p className="faq-placeholder-note">SAMPLE ANSWERS — REPLACE WITH VERIFIED INFORMATION</p>
+          <p className="faq-placeholder-note">SOME DETAILS ARE STILL BEING PREPARED</p>
         </div>
 
         <div className="faq-list" data-reveal>
