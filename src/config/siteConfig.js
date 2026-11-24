@@ -91,8 +91,6 @@ const siteConfig = {
       heroPaddingTopTablet: '126px',
       heroPaddingTopMobile: '116px',
       heroPaddingBottomMobile: '100px',
-      joinSectionPadding: 'clamp(100px, 12vw, 154px)',
-      joinColumnGap: 'clamp(50px, 7vw, 102px)',
       scrollOffset: '92px',
       scrollOffsetMobile: '78px',
       sectionScrollMargin: '82px',
@@ -146,7 +144,6 @@ const siteConfig = {
     { id: 'rules', label: 'Rules' },
     { id: 'faqs', label: 'FAQs' },
     { id: 'socials', label: 'Socials' },
-    { id: 'join', label: 'Join' },
   ],
   sections: {
     about: true,
@@ -154,7 +151,6 @@ const siteConfig = {
     rules: true,
     faqs: true,
     socials: true,
-    join: true,
     footer: true,
   },
 
@@ -175,7 +171,7 @@ const siteConfig = {
       skipToContent: 'Skip to content',
       joinLabel: 'Join the community',
       detailsLabel: 'Community details',
-      inviteUnavailable: 'Discord invite is unavailable. See the join section for details.',
+      inviteUnavailable: 'Add an official HTTPS invite URL in siteConfig.js to enable direct access.',
     },
     hero: {
       inviteUnavailable: 'The community invite is unavailable right now.',
@@ -244,24 +240,6 @@ const siteConfig = {
       emptyDescription: 'No social links have been added yet.',
       emptyIndex: 'SOCIALS / 00',
     },
-    join: {
-      eyebrow: '06 / COME SAY HELLO',
-      index: '06',
-      inviteLabel: 'Join the community',
-      inviteUnavailable: 'The community invite is unavailable right now.',
-      promise: 'One landing page. All the details you need before you join.',
-      pathEyebrow: 'A SIMPLE WAY TO BEGIN',
-      pathMark: 'JN / 01',
-      pathTitle: 'Your next chapter starts here.',
-      pathDescription: 'Get to know the community, find your footing, and make yourself at home.',
-      pathSteps: [
-        { number: '01', title: 'Explore', description: 'Read the community guide and quick answers.' },
-        { number: '02', title: 'Connect', description: 'Join the community when you are ready.' },
-        { number: '03', title: 'Begin', description: 'Introduce yourself and start your story.' },
-      ],
-      pathFooter: 'EXPLORE · CONNECT · BEGIN',
-      decoration: ['SEE YOU', 'IN THE CITY'],
-    },
     common: {
       example: 'EXAMPLE',
       warningPrefix: 'WARNING:',
@@ -269,7 +247,6 @@ const siteConfig = {
     footer: {
       exploreLabel: 'EXPLORE',
       connectLabel: 'CONNECT',
-      joinLink: 'Join us',
       discordLink: 'Discord community',
       socialsLink: 'Explore social channels',
       editionName: 'JA-NEE RP',
@@ -471,8 +448,6 @@ const siteConfig = {
   // COMMUNITY INVITATION: configure the public invite link and approved invitation copy.
   discord: {
     inviteUrl: 'https://discord.gg/jKx5JRHE86',
-    heading: 'Your next story starts with a hello.',
-    message: 'Meet the Ja-Nee RP community, get the details you need, and find your way into the city.',
   },
 
   // SOCIAL LINKS: any valid URL appears automatically; set enabled: false to hide an entry.
@@ -523,17 +498,6 @@ const siteConfig = {
     rules: { src: '', position: 'center', size: 'cover', repeat: 'no-repeat', overlayColor: '#F5F2EA', overlayOpacity: 0.08, gradient: '', blur: 0 },
     faqs: { src: '', position: 'center', size: 'cover', repeat: 'no-repeat', overlayColor: '#EEE9DE', overlayOpacity: 0.08, gradient: '', blur: 0 },
     socials: { src: '', position: 'center', size: 'cover', repeat: 'no-repeat', overlayColor: '#F5F2EA', overlayOpacity: 0.08, gradient: '', blur: 0 },
-    join: {
-      src: 'assets/images/join-district.svg',
-      position: 'center',
-      size: 'cover',
-      repeat: 'no-repeat',
-      overlayColor: '#102416',
-      overlayOpacity: 0.42,
-      imageOpacity: 0.4,
-      gradient: 'linear-gradient(110deg, rgba(13, 29, 17, .97) 4%, rgba(13, 29, 17, .86) 58%, rgba(13, 29, 17, .5) 100%)',
-      blur: 0,
-    },
     footer: { src: '', position: 'center', size: 'cover', repeat: 'no-repeat', overlayColor: '#0B1A10', overlayOpacity: 0.1, gradient: '', blur: 0 },
   },
 

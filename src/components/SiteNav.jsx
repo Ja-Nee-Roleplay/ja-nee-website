@@ -101,17 +101,15 @@ export default function SiteNav({ activeSection }) {
             ))}
           </ul>
         </nav>
-        {siteConfig.sections.join && (
-          <a className="nav-cta" href="#join" onClick={closeMenu}>
-            <span>{siteConfig.discord.inviteUrl ? siteConfig.copy.navigation.joinLabel : siteConfig.copy.navigation.detailsLabel}</span><Icon name="arrow" size={15} />
-          </a>
-        )}
+        <DiscordAction className="nav-cta" onClick={closeMenu}>
+          <span>{siteConfig.discord.inviteUrl ? siteConfig.copy.navigation.joinLabel : siteConfig.copy.navigation.detailsLabel}</span><Icon name="arrow" size={15} />
+        </DiscordAction>
       </div>
     </header>
   )
 }
 
-export function DiscordAction({ className = '', children }) {
+export function DiscordAction({ className = '', children, onClick }) {
   const invite = siteConfig.discord.inviteUrl
   const validInvite = isSafeExternalUrl(invite)
   const label = children || siteConfig.hero.primaryLabel
@@ -122,11 +120,12 @@ export function DiscordAction({ className = '', children }) {
       href={invite}
       target="_blank"
       rel="noopener noreferrer"
+      onClick={onClick}
     >
       {label}
     </a>
   ) : (
-    <a className={className + ' button--needs-config'} href={siteConfig.sections.join ? '#join' : '#home'} aria-label={siteConfig.copy.navigation.inviteUnavailable}>
+    <a className={className + ' button--needs-config'} href={siteConfig.sections.socials ? '#socials' : '#home'} aria-label={siteConfig.copy.navigation.inviteUnavailable} onClick={onClick}>
       {label}
     </a>
   )

@@ -60,7 +60,7 @@ The **design** group controls the site-wide layout widths and gutters, desktop a
 
 ~~~js
 cssOverrides: `
-  .join-path-card { border-radius: 36px; }
+  .feature-row { border-radius: 36px; }
   .hero { min-height: 92vh; }
 `,
 ~~~
@@ -82,7 +82,7 @@ Leave logo empty to use the built-in Ja-Nee text mark. Keep asset filenames simp
 
 Put artwork in **public/assets/images/** and point to its path in the images group. The included city and map SVGs are starter artwork. Replace them with compressed WebP, AVIF, or SVG files if you prefer.
 
-Each background setting supports src, position, size, repeat, overlayColor, overlayOpacity, imageOpacity, gradient, and blur. The settings cover the hero, About, features, rules, FAQs, socials, Join, and footer areas. A blank background path leaves the section’s colour and CSS styling in place. The About illustration has its own image path in the about group.
+Each background setting supports src, position, size, repeat, overlayColor, overlayOpacity, imageOpacity, gradient, and blur. The settings cover the hero, About, features, rules, FAQs, socials, and footer areas. A blank background path leaves the section’s colour and CSS styling in place. The About illustration has its own image path in the about group.
 
 Other asset folders are ready for logos and custom interface icons. The site bundles Montserrat (including ExtraBold) and STIX Two Text in **src/assets/fonts/**, so headings and supporting text use the requested fonts without relying on a remote font service. Their SIL Open Font License notices are included beside the font files. If you replace either font, keep its filename or update the matching `@font-face` path in **src/styles/brand-overrides.css**. Vite includes these files in the production build, including when the site is published beneath a GitHub project URL.
 
@@ -90,7 +90,7 @@ Other asset folders are ready for logos and custom interface icons. The site bun
 
 The theme group contains the main palette and font stacks. The default palette uses #165209 as its forest green, near-black evergreen page surfaces, lighter translucent green panels, and #D4AF37 gold accents. The default headers use STIX Two Text; Montserrat is used for supporting copy and controls, with ExtraBold emphasis on key subtext. The design group sits alongside it for layout and effect controls. The general group contains the browser title, site description, locale, favicon, theme colour, and Open Graph title, description, and image.
 
-Edit the hero group for the intro heading, description, and buttons. Edit about for the community introduction and philosophy, featureSection for the experience heading, faqSection for FAQ headings, rules for the rules heading and chapters, and discord for the Join heading and invite copy. Shared button labels, interface text, decorative captions, and footer wording are in copy. The included About text is generic starter copy; set starterCopy to false after replacing it with approved wording. Set section visibility switches in sections to hide a complete section. Navigation entries are generated from the navigation list.
+Edit the hero group for the intro heading, description, and buttons. Edit about for the community introduction and philosophy, featureSection for the experience heading, faqSection for FAQ headings, and rules for the rules heading and chapters. Set the official Discord invite URL in the discord group; its call-to-action and footer wording are in copy. The included About text is generic starter copy; set starterCopy to false after replacing it with approved wording. Set section visibility switches in sections to hide a complete section. Navigation entries are generated from the navigation list.
 
 ## Edit rules
 
@@ -165,7 +165,7 @@ The site uses landmark elements, a skip link, labelled navigation, keyboard-focu
 ## Troubleshooting
 
 - **Status remains UNKNOWN:** Confirm the server host or HTTPS status endpoint, port, endpoint path, timeout, response format, CORS headers, and HTTPS compatibility. UNKNOWN is expected when the browser cannot confirm the source.
-- **Discord invite button returns to the Join section:** Add a complete official HTTPS invite URL in the discord group.
+- **Discord invite button is unavailable:** Add a complete official HTTPS invite URL in the discord group.
 - **An image is missing:** Check the filename and path relative to the public folder. Paths in siteConfig start with assets/, not public/.
 - **GitHub Pages shows a blank page:** Check the Actions run and Pages source setting. Confirm the repository name is available to the workflow and the deployed artifact contains the built files.
 - **GitHub Actions says “No artifacts named github-pages”:** Confirm the build job’s “Upload website” step succeeded. The deploy job waits for the build job so GitHub has time to register the uploaded artifact.

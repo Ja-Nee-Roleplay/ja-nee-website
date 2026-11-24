@@ -38,11 +38,10 @@ export default function SiteFooter() {
               {footerLinks.map((link) => (
                 <li key={link.id}><a href={'#' + link.id}>{link.label}</a></li>
               ))}
-              {siteConfig.sections.join && <li><a href="#join">{copy.joinLink}</a></li>}
             </ul>
           </div>
 
-          {(socials.length > 0 || (siteConfig.sections.join && siteConfig.discord.inviteUrl)) && (
+          {(socials.length > 0 || siteConfig.discord.inviteUrl) && (
             <div className="footer-links-column">
               <span className="footer-column-label">{copy.connectLabel}</span>
               <ul>
@@ -51,7 +50,7 @@ export default function SiteFooter() {
                     <a href={social.url} target="_blank" rel="noopener noreferrer">{social.name}<Icon name="external" size={13} /></a>
                   </li>
                 ))}
-                {siteConfig.sections.join && siteConfig.discord.inviteUrl && (
+                {siteConfig.discord.inviteUrl && (
                   <li><a href={siteConfig.discord.inviteUrl} target="_blank" rel="noopener noreferrer">{copy.discordLink}<Icon name="external" size={13} /></a></li>
                 )}
               </ul>

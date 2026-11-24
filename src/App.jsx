@@ -9,7 +9,6 @@ import Features from './sections/Features.jsx'
 import Rules from './sections/Rules.jsx'
 import FAQs from './sections/FAQs.jsx'
 import Socials from './sections/Socials.jsx'
-import Join from './sections/Join.jsx'
 import SiteFooter from './sections/SiteFooter.jsx'
 import { useActiveSection } from './utils/useActiveSection.js'
 
@@ -20,7 +19,6 @@ const sectionIds = [
   ...(siteConfig.sections.rules ? ['rules'] : []),
   ...(siteConfig.sections.faqs ? ['faqs'] : []),
   ...(siteConfig.sections.socials ? ['socials'] : []),
-  ...(siteConfig.sections.join ? ['join'] : []),
 ]
 
 
@@ -168,7 +166,6 @@ export default function App() {
         {siteConfig.sections.rules && <Rules />}
         {siteConfig.sections.faqs && <FAQs />}
         {siteConfig.sections.socials && <Socials />}
-        {siteConfig.sections.join && <Join />}
       </main>
       {siteConfig.sections.footer && <SiteFooter />}
       <CustomCursor />

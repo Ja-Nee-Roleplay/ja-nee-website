@@ -63,8 +63,6 @@ const themeStyle = {
   '--layout-hero-padding-top-tablet': siteConfig.design.layout.heroPaddingTopTablet,
   '--layout-hero-padding-top-mobile': siteConfig.design.layout.heroPaddingTopMobile,
   '--layout-hero-padding-bottom-mobile': siteConfig.design.layout.heroPaddingBottomMobile,
-  '--layout-join-padding': siteConfig.design.layout.joinSectionPadding,
-  '--layout-join-column-gap': siteConfig.design.layout.joinColumnGap,
   '--layout-scroll-offset': siteConfig.design.layout.scrollOffset,
   '--layout-scroll-offset-mobile': siteConfig.design.layout.scrollOffsetMobile,
   '--layout-section-scroll-margin': siteConfig.design.layout.sectionScrollMargin,

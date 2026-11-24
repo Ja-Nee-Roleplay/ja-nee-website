@@ -5,7 +5,7 @@ import { assetUrl, imageBackgroundStyle } from '../utils/siteHelpers.js'
 
 export default function Hero() {
   const copy = siteConfig.copy.hero
-  const exploreId = ['about', 'features', 'rules', 'faqs', 'socials', 'join']
+  const exploreId = ['about', 'features', 'rules', 'faqs', 'socials']
     .find((id) => siteConfig.sections[id]) || 'home'
 
   return (
