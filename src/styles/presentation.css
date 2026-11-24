@@ -1228,8 +1228,10 @@ body {
 }
 
 .faq-list {
+  display: grid;
+  gap: 10px;
   overflow: hidden;
-  padding: 7px 25px;
+  padding: 16px 25px;
   border: 1px solid rgba(255, 254, 249, .1);
   border-radius: 25px;
   background: rgba(8, 19, 12, .48);
@@ -1804,8 +1806,12 @@ body {
   }
 
   .hero-shell {
-    grid-template-columns: minmax(0, 1fr) minmax(280px, .82fr);
-    column-gap: 28px;
+    grid-template-columns: minmax(0, 1.18fr) minmax(280px, .82fr);
+    column-gap: clamp(20px, 3vw, 28px);
+  }
+
+  .hero-copy {
+    padding: 28px clamp(20px, 2.7vw, 26px) 26px;
   }
 
   .hero-visual {
@@ -1813,7 +1819,7 @@ body {
   }
 
   .hero-title {
-    font-size: clamp(58px, 8.2vw, 82px);
+    font-size: clamp(56px, 7.2vw, 72px);
   }
 
   .hero-status-wrap {
@@ -1857,6 +1863,28 @@ body {
   .footer-main {
     grid-template-columns: minmax(200px, 1.2fr) minmax(110px, .7fr) minmax(140px, .8fr) 44px;
     gap: 20px;
+  }
+}
+
+@media (max-width: 860px) and (min-width: 721px) {
+  .hero-shell {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 30px;
+  }
+
+  .hero-copy {
+    max-width: 700px;
+    margin-left: 0;
+  }
+
+  .hero-title {
+    font-size: clamp(62px, 7.8vw, 82px);
+  }
+
+  .hero-visual {
+    width: min(100%, 620px);
+    min-height: 360px;
+    justify-self: center;
   }
 }
 
@@ -2183,7 +2211,8 @@ body {
   }
 
   .faq-list {
-    padding: 5px 16px;
+    gap: 8px;
+    padding: 12px 14px;
     border-radius: 20px;
   }
 
