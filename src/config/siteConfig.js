@@ -23,7 +23,7 @@ const siteConfig = {
 
   // BRANDING: leave logo blank to use the built-in text wordmark.
   branding: {
-    logo: 'https://r2.fivemanage.com/mdsjuy4lvhuMYHC2IZ7O5/JANEERoleplayLogo.png',
+    logo: 'assets/logos/JA·NEE Roleplay Logo.png',
     alternativeLogo: '',
     logoAlt: 'Ja-Nee RP',
     logoHeight: 42,
@@ -461,8 +461,8 @@ const siteConfig = {
 
   // STAFF TEAM: add a name and local public asset path or HTTPS avatar URL for each person.
   staffTeam: {
-    enabled: false,
-    members: [
+    enabled: true,
+    members: [{ name: 'Sakkie de Kok • Owner', avatar: 'assets/staff/sakkie.png'}, { name: 'Meyer Hunter • Owner', avatar: 'assets/staff/meyer.png'}, { name: 'Rico Moretti • Dev', avatar: 'assets/staff/rico.png'}, { name: 'Eddie Rose • Admin', avatar: 'assets/staff/eddie.png'},
       // { name: 'Staff display name', avatar: 'assets/staff/staff-name.png' },
     ],
   },
@@ -545,7 +545,7 @@ const siteConfig = {
     description: 'A place for the stories you bring.',
     copyrightName: 'Ja-Nee RP',
     copyrightSymbol: '©',
-    copyrightYear: '',
+    copyrightYear: '2026',
     backToTopLabel: 'Back to top',
     statusLinkEnabled: true,
   },
