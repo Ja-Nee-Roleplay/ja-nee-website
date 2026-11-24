@@ -540,15 +540,15 @@ const siteConfig = {
   // FULL-SCREEN LAUNCH ANNOUNCEMENT AND COUNTDOWN
   launch: {
     // Leave false while editing. Set true when the launch screen is ready to publish.
-    enabled: false,
+    enabled: true,
     // Choose "timer" (timer only), "message" (message only), or "both" (message + timer).
-    mode: "both",
+    mode: "message",
     // Use YYYY-MM-DDTHH:mm:ss+02:00 for South African local time.
     launchAt: "",
     title: "A new chapter is on the horizon.",
     message: "We’re getting the city ready. We’ll open the doors soon.",
     // Leave blank to use discord.inviteUrl. The link is hidden when that URL is not valid.
-    discordUrl: "",
+    discordUrl: "https://discord.gg/jKx5JRHE86",
     showDiscordLink: true
   },
   // FIVEM STATUS CONNECTION SETTINGS
