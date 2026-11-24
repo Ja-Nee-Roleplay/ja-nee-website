@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import siteConfig from './config/siteConfig.js'
+import themeStyle from './config/siteTheme.js'
 import CustomCursor from './components/CustomCursor.jsx'
 import SiteNav from './components/SiteNav.jsx'
 import Hero from './sections/Hero.jsx'
@@ -22,32 +23,7 @@ const sectionIds = [
   ...(siteConfig.sections.join ? ['join'] : []),
 ]
 
-const themeStyle = {
-  '--color-ink': siteConfig.theme.ink,
-  '--color-ink-soft': siteConfig.theme.inkSoft,
-  '--color-forest': siteConfig.theme.forest,
-  '--color-forest-deep': siteConfig.theme.forestDeep,
-  '--color-panel': siteConfig.theme.panel,
-  '--color-panel-hover': siteConfig.theme.panelHover,
-  '--color-nav-surface': siteConfig.theme.navSurface,
-  '--color-footer-surface': siteConfig.theme.footerSurface,
-  '--color-paper': siteConfig.theme.paper,
-  '--color-paper-warm': siteConfig.theme.paperWarm,
-  '--color-white': siteConfig.theme.white,
-  '--color-muted': siteConfig.theme.muted,
-  '--color-muted-light': siteConfig.theme.mutedLight,
-  '--color-line': siteConfig.theme.line,
-  '--color-line-dark': siteConfig.theme.lineDark,
-  '--color-gold': siteConfig.theme.gold,
-  '--color-coral': siteConfig.theme.coral,
-  '--color-amber': siteConfig.theme.amber,
-  '--color-neutral': siteConfig.theme.neutral,
-  '--font-body': siteConfig.theme.bodyFont,
-  '--font-display': siteConfig.theme.displayFont,
-  '--font-mono': siteConfig.theme.monoFont,
-  '--motion-speed': siteConfig.animations.speed + 's',
-  '--reveal-distance': siteConfig.animations.revealDistance + 'px',
-}
+
 
 function ChapterRail({ activeSection }) {
   const links = siteConfig.navigation.filter(
@@ -76,6 +52,16 @@ function ChapterRail({ activeSection }) {
         ))}
       </ol>
     </nav>
+  )
+}
+
+function SectionNavigation() {
+  const activeSection = useActiveSection(sectionIds)
+  return (
+    <>
+      <SiteNav activeSection={activeSection} />
+      <ChapterRail activeSection={activeSection} />
+    </>
   )
 }
 
@@ -124,8 +110,6 @@ function UpdateNotice() {
 }
 
 export default function App() {
-  const activeSection = useActiveSection(sectionIds)
-
   useEffect(() => {
     if (!siteConfig.animations.enabled || !siteConfig.animations.scrollReveal) {
       document.querySelectorAll('[data-reveal]').forEach((element) => element.classList.add('is-visible'))
@@ -176,8 +160,7 @@ export default function App() {
     <div className={'site-shell' + (siteConfig.animations.enabled ? ' motion-enabled' : ' motion-disabled') + (siteConfig.animations.hoverEffects ? ' hover-effects-enabled' : ' hover-effects-disabled')} style={themeStyle}>
       <a className="skip-link" href="#main-content">{siteConfig.copy.navigation.skipToContent}</a>
       <UpdateNotice />
-      <SiteNav activeSection={activeSection} />
-      <ChapterRail activeSection={activeSection} />
+      <SectionNavigation />
       <main id="main-content">
         <Hero />
         {siteConfig.sections.about && <About />}

@@ -2,7 +2,7 @@
 
 A responsive, single-page landing site for Ja-Nee RP, built with React and Vite. The visual direction is documented in **docs/DESIGN-CONCEPT.md**. The original style selection was randomized, then refined into a modern dark editorial design with a #165209 forest green identity, deep evergreen canvas, translucent raised panels, warm gold accents, rounded cards, glass blur, and a section navigator.
 
-The project includes editable content and theme settings, responsive chapter layouts, mobile navigation, rules and FAQ accordions, an optional Discord widget, an honest FiveM status reader, reduced-motion support, local bundled fonts, and a GitHub Pages deployment workflow. Larger screens use gentle scroll snapping and a compact chapter navigator. Server-specific facts and links that were not supplied are left empty or marked as examples.
+The project includes editable content and theme settings, responsive chapter layouts, mobile navigation, rules and FAQ accordions, a direct Discord invite, an honest FiveM status reader, reduced-motion support, local bundled fonts, and a GitHub Pages deployment workflow. Larger screens use gentle scroll snapping and a compact chapter navigator. Server-specific facts and links that were not supplied are left empty or marked as examples.
 
 ## Before publishing
 
@@ -10,7 +10,7 @@ The original project folder did not contain an existing site, Discord invite, se
 
 1. Review the welcome copy and add any Ja-Nee RP details that the team has approved.
 2. Replace or remove every sample rule and sample FAQ answer before treating those sections as official guidance.
-3. Add the official Discord invite. Add the Server ID only if you want the embedded widget.
+3. Add the official Discord invite.
 4. Configure a supported FiveM status endpoint if you want live status.
 5. Add only verified social profile URLs.
 6. Add your logo, cursor pack, and any preferred background images.
@@ -54,7 +54,18 @@ The production build is written to the dist folder. The preview command serves t
 
 ## The central settings file
 
-Edit **src/config/siteConfig.js** for the normal site changes. It contains grouped settings for the title and description, theme colours, fonts, navigation, visible sections, branding, all visible interface copy, About content, features, rules, FAQs, Discord, social links, FiveM status, images, cursor assets, animations, and footer copy. The **copy** group holds shared labels, accessibility text, section captions, empty states, and footer labels. Longer section text lives with its section data, so headings and full paragraphs are editable too.
+Edit **src/config/siteConfig.js** for site changes. It contains the page metadata, palette, fonts, every section's text, navigation, section visibility, logos and images, social and invite links, FiveM status source, cursor art, motion, and footer content. The **copy** group contains shared interface labels and accessibility wording; longer paragraphs and headings live with their section data.
+
+The **design** group controls the site-wide layout widths and gutters, desktop and mobile section spacing, hero and navigation sizing, text scale, corner radii, translucent surface colours, blur, shadows, and transition feel. For a one-off detail that has no named setting, add CSS to **design.cssOverrides** at the bottom of that group. Enter it as a JavaScript template string, for example:
+
+~~~js
+cssOverrides: `
+  .join-path-card { border-radius: 36px; }
+  .hero { min-height: 92vh; }
+`,
+~~~
+
+Those rules load after the built-in styles, so this gives you a final override for any element while keeping your customisation in the central file.
 
 Starter About text is flagged by starterCopy. Feature examples use isExample. Sample rule categories and questions are grouped in arrays so you can add, remove, rename, and reorder them without editing component markup. A social appears as soon as it has a valid HTTP or HTTPS URL; set enabled to false to hide it without deleting its settings.
 
@@ -71,13 +82,13 @@ Leave logo empty to use the built-in Ja-Nee text mark. Keep asset filenames simp
 
 Put artwork in **public/assets/images/** and point to its path in the images group. The included city and map SVGs are starter artwork. Replace them with compressed WebP, AVIF, or SVG files if you prefer.
 
-Each background setting supports src, position, size, repeat, overlayColor, overlayOpacity, gradient, and blur. The settings are prepared for hero, about, features, rules, FAQs, socials, join, footer, and social preview areas. A blank background path leaves the section’s colour and CSS styling in place. The About illustration has its own image path in the about group.
+Each background setting supports src, position, size, repeat, overlayColor, overlayOpacity, imageOpacity, gradient, and blur. The settings cover the hero, About, features, rules, FAQs, socials, Join, and footer areas. A blank background path leaves the section’s colour and CSS styling in place. The About illustration has its own image path in the about group.
 
 Other asset folders are ready for logos and custom interface icons. The site bundles Montserrat (including ExtraBold) and STIX Two Text in **src/assets/fonts/**, so headings and supporting text use the requested fonts without relying on a remote font service. Their SIL Open Font License notices are included beside the font files. If you replace either font, keep its filename or update the matching `@font-face` path in **src/styles/brand-overrides.css**. Vite includes these files in the production build, including when the site is published beneath a GitHub project URL.
 
 ## Change colours and copy
 
-The theme group in siteConfig.js contains the main palette and font stacks. The default palette uses #165209 as its forest green, near-black evergreen page surfaces, lighter translucent green panels, and #D4AF37 gold accents. The default headers use STIX Two Text; Montserrat is used for supporting copy and controls, with ExtraBold emphasis on key subtext. Change the theme values there to restyle the site. The general group contains the browser title, site description, favicon, theme colour, and Open Graph title, description, and image.
+The theme group contains the main palette and font stacks. The default palette uses #165209 as its forest green, near-black evergreen page surfaces, lighter translucent green panels, and #D4AF37 gold accents. The default headers use STIX Two Text; Montserrat is used for supporting copy and controls, with ExtraBold emphasis on key subtext. The design group sits alongside it for layout and effect controls. The general group contains the browser title, site description, locale, favicon, theme colour, and Open Graph title, description, and image.
 
 Edit the hero group for the intro heading, description, and buttons. Edit about for the community introduction and philosophy, featureSection for the experience heading, faqSection for FAQ headings, rules for the rules heading and chapters, and discord for the Join heading and invite copy. Shared button labels, interface text, decorative captions, and footer wording are in copy. The included About text is generic starter copy; set starterCopy to false after replacing it with approved wording. Set section visibility switches in sections to hide a complete section. Navigation entries are generated from the navigation list.
 
@@ -95,18 +106,16 @@ Edit the faqs list in siteConfig.js. Each item supports category, question, answ
 
 Edit the socials list in siteConfig.js. Enter the official URL, platform name, icon name, description, and optional colour. A valid URL makes the card visible automatically; set enabled to false to temporarily hide an entry. Supported built-in icons are instagram, youtube, facebook, and tiktok. Social links open in a new tab. Empty or invalid URLs are not shown.
 
-Discord is configured separately in the discord group.
+The Discord invite is configured separately in the discord group.
 
-## Configure Discord and its widget
+## Configure the Discord invite
 
 In the discord group in siteConfig.js:
 
 - Set inviteUrl to the complete official Discord invite URL, beginning with https://.
-- Set serverId only if you want the embedded widget.
-- Set widgetEnabled, widgetTheme, widgetWidth, widgetHeight, and widgetCheckTimeoutMs to control the embed and its connection check.
 - Update heading and message to your approved invitation copy.
 
-The visible invite button opens the configured invite in a new tab. Before showing the embed, the page checks Discord’s public widget endpoint. If Discord refuses the request, the page gives a clear setup or network message and keeps the invite button available instead of leaving the preview loading forever. Confirm the Server ID, then enable the server widget in Discord’s Server Settings → Widget. Do not place bots, API secrets, or private credentials in this frontend project.
+The site does not embed a Discord server preview. Its invite button opens the configured invite in a new tab. Do not place bots, API secrets, or private credentials in this frontend project.
 
 ## Configure FiveM status
 
@@ -156,8 +165,7 @@ The site uses landmark elements, a skip link, labelled navigation, keyboard-focu
 ## Troubleshooting
 
 - **Status remains UNKNOWN:** Confirm the server host or HTTPS status endpoint, port, endpoint path, timeout, response format, CORS headers, and HTTPS compatibility. UNKNOWN is expected when the browser cannot confirm the source.
-- **Discord preview says unavailable:** Confirm the Server ID and enable the server widget in Discord’s Server Settings → Widget. The invite button still works independently. If the preview cannot connect because of a browser/network restriction, visitors see a fallback rather than a permanent loading state.
-- **Discord button returns to the Join section:** Add a complete official HTTPS invite URL in the discord group.
+- **Discord invite button returns to the Join section:** Add a complete official HTTPS invite URL in the discord group.
 - **An image is missing:** Check the filename and path relative to the public folder. Paths in siteConfig start with assets/, not public/.
 - **GitHub Pages shows a blank page:** Check the Actions run and Pages source setting. Confirm the repository name is available to the workflow and the deployed artifact contains the built files.
 - **GitHub Actions says “No artifacts named github-pages”:** Confirm the build job’s “Upload website” step succeeded. The deploy job waits for the build job so GitHub has time to register the uploaded artifact.

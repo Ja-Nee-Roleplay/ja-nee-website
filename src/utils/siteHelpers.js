@@ -15,8 +15,9 @@ export function imageBackgroundStyle(image = {}) {
     '--section-repeat': image.repeat || 'no-repeat',
     '--section-overlay': image.overlayColor || 'transparent',
     '--section-overlay-opacity': String(image.overlayOpacity ?? 0),
+    '--section-image-opacity': String(image.imageOpacity ?? 1),
     '--section-gradient': image.gradient || 'none',
-    '--section-blur': (image.blur || 0) + 'px',
+    '--section-filter': image.blur > 0 ? 'blur(' + image.blur + 'px)' : 'none',
   }
 }
 
@@ -34,18 +35,4 @@ export function getVisibleSocials() {
   return siteConfig.socials.filter(
     (social) => social.enabled !== false && isSafeExternalUrl(social.url),
   )
-}
-
-export function discordWidgetDataUrl(serverId = siteConfig.discord.serverId) {
-  if (!serverId) return ''
-  return 'https://discord.com/api/guilds/' + encodeURIComponent(serverId) + '/widget.json'
-}
-
-export function discordWidgetUrl() {
-  if (!siteConfig.discord.serverId) return ''
-  const params = new URLSearchParams({
-    id: siteConfig.discord.serverId,
-    theme: siteConfig.discord.widgetTheme,
-  })
-  return 'https://discord.com/widget?' + params.toString()
 }

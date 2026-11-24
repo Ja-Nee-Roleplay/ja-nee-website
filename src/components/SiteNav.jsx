@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import siteConfig from '../config/siteConfig.js'
 import Brand from './Brand.jsx'
 import Icon from './Icon.jsx'
@@ -8,7 +8,7 @@ import { isSafeExternalUrl } from '../utils/siteHelpers.js'
 
 function formatUpdated(date) {
   if (!date) return siteConfig.copy.status.noUpdate
-  return siteConfig.copy.status.updatedPrefix + ' ' + new Intl.DateTimeFormat('en', {
+  return siteConfig.copy.status.updatedPrefix + ' ' + new Intl.DateTimeFormat(siteConfig.general.locale, {
     hour: '2-digit',
     minute: '2-digit',
   }).format(date)
@@ -43,15 +43,27 @@ export function ServerStatusCard() {
 export default function SiteNav({ activeSection }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const scrolledRef = useRef(false)
   const links = siteConfig.navigation.filter((item) => item.id === 'home' || siteConfig.sections[item.id])
 
   useEffect(() => {
+    let frame = 0
     function onScroll() {
-      setScrolled(window.scrollY > 32)
+      if (frame) return
+      frame = window.requestAnimationFrame(() => {
+        frame = 0
+        const nextScrolled = window.scrollY > 32
+        if (scrolledRef.current === nextScrolled) return
+        scrolledRef.current = nextScrolled
+        setScrolled(nextScrolled)
+      })
     }
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.cancelAnimationFrame(frame)
+    }
   }, [])
 
   function closeMenu() {

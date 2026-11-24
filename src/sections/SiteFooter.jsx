@@ -8,6 +8,7 @@ const currentYear = new Date().getFullYear()
 export default function SiteFooter() {
   const socials = getVisibleSocials()
   const copy = siteConfig.copy.footer
+  const copyrightYear = siteConfig.footer.copyrightYear || currentYear
   const footerLinks = siteConfig.navigation.filter(
     (item) => item.id === 'home' || siteConfig.sections[item.id],
   )
@@ -63,7 +64,7 @@ export default function SiteFooter() {
         </div>
 
         <div className="footer-bottom">
-          <span>© {currentYear} {siteConfig.footer.copyrightName}. {copy.copyrightSuffix}</span>
+          <span>{siteConfig.footer.copyrightSymbol} {copyrightYear} {siteConfig.footer.copyrightName}. {copy.copyrightSuffix}</span>
           <span className="footer-edition">{copy.editionName} <i /> {copy.editionLabel}</span>
           <a href="#home" aria-label={copy.backToTopAria}>{copy.backToTopLink}</a>
         </div>

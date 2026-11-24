@@ -1,6 +1,6 @@
 /**
  * JA-NEE RP WEBSITE CONFIGURATION
- * Change site copy, images, links, colours, status settings and motion here.
+ * Change site content, metadata, assets, links, palette, layout, effects, and motion here.
  * Starter copy and sample content are marked so they can be reviewed before launch.
  */
 
@@ -10,6 +10,7 @@ const siteConfig = {
     name: 'Ja-Nee RP',
     title: 'Ja-Nee RP | A city for your next story',
     description: 'Discover Ja-Nee RP, explore the community, and find the details you need before joining.',
+    locale: 'en-ZA',
     themeColor: '#0C1A12',
     favicon: 'assets/images/favicon.svg',
     openGraph: {
@@ -54,6 +55,87 @@ const siteConfig = {
     bodyFont: 'Montserrat, Arial, sans-serif',
     displayFont: '"STIX Two Text", Georgia, serif',
     monoFont: 'SFMono-Regular, Consolas, Liberation Mono, monospace',
+  },
+
+  // GLOBAL DESIGN CONTROLS: tune the overall layout, type scale, shapes, glass, and hover feel here.
+  // These settings apply across desktop and responsive layouts unless a component has its own rule.
+  design: {
+    layout: {
+      pageMaxWidth: '1200px',
+      pageGutter: '48px',
+      pageMaxWidthTablet: '720px',
+      pageGutterTablet: '28px',
+      pageMaxWidthMobile: '560px',
+      pageGutterMobile: '20px',
+      pageGutterNarrow: '16px',
+      navMaxWidth: '1320px',
+      navGutter: '48px',
+      navMaxWidthTablet: '720px',
+      navGutterTablet: '40px',
+      navGutterMobile: '28px',
+      navGutterNarrow: '20px',
+      navHeight: '68px',
+      navHeightTablet: '64px',
+      navHeightMobile: '60px',
+      navOffsetTop: '14px',
+      sectionMinHeight: '88svh',
+      sectionMinHeightTablet: '0',
+      sectionPadding: 'clamp(92px, 10vw, 140px)',
+      sectionPaddingTablet: '100px',
+      sectionPaddingMobile: '82px',
+      heroMinHeight: 'max(760px, 100svh)',
+      heroMinHeightTablet: 'max(820px, 100svh)',
+      heroMinHeightMobile: 'max(900px, 100svh)',
+      heroPaddingTop: '132px',
+      heroPaddingBottom: '94px',
+      heroPaddingTopTablet: '126px',
+      heroPaddingTopMobile: '116px',
+      heroPaddingBottomMobile: '100px',
+      joinSectionPadding: 'clamp(100px, 12vw, 154px)',
+      joinColumnGap: 'clamp(50px, 7vw, 102px)',
+      scrollOffset: '92px',
+      scrollOffsetMobile: '78px',
+      sectionScrollMargin: '82px',
+    },
+    shape: {
+      panelRadius: '28px',
+      cardRadius: '20px',
+      controlRadius: '14px',
+      pillRadius: '999px',
+    },
+    surfaces: {
+      glass: 'rgba(18, 35, 24, .82)',
+      darkGlass: 'rgba(8, 20, 12, .78)',
+      raisedGlass: 'rgba(38, 64, 45, .72)',
+      glassBlur: '12px',
+      shadowSoft: '0 24px 76px rgba(0, 0, 0, .25)',
+      shadowCard: '0 18px 48px rgba(0, 0, 0, .28)',
+    },
+    typography: {
+      bodySize: '12px',
+      bodyLargeSize: '14px',
+      smallSize: '10px',
+      navSize: '11px',
+      buttonSize: '11px',
+      heroSize: 'clamp(68px, 7.4vw, 112px)',
+      heroSizeTablet: 'clamp(56px, 7.2vw, 72px)',
+      heroSizeWideTablet: 'clamp(62px, 7.8vw, 82px)',
+      heroSizeMobile: 'clamp(58px, 13.7vw, 83px)',
+      sectionHeadingSize: 'clamp(45px, 5.8vw, 76px)',
+      sectionHeadingTablet: 'clamp(48px, 7.3vw, 68px)',
+      sectionHeadingMobile: 'clamp(42px, 10.7vw, 62px)',
+      cardTitleSize: 'clamp(27px, 3.2vw, 38px)',
+      lineHeight: '1.7',
+      headingLetterSpacing: '-.045em',
+    },
+    effects: {
+      hoverLift: '2px',
+      fastTransition: '180ms',
+      baseTransition: '220ms',
+      heroGridOpacity: '.1',
+    },
+    // Optional final override area for any fine detail not covered by the controls above.
+    cssOverrides: '',
   },
 
   // TOP-LEVEL NAVIGATION AND VISIBLE SECTIONS
@@ -168,21 +250,16 @@ const siteConfig = {
       inviteLabel: 'Join the community',
       inviteUnavailable: 'The community invite is unavailable right now.',
       promise: 'One landing page. All the details you need before you join.',
-      widgetHeading: 'DISCORD COMMUNITY',
-      widgetMark: 'JN / RP',
-      widgetLoadingTitle: 'Connecting to Discord…',
-      widgetLoadingMessage: 'Checking that the public community preview is available.',
-      widgetUnavailableTitle: 'Community preview unavailable',
-      widgetIframeTitle: 'Ja-Nee RP Discord server widget',
-      widgetPlaceholder: 'JA-NEE RP / COMMUNITY',
-      widgetDisabledMessage: 'Discord refused the public preview. Check the Server ID in siteConfig.js and confirm Server Settings → Widget is enabled. The invite button still works.',
-      widgetServerNotFoundMessage: 'Discord could not find this server ID. Check the ID in siteConfig.js. The invite button still works.',
-      widgetTimeoutMessage: 'Discord took too long to respond. You can still join with the invite button.',
-      widgetNetworkMessage: 'Discord could not be reached just now. You can still use the community invite.',
-      widgetNotConfiguredMessage: 'Add the Discord server ID and enable the widget in siteConfig.js to show a live preview.',
-      widgetFooterBrand: 'JA-NEE RP',
-      widgetFooterLabel: 'COMMUNITY / CONNECTION',
-      widgetCaption: 'The live preview is optional. The community invite works on its own.',
+      pathEyebrow: 'A SIMPLE WAY TO BEGIN',
+      pathMark: 'JN / 01',
+      pathTitle: 'Your next chapter starts here.',
+      pathDescription: 'Get to know the community, find your footing, and make yourself at home.',
+      pathSteps: [
+        { number: '01', title: 'Explore', description: 'Read the community guide and quick answers.' },
+        { number: '02', title: 'Connect', description: 'Join the community when you are ready.' },
+        { number: '03', title: 'Begin', description: 'Introduce yourself and start your story.' },
+      ],
+      pathFooter: 'EXPLORE · CONNECT · BEGIN',
       decoration: ['SEE YOU', 'IN THE CITY'],
     },
     common: {
@@ -391,15 +468,9 @@ const siteConfig = {
     index: '05',
   },
 
-  // DISCORD: supply your own invite and server ID. No server details are assumed.
+  // COMMUNITY INVITATION: configure the public invite link and approved invitation copy.
   discord: {
     inviteUrl: 'https://discord.gg/jKx5JRHE86',
-    serverId: '1334077584039874581',
-    widgetEnabled: true,
-    widgetTheme: 'dark',
-    widgetWidth: 340,
-    widgetHeight: 400,
-    widgetCheckTimeoutMs: 9000,
     heading: 'Your next story starts with a hello.',
     message: 'Meet the Ja-Nee RP community, get the details you need, and find your way into the city.',
   },
@@ -434,8 +505,9 @@ const siteConfig = {
       repeat: 'no-repeat',
       overlayColor: '#102416',
       overlayOpacity: 0.28,
+      imageOpacity: 0.64,
       gradient: 'linear-gradient(90deg, rgba(13, 29, 17, .96) 0%, rgba(13, 29, 17, .82) 48%, rgba(13, 29, 17, .36) 100%)',
-      blur: 0,
+      blur: 12,
     },
     about: {
       src: '',
@@ -458,11 +530,11 @@ const siteConfig = {
       repeat: 'no-repeat',
       overlayColor: '#102416',
       overlayOpacity: 0.42,
+      imageOpacity: 0.4,
       gradient: 'linear-gradient(110deg, rgba(13, 29, 17, .97) 4%, rgba(13, 29, 17, .86) 58%, rgba(13, 29, 17, .5) 100%)',
       blur: 0,
     },
     footer: { src: '', position: 'center', size: 'cover', repeat: 'no-repeat', overlayColor: '#0B1A10', overlayOpacity: 0.1, gradient: '', blur: 0 },
-    socialPreview: { src: 'assets/images/hero-city.svg' },
   },
 
   // CUSTOM CURSOR: cursor pack artwork is stored in public/assets/cursors/.
@@ -499,6 +571,8 @@ const siteConfig = {
   footer: {
     description: 'A place for the stories you bring.',
     copyrightName: 'Ja-Nee RP',
+    copyrightSymbol: '©',
+    copyrightYear: '',
     backToTopLabel: 'Back to top',
     statusLinkEnabled: true,
   },

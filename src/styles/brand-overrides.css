@@ -39,7 +39,7 @@ h4,
 .server-status-name,
 .social-copy strong,
 .social-empty strong,
-.widget-fallback strong {
+.join-path-card h3 {
   font-family: var(--font-display);
 }
 
@@ -59,7 +59,7 @@ h4,
   border-radius: 999px;
   background: color-mix(in srgb, var(--color-nav-surface) 90%, transparent);
   box-shadow: 0 16px 42px rgba(4, 22, 2, .2);
-  backdrop-filter: blur(18px);
+  backdrop-filter: blur(var(--effect-glass-blur, 12px));
 }
 
 .site-nav--scrolled .nav-inner {
@@ -169,7 +169,7 @@ h4,
   border-radius: 20px;
   background: color-mix(in srgb, var(--color-nav-surface) 90%, transparent);
   box-shadow: 0 22px 55px rgba(3, 21, 1, .28);
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(var(--effect-glass-blur, 12px));
 }
 
 .server-status-top {
@@ -623,46 +623,8 @@ h4,
   font-weight: 800;
 }
 
-.widget-frame {
-  padding: 16px;
-  border: 1px solid color-mix(in srgb, var(--color-gold) 35%, transparent);
-  border-radius: var(--radius-panel);
-  background: color-mix(in srgb, var(--color-nav-surface) 88%, transparent);
-  box-shadow: 0 25px 68px rgba(2, 18, 1, .32);
-}
-
-.widget-frame-head,
-.widget-frame-foot {
-  color: color-mix(in srgb, var(--color-white) 72%, transparent);
-}
-
-.widget-frame-mark,
-.widget-placeholder-code {
-  color: var(--color-gold);
-}
-
-.discord-widget,
-.widget-fallback {
-  overflow: hidden;
-  border-radius: 15px;
-}
-
-.discord-widget {
-  background: var(--color-forest-deep);
-}
-
-.widget-fallback {
-  background: linear-gradient(145deg, var(--color-forest), var(--color-forest-deep));
-}
-
-.widget-fallback-icon {
-  border-color: color-mix(in srgb, var(--color-gold) 45%, transparent);
-  border-radius: 18px;
-  color: var(--color-gold);
-}
-
-.widget-caption {
-  color: color-mix(in srgb, var(--color-white) 70%, transparent);
+.join-path-card {
+  border-color: color-mix(in srgb, var(--color-gold) 32%, transparent);
 }
 
 .site-footer {
@@ -816,10 +778,6 @@ h4,
     border-radius: 20px;
   }
 
-  .widget-frame {
-    padding: 12px;
-    border-radius: 20px;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
