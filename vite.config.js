@@ -4,9 +4,11 @@ import siteConfig from './src/config/siteConfig.js'
 
 const [repositoryOwner, repositoryName] = process.env.GITHUB_REPOSITORY?.split('/') || []
 const isAccountSite = repositoryOwner && repositoryName?.toLowerCase() === (repositoryOwner + '.github.io').toLowerCase()
-const base = process.env.GITHUB_ACTIONS === 'true' && repositoryName
+const githubPagesBase = process.env.GITHUB_ACTIONS === 'true' && repositoryName
   ? (isAccountSite ? '/' : '/' + repositoryName + '/')
   : '/'
+// Set VITE_BASE_PATH=/ for cPanel's custom-domain root; GitHub Pages keeps its repository path.
+const base = process.env.VITE_BASE_PATH || githubPagesBase
 const buildId = process.env.GITHUB_SHA || new Date().toISOString()
 
 function escapeAttribute(value) {

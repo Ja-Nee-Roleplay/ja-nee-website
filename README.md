@@ -2,7 +2,7 @@
 
 A responsive, single-page landing site for Ja-Nee RP, built with React and Vite. The visual direction is documented in **docs/DESIGN-CONCEPT.md**. The original style selection was randomized, then refined into a modern dark editorial design with a #165209 forest green identity, deep evergreen canvas, translucent raised panels, warm gold accents, rounded cards, glass blur, and a section navigator.
 
-The project includes editable content and theme settings, responsive chapter layouts, mobile navigation, rules and FAQ accordions, a direct Discord invite, an honest FiveM status reader, reduced-motion support, local bundled fonts, and a GitHub Pages deployment workflow. Larger screens use gentle scroll snapping and a compact chapter navigator. Server-specific facts and links that were not supplied are left empty or marked as examples.
+The project includes editable content and theme settings, responsive chapter layouts, mobile navigation, rules and FAQ accordions, a direct Discord invite, an honest FiveM status reader, reduced-motion support, local bundled fonts, and a GitHub Actions workflow for cPanel deployment. Larger screens use gentle scroll snapping and a compact chapter navigator. Server-specific facts and links that were not supplied are left empty or marked as examples.
 
 ## Before publishing
 
@@ -105,7 +105,7 @@ The Discord invite is configured separately in the discord group.
 
 ## Show the staff team
 
-Save profile pictures in **src/assets/staff/** or **public/assets/staff/** and add each person under `staffTeam.members` in **src/config/siteConfig.js** with a `name` and an `avatar` path, such as `assets/staff/staff-name.png`. Files in `src/assets/staff/` are bundled and fingerprinted for GitHub Pages; files in `public/assets/staff/` are copied as-is. You can also use a complete HTTPS avatar URL. Set `staffTeam.enabled` to `true` to show the row in the footer; leave it `false` to hide the roster. Names appear when visitors hover over or keyboard-focus an avatar, and remain visible on touch screens. Entries missing either a name or avatar are skipped.
+Save profile pictures in **src/assets/staff/** or **public/assets/staff/** and add each person under `staffTeam.members` in **src/config/siteConfig.js** with a `name` and an `avatar` path, such as `assets/staff/staff-name.png`. Files in `src/assets/staff/` are bundled and fingerprinted in the production build; files in `public/assets/staff/` are copied as-is. You can also use a complete HTTPS avatar URL. Set `staffTeam.enabled` to `true` to show the row in the footer; leave it `false` to hide the roster. Names appear when visitors hover over or keyboard-focus an avatar, and remain visible on touch screens. Entries missing either a name or avatar are skipped.
 
 ## Announce a launch
 
@@ -131,7 +131,7 @@ The site does not embed a Discord server preview. Its invite button opens the co
 
 The fivem group in siteConfig.js contains serverIp, serverPort, statusApiEndpoint, directEndpointPath, refreshIntervalMs, timeoutMs, and showPlayerCount.
 
-The default direct path is /dynamic.json. Cfx.re documents the public server information endpoint at /info.json and the dynamic server endpoint in its proxy guide. A browser request can still fail because of HTTPS mixed-content rules or CORS. GitHub Pages is served over HTTPS, so a plain HTTP FiveM endpoint may be blocked by the browser. For dependable deployed status, use a public HTTPS status endpoint or a small proxy you control, with CORS enabled. Do not put private API keys in siteConfig.js.
+The default direct path is /dynamic.json. Cfx.re documents the public server information endpoint at /info.json and the dynamic server endpoint in its proxy guide. A browser request can still fail because of HTTPS mixed-content rules or CORS. When the site is served over HTTPS, a plain HTTP FiveM endpoint may be blocked by the browser. For dependable deployed status, use a public HTTPS status endpoint or a small proxy you control, with CORS enabled. Do not put private API keys in siteConfig.js.
 
 When statusApiEndpoint is set, it takes priority over the direct host. The response can use a status field with online, offline, restarting, or maintenance and optional players and maxPlayers values. It can also use players and capacity fields such as those returned by dynamic.json; those fields indicate online when the response is valid. An unreachable, timed-out, blocked, malformed, or unconfigured endpoint shows UNKNOWN. The page never guesses OFFLINE from a failed network request. The last successful update and player count are shown only when available.
 
@@ -141,28 +141,13 @@ The Ja-Nee cursor pack is split into transparent default, hover, link-hand, and 
 
 The custom cursor is used only with a fine mouse pointer. It is hidden on touchscreen devices, does not intercept pointer events, and falls back to the default sprite if a state-specific image is not set. Text fields and selectable text use the text caret image; links use the link hand, and buttons use the green hover arrow.
 
-## GitHub Pages deployment
+## Publish to Hyper Layer cPanel
 
-The project includes **.github/workflows/deploy.yml**. It runs the lint check and production build, uploads the dist folder as the `github-pages` artifact, then publishes it from a separate job when you push to main or master. Keeping deployment in a dependent job avoids GitHub’s intermittent artifact lookup race. It can also be started manually from the repository’s Actions tab. The workflow uses GitHub Pages’ Actions deployment.
+The GitHub repository is the source of truth. **.github/workflows/deploy.yml** runs the lint check, builds the site for the root of a custom domain, and can upload only the finished **dist/** files to cPanel over FTPS. It does not upload your source files, Git history, or `node_modules`. The site is static, so cPanel does not need to run Node.js or a database.
 
-If you are publishing this folder for the first time:
+The upload is disabled until you add the cPanel connection details in GitHub and set `CPANEL_DEPLOY_ENABLED` to `true`. For the complete domain, cPanel, GitHub, first-deploy, and rollback instructions, follow **[docs/CPANEL-DEPLOYMENT.md](docs/CPANEL-DEPLOYMENT.md)**. The workflow can be run manually from GitHub Actions or automatically on pushes to `main` or `master`.
 
-1. Create an empty GitHub repository for the site.
-2. In this project folder, initialise Git, commit the files, and connect the repository URL:
-
-~~~bash
-git init -b main
-git add .
-git commit -m "Create Ja-Nee RP website"
-git remote add origin YOUR_REPOSITORY_URL
-git push -u origin main
-~~~
-
-3. In the GitHub repository, open Settings, then Pages, and set the publishing source to GitHub Actions.
-4. Open the Actions tab and check the latest “Build and deploy Ja-Nee RP website” run.
-5. Use the page URL shown by the deployment after it succeeds.
-
-The Vite configuration reads the GitHub repository from the Actions environment and sets the project-site base path. It also recognises the account-site repository format. If your default branch has another name, add it to the push.branches list in deploy.yml. After the initial push, each push to main or master runs checks, builds the static site, and deploys it. A custom domain and the absolute share-image URL must be configured with the actual domain after you know it.
+The Vite configuration continues to use a repository subpath for GitHub Pages builds. The cPanel workflow sets `VITE_BASE_PATH=/`, so the same site and asset paths work at the root of your custom domain. The workflow no longer creates GitHub Pages artifacts.
 
 ## SEO and sharing
 
@@ -177,8 +162,10 @@ The site uses landmark elements, a skip link, labelled navigation, keyboard-focu
 - **Status remains UNKNOWN:** Confirm the server host or HTTPS status endpoint, port, endpoint path, timeout, response format, CORS headers, and HTTPS compatibility. UNKNOWN is expected when the browser cannot confirm the source.
 - **Discord invite button is unavailable:** Add a complete official HTTPS invite URL in the discord group.
 - **An image is missing:** Check the filename and path relative to the public folder. Paths in siteConfig start with assets/, not public/.
-- **GitHub Pages shows a blank page:** Check the Actions run and Pages source setting. Confirm the repository name is available to the workflow and the deployed artifact contains the built files.
-- **GitHub Actions says “No artifacts named github-pages”:** Confirm the build job’s “Upload website” step succeeded. The deploy job waits for the build job so GitHub has time to register the uploaded artifact.
+- **cPanel did not update:** Check that `CPANEL_DEPLOY_ENABLED` is exactly `true`, `CPANEL_DEPLOY_DRY_RUN` is `false`, the cPanel secrets are set, and the FTPS hostname, protocol, port, and document-root path match Hyper Layer’s details. Inspect the “Upload built website to cPanel over FTPS” step in the Actions run.
+- **The deployed site has a blank page or missing files:** Confirm `CPANEL_FTP_SERVER_DIR` is the domain’s document root and ends in `/`; it should not point at the repository directory. Check that the built assets were uploaded alongside `index.html`.
+- **The custom domain does not open over HTTPS:** Confirm its DNS records point to the Hyper Layer hosting service, then check cPanel’s SSL/TLS Status and AutoSSL state.
+- **The workflow says FTPS authentication or connection failed:** Verify the host’s exact FTP hostname, username, password, supported FTPS mode, and port with Hyper Layer. Do not change the protocol to unencrypted FTP to work around an error.
 - **The workflow does not start:** Push to main or master, or add your branch name to deploy.yml.
 - **A mobile menu remains open:** Use its menu button to close it; selecting a section link closes the menu automatically.
 - **The custom cursor does not appear:** Confirm the image path and enabled flag, then test with a mouse on a desktop-sized pointer. It is hidden on touchscreen devices.
@@ -204,6 +191,7 @@ src/
   styles/
   utils/
 .github/workflows/deploy.yml
+docs/CPANEL-DEPLOYMENT.md
 docs/DESIGN-CONCEPT.md
 index.html
 package.json

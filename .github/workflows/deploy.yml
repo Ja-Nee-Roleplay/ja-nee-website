@@ -1,4 +1,4 @@
-name: Build and deploy Ja-Nee RP website
+name: Build and deploy Ja-Nee RP to cPanel
 
 on:
   push:
@@ -8,18 +8,19 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: github-pages
-  cancel-in-progress: true
+  group: cpanel-production
+  cancel-in-progress: false
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      pages: read
     steps:
       - name: Check out website
         uses: actions/checkout@v7
+        with:
+          fetch-depth: 2
 
       - name: Set up Node.js
         uses: actions/setup-node@v7
@@ -33,28 +34,24 @@ jobs:
       - name: Run code checks
         run: npm run lint
 
-      - name: Build static website
+      - name: Build static website for the custom domain root
+        env:
+          VITE_BASE_PATH: /
         run: npm run build
 
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v6
-
-      - name: Upload website
-        uses: actions/upload-pages-artifact@v5
+      - name: Upload built website to cPanel over FTPS
+        if: ${{ vars.CPANEL_DEPLOY_ENABLED == 'true' }}
+        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
         with:
-          name: github-pages
-          path: dist
+          server: ${{ secrets.CPANEL_FTP_HOST }}
+          username: ${{ secrets.CPANEL_FTP_USERNAME }}
+          password: ${{ secrets.CPANEL_FTP_PASSWORD }}
+          protocol: ${{ vars.CPANEL_FTP_PROTOCOL || 'ftps' }}
+          port: ${{ vars.CPANEL_FTP_PORT || '21' }}
+          local-dir: ./dist/
+          server-dir: ${{ vars.CPANEL_FTP_SERVER_DIR || './' }}
+          dry-run: ${{ vars.CPANEL_DEPLOY_DRY_RUN == 'true' }}
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Publish website
-        id: deployment
-        uses: actions/deploy-pages@v5
+      - name: Explain that cPanel deployment is not enabled yet
+        if: ${{ vars.CPANEL_DEPLOY_ENABLED != 'true' }}
+        run: echo "::notice title=cPanel deployment is disabled::Build passed. Configure the documented GitHub secrets and variables, then set CPANEL_DEPLOY_ENABLED to true."
