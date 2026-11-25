@@ -82,6 +82,8 @@ The action does not use its “clean slate” option. Even so, the document root
 
 After this, every push to `main` or `master` runs lint and build. If both succeed and `CPANEL_DEPLOY_ENABLED` remains `true`, GitHub Actions uploads the new `dist/` files to the primary destination and, if configured, the secondary destination. You can also start an upload manually from **Actions**.
 
+The build includes `public/.htaccess` as a hidden file in the document root. On Apache hosting, it prevents browsers from holding on to old `index.html` and `version.json` responses, while long-cache fingerprinted build assets remain safe because each build gives them a new filename. The page checks for a new version every 15 seconds and offers a refresh button after the upload has completed; it does not reload visitors without asking. If the notice does not appear, enable **Show Hidden Files** in cPanel File Manager and confirm `.htaccess` is beside `index.html`. A separate host or proxy cache may need to be cleared independently.
+
 ## 7. Edit, publish, and roll back
 
 Make changes in this repository, not in the deployed `dist/` output. For content and design edits, use `src/config/siteConfig.js`; for layout or interactions, edit the corresponding files in `src/`. Preview locally with:

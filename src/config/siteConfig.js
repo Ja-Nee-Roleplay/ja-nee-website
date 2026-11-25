@@ -21,7 +21,7 @@ const siteConfig = {
   },
   // LOGOS: paths can point to files anywhere inside src/assets
   branding: {
-    logo: "assets/logos/JA·NEE Roleplay Logo.png",
+    logo: "assets/optimized/ja-nee-logo-2x.png",
     alternativeLogo: "",
     logoAlt: "Ja-Nee RP",
     logoHeight: 56,
@@ -542,11 +542,11 @@ const siteConfig = {
     members: [
       {
         name: "Sakkie de Kok • Owner",
-        avatar: "assets/staff/sakkie.png"
+        avatar: "assets/optimized/sakkie-avatar-400.jpg"
       },
       {
         name: "Meyer Hunter • Co-Owner",
-        avatar: "assets/staff/meyer.png"
+        avatar: "assets/optimized/meyer-avatar-400.jpg"
       },
       {
         name: "Rico Moretti • Co-Owner",
@@ -571,6 +571,12 @@ const siteConfig = {
     // Leave blank to use discord.inviteUrl. The link is hidden when that URL is not valid.
     discordUrl: "https://discord.gg/jKx5JRHE86",
     showDiscordLink: true
+  },
+  // LIVE UPDATE CHECKS (cPanel still needs a successful GitHub deploy first)
+  updates: {
+    enabled: true,
+    // Visitors are prompted to refresh within this interval after a new build is published.
+    checkIntervalMs: 15000
   },
   // FIVEM STATUS CONNECTION SETTINGS
   fivem: {

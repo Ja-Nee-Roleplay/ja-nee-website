@@ -50,7 +50,9 @@ npm run build
 npm run preview
 ~~~
 
-The production build is written to the dist folder. The preview command serves that built site locally. The build creates a small version.json file used by the optional deployed-update notice. Visitors can dismiss that notice; the site never forces a refresh.
+The production build is written to the dist folder. The preview command serves that built site locally. The build creates a small version.json file used by the deployed-update notice. Visitors are prompted within 15 seconds of a new successful deployment and choose when to refresh; the site never reloads while they are reading. Set `updates.enabled` or `updates.checkIntervalMs` in `siteConfig.js` to change this behavior. Live changes still need the GitHub build and cPanel upload to finish; for immediate editing feedback, use the local Vite preview above.
+
+For cPanel, `public/.htaccess` is copied into the build root. It prevents stale copies of `index.html` and `version.json` from being reused, gives fingerprinted build assets long-lived caching, and keeps ordinary assets on a short revalidation interval. If the host or a separate proxy has its own cache, that cache may also need clearing after a deploy.
 
 ## The central settings file
 
@@ -163,6 +165,7 @@ The site uses landmark elements, a skip link, labelled navigation, keyboard-focu
 - **Discord invite button is unavailable:** Add a complete official HTTPS invite URL in the discord group.
 - **An image is missing:** Check the filename and path relative to the public folder. Paths in siteConfig start with assets/, not public/.
 - **cPanel did not update:** Check that `CPANEL_DEPLOY_ENABLED` is exactly `true`, `CPANEL_DEPLOY_DRY_RUN` is `false`, the cPanel secrets are set, and the FTPS hostname, protocol, port, and document-root path match Hyper Layer’s details. Inspect the “Upload built website to cPanel over FTPS” step in the Actions run.
+- **The page still shows old content after a successful deploy:** Wait for the update notice (normally within 15 seconds) and select **Refresh**, or reload the page. In cPanel File Manager, enable **Show Hidden Files** and confirm `.htaccess` is beside `index.html`; clear any separate host or proxy cache if one is enabled.
 - **The deployed site has a blank page or missing files:** Confirm `CPANEL_FTP_SERVER_DIR` is the domain’s document root and ends in `/`; it should not point at the repository directory. Check that the built assets were uploaded alongside `index.html`.
 - **The main site updates but the secondary folder does not:** Add `CPANEL_FTP_SECONDARY_SERVER_DIR` as a repository variable with the folder path relative to the FTP account’s starting directory, then confirm the optional second-upload step succeeded in Actions.
 - **The custom domain does not open over HTTPS:** Confirm its DNS records point to the Hyper Layer hosting service, then check cPanel’s SSL/TLS Status and AutoSSL state.

@@ -68,10 +68,13 @@ function UpdateNotice() {
   const [updateAvailable, setUpdateAvailable] = useState(false)
 
   useEffect(() => {
-    if (import.meta.env.DEV) return undefined
+    if (import.meta.env.DEV || !siteConfig.updates.enabled) return undefined
 
     let stopped = false
+    let checking = false
     async function checkForUpdate() {
+      if (stopped || checking) return
+      checking = true
       try {
         const response = await fetch(
           import.meta.env.BASE_URL + 'version.json?check=' + Date.now(),
@@ -84,14 +87,25 @@ function UpdateNotice() {
         }
       } catch {
         // A version check is optional; a network error should not affect the page.
+      } finally {
+        checking = false
       }
     }
 
+    function checkWhenVisible() {
+      if (document.visibilityState === 'visible') checkForUpdate()
+    }
+
     checkForUpdate()
-    const timer = window.setInterval(checkForUpdate, 300000)
+    const timer = window.setInterval(
+      checkForUpdate,
+      Math.max(15000, Number(siteConfig.updates.checkIntervalMs) || 15000),
+    )
+    document.addEventListener('visibilitychange', checkWhenVisible)
     return () => {
       stopped = true
       window.clearInterval(timer)
+      document.removeEventListener('visibilitychange', checkWhenVisible)
     }
   }, [])
 
