@@ -12,6 +12,7 @@ import Socials from './sections/Socials.jsx'
 import SiteFooter from './sections/SiteFooter.jsx'
 import { useActiveSection } from './utils/useActiveSection.js'
 import LaunchScreen from './components/LaunchScreen.jsx'
+import InteractionSounds from './components/InteractionSounds.jsx'
 
 const sectionIds = [
   'home',
@@ -210,6 +211,6 @@ export default function App() {
   }, [])
 
   return launchActive
-    ? <LaunchScreen onComplete={completeLaunch} />
-    : <MainSite />
+    ? <><InteractionSounds /><LaunchScreen onComplete={completeLaunch} /></>
+    : <><InteractionSounds /><MainSite /></>
 }

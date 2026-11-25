@@ -1,0 +1,89 @@
+let audioContext = null
+let soundBusyUntil = 0
+
+function getAudioContext() {
+  if (audioContext) return audioContext
+  if (typeof window === 'undefined') return null
+
+  const AudioContextConstructor = window.AudioContext || window.webkitAudioContext
+  if (!AudioContextConstructor) return null
+
+  audioContext = new AudioContextConstructor({ latencyHint: 'interactive' })
+  return audioContext
+}
+
+function clampVolume(volume) {
+  const parsedVolume = Number(volume)
+  if (!Number.isFinite(parsedVolume)) return 0
+  return Math.min(1, Math.max(0, parsedVolume))
+}
+
+function scheduleClick(context, volume, type) {
+  if (!context || context.state !== 'running') return
+
+  const now = context.currentTime
+  if (now < soundBusyUntil || volume <= 0) return
+  soundBusyUntil = now + 0.07
+
+  const isCountdown = type === 'countdown'
+  const duration = isCountdown ? 0.032 : 0.026
+  const noiseBuffer = context.createBuffer(
+    1,
+    Math.ceil(context.sampleRate * duration),
+    context.sampleRate,
+  )
+  const noiseData = noiseBuffer.getChannelData(0)
+  for (let index = 0; index < noiseData.length; index += 1) {
+    const decay = 1 - index / noiseData.length
+    noiseData[index] = (Math.random() * 2 - 1) * decay * decay
+  }
+
+  const noise = context.createBufferSource()
+  noise.buffer = noiseBuffer
+  const filter = context.createBiquadFilter()
+  filter.type = 'bandpass'
+  filter.frequency.setValueAtTime(isCountdown ? 1450 : 980, now)
+  filter.Q.setValueAtTime(0.8, now)
+  const noiseEnvelope = context.createGain()
+  noiseEnvelope.gain.setValueAtTime(0.0001, now)
+  noiseEnvelope.gain.exponentialRampToValueAtTime(Math.max(0.0001, volume * 0.72), now + 0.002)
+  noiseEnvelope.gain.exponentialRampToValueAtTime(0.0001, now + duration)
+  noise.connect(filter)
+  filter.connect(noiseEnvelope)
+  noiseEnvelope.connect(context.destination)
+  noise.start(now)
+  noise.stop(now + duration)
+
+  const tone = context.createOscillator()
+  tone.type = 'sine'
+  tone.frequency.setValueAtTime(isCountdown ? 740 : 520, now)
+  tone.frequency.exponentialRampToValueAtTime(isCountdown ? 390 : 300, now + 0.05)
+  const toneEnvelope = context.createGain()
+  toneEnvelope.gain.setValueAtTime(0.0001, now)
+  toneEnvelope.gain.exponentialRampToValueAtTime(Math.max(0.0001, volume * 0.36), now + 0.002)
+  toneEnvelope.gain.exponentialRampToValueAtTime(0.0001, now + 0.052)
+  tone.connect(toneEnvelope)
+  toneEnvelope.connect(context.destination)
+  tone.start(now)
+  tone.stop(now + 0.055)
+}
+
+export function playInterfaceClick(volume) {
+  const context = getAudioContext()
+  if (!context) return
+
+  const safeVolume = clampVolume(volume)
+  if (context.state === 'suspended') {
+    // This is called directly by a user click, which unlocks audio in browsers.
+    context.resume().then(() => scheduleClick(context, safeVolume, 'interface')).catch(() => {})
+    return
+  }
+
+  scheduleClick(context, safeVolume, 'interface')
+}
+
+export function playCountdownClick(volume) {
+  // Do not create/resume audio from a timer callback; wait for a user gesture first.
+  if (!audioContext || audioContext.state !== 'running') return
+  scheduleClick(audioContext, clampVolume(volume), 'countdown')
+}

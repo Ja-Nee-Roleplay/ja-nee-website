@@ -564,9 +564,11 @@ const siteConfig = {
     enabled: true,
     // Choose "timer" (timer only), "message" (message only), or "both" (message + timer).
     mode: "both",
-    // Use YYYY-MM-DDTHH:mm:ss+02:00 for South African local time.
-    // TEMPORARY TEST VALUE: 2026-11-26 01:09 SAST. Replace before the real launch.
-    launchAt: "2026-11-26T01:09:00+02:00",
+    // Use any future ISO date/time; +02:00 is South African local time. A few minutes ahead is fine for testing.
+    // TEMPORARY TEST VALUE: 2026-11-26 01:50 SAST. Replace before the real launch.
+    launchAt: "2026-11-26T01:50:00+01:45",
+    // Candle begins shrinking during this many final minutes before launch.
+    candleBurnMinutes: 15,
     title: "A new chapter is on the horizon.",
     message: "We’re getting the city ready. We’ll open the doors soon.",
     // Leave blank to use discord.inviteUrl. The link is hidden when that URL is not valid.
@@ -581,6 +583,14 @@ const siteConfig = {
     enabled: true,
     // Visitors are prompted to refresh within this interval after a new build is published.
     checkIntervalMs: 15000
+  },
+  // SITE-WIDE CLICK SOUNDS. Volumes range from 0 (silent) to 1 (full volume).
+  audio: {
+    enabled: true,
+    interfaceClicksEnabled: true,
+    interfaceClickVolume: 0.018,
+    countdownClicksEnabled: true,
+    countdownClickVolume: 0.055
   },
   // FIVEM STATUS CONNECTION SETTINGS
   fivem: {

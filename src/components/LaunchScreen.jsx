@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import siteConfig from '../config/siteConfig.js'
 import themeStyle from '../config/siteTheme.js'
 import { isSafeExternalUrl } from '../utils/siteHelpers.js'
+import { playCountdownClick } from '../utils/audioFeedback.js'
 
 function pad(value) {
   return String(value).padStart(2, '0')
@@ -53,6 +54,19 @@ export default function LaunchScreen({ onComplete }) {
   const hours = Math.floor(((remainingSeconds || 0) % 86400) / 3600)
   const minutes = Math.floor(((remainingSeconds || 0) % 3600) / 60)
   const seconds = (remainingSeconds || 0) % 60
+  const burnWindowSeconds = Math.max(1, Number(launch.candleBurnMinutes) || 15) * 60
+  const candleBurnProgress = remainingSeconds === null
+    ? 0
+    : Math.min(1, Math.max(0, 1 - remainingSeconds / burnWindowSeconds))
+  const candleWaxHeight = Math.round(124 - candleBurnProgress * 66)
+  const candleFlameHeight = 56 - candleBurnProgress * 11
+  const candleFlameWidth = 34 - candleBurnProgress * 7
+  const candleStyle = {
+    '--candle-wax-height': `${candleWaxHeight}px`,
+    '--candle-flame-height': `${candleFlameHeight}px`,
+    '--candle-flame-width': `${candleFlameWidth}px`,
+    '--candle-glow-bottom': `${candleWaxHeight + 9 + candleFlameHeight / 2 - 220}px`,
+  }
   const showMessage = launch.mode !== 'timer' || !hasValidDate
   const discordUrl = launch.discordUrl || siteConfig.discord.inviteUrl
   const showDiscordLink = showMessage
@@ -67,6 +81,27 @@ export default function LaunchScreen({ onComplete }) {
     { value: pad(minutes), label: copy.units.minutes },
     { value: pad(seconds), label: copy.units.seconds },
   ]
+  const timerValue = units.map((unit) => unit.value).join(':')
+  const previousTimerValue = useRef(null)
+
+  useEffect(() => {
+    if (remainingSeconds === null) {
+      previousTimerValue.current = null
+      return
+    }
+
+    if (
+      previousTimerValue.current !== null
+      && previousTimerValue.current !== timerValue
+      && siteConfig.audio.enabled
+      && siteConfig.audio.countdownClicksEnabled
+    ) {
+      // One short tick per timer update, even when multiple digits flip together.
+      playCountdownClick(siteConfig.audio.countdownClickVolume)
+    }
+
+    previousTimerValue.current = timerValue
+  }, [remainingSeconds, timerValue])
 
   return (
     <div className="site-shell launch-shell" style={themeStyle}>
@@ -75,7 +110,7 @@ export default function LaunchScreen({ onComplete }) {
         aria-labelledby={showMessage ? 'launch-title' : undefined}
         aria-label={showMessage ? undefined : copy.timerOnlyAria}
       >
-        <div className="launch-candle" aria-hidden="true">
+        <div className="launch-candle" style={candleStyle} aria-hidden="true">
           <span className="launch-candle-glow" />
           <span className="launch-candle-flame" />
           <span className="launch-candle-wick" />
@@ -90,10 +125,21 @@ export default function LaunchScreen({ onComplete }) {
             </>
           )}
           {remainingSeconds !== null && (
-            <div className="launch-countdown" role="timer" aria-label={copy.countdownAria}>
+            <div
+              className="launch-countdown"
+              role="timer"
+              aria-label={`${copy.countdownAria}: ${units.map((unit) => `${unit.value} ${unit.label}`).join(', ')}`}
+            >
               {units.map((unit) => (
                 <div className="launch-countdown-unit" key={unit.label}>
-                  <span className="launch-countdown-value">{unit.value}</span>
+                  <span className="flip-clock-pair" aria-hidden="true">
+                    {unit.value.split('').map((digit, index) => (
+                      <span className="flip-clock-digit" key={`${unit.label}-${index}-${digit}`}>
+                        <span className="flip-clock-half flip-clock-half--top">{digit}</span>
+                        <span className="flip-clock-half flip-clock-half--bottom">{digit}</span>
+                      </span>
+                    ))}
+                  </span>
                   <span className="launch-countdown-label">{unit.label}</span>
                 </div>
               ))}
