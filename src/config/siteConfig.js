@@ -588,9 +588,9 @@ const siteConfig = {
   audio: {
     enabled: true,
     interfaceClicksEnabled: true,
-    interfaceClickVolume: 0.018,
+    interfaceClickVolume: 0.04,
     countdownClicksEnabled: true,
-    countdownClickVolume: 0.055
+    countdownClickVolume: 0.1
   },
   // FIVEM STATUS CONNECTION SETTINGS
   fivem: {

@@ -2790,3 +2790,41 @@ body {
     transition: none;
   }
 }
+
+/* Correctly crop each half of the split-flap digits around one full glyph. */
+.flip-clock-half {
+  display: block;
+  align-items: initial;
+  justify-content: initial;
+}
+
+.flip-clock-half--top {
+  top: 0;
+  bottom: auto;
+  padding: 0;
+}
+
+.flip-clock-half--bottom {
+  top: auto;
+  bottom: 0;
+  padding: 0;
+}
+
+.flip-clock-number {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  height: 200%;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  font: inherit;
+  font-variant-numeric: inherit;
+  line-height: 1;
+}
+
+.flip-clock-half--bottom .flip-clock-number {
+  top: -100%;
+}

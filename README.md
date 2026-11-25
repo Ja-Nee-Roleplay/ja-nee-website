@@ -123,7 +123,7 @@ For example, set `enabled: true`, `mode: "both"`, and use a valid date such as `
 
 `launch.candleBurnMinutes` controls how many final minutes the candle takes to burn down. It stays full until that burn window, then shortens gradually with the countdown. The default is 15 minutes; set it to match the countdown window you want to preview or use for launch.
 
-The top-level `audio` group controls the click sounds. `interfaceClicksEnabled` plays a very soft synthesized click for clicks in the website, while `countdownClicksEnabled` plays one short flip-clock tick each time the displayed countdown changes. When several digits change together, they share one tick; the sound engine also prevents a second sound from overlapping the first. Adjust each volume from `0` (silent) to `1` (full), or set `enabled` to `false` to turn all site sounds off. Browsers only permit audio after the visitor’s first click, so countdown ticks begin after that first interaction.
+The top-level `audio` group controls the click sounds. `interfaceClicksEnabled` plays a soft synthesized click on pointer/tap and keyboard activation, while `countdownClicksEnabled` plays one short flip-clock tick each time the displayed countdown changes. When several digits change together, they share one tick; the sound engine also prevents a second sound from overlapping the first. Adjust each volume from `0` (silent) to `1` (full), or set `enabled` to `false` to turn all site sounds off. Browsers only permit audio after a visitor interaction, so countdown ticks begin after their first click, tap, or keyboard activation.
 
 ## Configure the Discord invite
 

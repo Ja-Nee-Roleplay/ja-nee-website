@@ -135,8 +135,12 @@ export default function LaunchScreen({ onComplete }) {
                   <span className="flip-clock-pair" aria-hidden="true">
                     {unit.value.split('').map((digit, index) => (
                       <span className="flip-clock-digit" key={`${unit.label}-${index}-${digit}`}>
-                        <span className="flip-clock-half flip-clock-half--top">{digit}</span>
-                        <span className="flip-clock-half flip-clock-half--bottom">{digit}</span>
+                        <span className="flip-clock-half flip-clock-half--top">
+                          <span className="flip-clock-number">{digit}</span>
+                        </span>
+                        <span className="flip-clock-half flip-clock-half--bottom">
+                          <span className="flip-clock-number">{digit}</span>
+                        </span>
                       </span>
                     ))}
                   </span>
