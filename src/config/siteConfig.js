@@ -565,7 +565,7 @@ const siteConfig = {
     // Choose "timer" (timer only), "message" (message only), or "both" (message + timer).
     mode: "both",
     // Use YYYY-MM-DDTHH:mm:ss+02:00 for South African local time.
-    launchAt: "2026-11-26:mm:ss+00:45",
+    launchAt: "2026-11-26:mm:ss+01:00",
     title: "A new chapter is on the horizon.",
     message: "We’re getting the city ready. We’ll open the doors soon.",
     // Leave blank to use discord.inviteUrl. The link is hidden when that URL is not valid.
