@@ -112,6 +112,7 @@ If a bad change is already live, revert its commit and push the revert. That pre
 
 - GitHub is the source repository; cPanel is the static-file host. Treat cPanel’s document root as generated output, not as the editable source tree.
 - The workflow builds on GitHub with `VITE_BASE_PATH=/`, so hashed JavaScript, CSS, fonts, and images resolve from the custom domain root.
+- The FTP deployment action is pinned to the exact upstream commit for v4.4.0. Review and deliberately update that pin when adopting a newer release.
 - The upload target receives `dist/` only. It does not upload the React source or run `npm install` on Hyper Layer.
 - The current rulebook PDF is about 9.9 MB and is included in `dist/`. Visitors download it only if they open the Rules link; it is not part of the page’s initial download.
 - The workflow does not use GitHub Pages’ artifact upload/deploy steps, which avoids the Pages artifact handoff that caused earlier failures.
@@ -125,4 +126,5 @@ If a bad change is already live, revert its commit and push the revert. That pre
 - [cPanel Domains](https://docs.cpanel.net/cpanel/domains/domains/)
 - [cPanel deployment setup](https://docs.cpanel.net/knowledge-base/web-services/guide-to-git-set-up-deployment/)
 - [GitHub Actions secrets](https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-secrets)
+- [GitHub Actions secure-use guidance](https://docs.github.com/en/actions/reference/security/secure-use)
 - [FTP Deploy Action usage and FTPS settings](https://github.com/SamKirkland/FTP-Deploy-Action)
