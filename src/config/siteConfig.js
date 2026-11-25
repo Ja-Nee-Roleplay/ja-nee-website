@@ -570,7 +570,10 @@ const siteConfig = {
     message: "We’re getting the city ready. We’ll open the doors soon.",
     // Leave blank to use discord.inviteUrl. The link is hidden when that URL is not valid.
     discordUrl: "https://discord.gg/jKx5JRHE86",
-    showDiscordLink: true
+    showDiscordLink: true,
+    // Add { label: "Rules", url: "https://..." } entries for optional links beside Discord.
+    // Leave empty to show only the Discord link.
+    links: []
   },
   // LIVE UPDATE CHECKS (cPanel still needs a successful GitHub deploy first)
   updates: {

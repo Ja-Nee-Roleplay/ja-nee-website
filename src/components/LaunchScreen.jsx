@@ -13,39 +13,41 @@ export default function LaunchScreen({ onComplete }) {
   const launchAt = Date.parse(launch.launchAt)
   const hasValidDate = Boolean(launch.launchAt) && Number.isFinite(launchAt)
   const countdownEnabled = ['timer', 'both'].includes(launch.mode) && hasValidDate
-  const [now, setNow] = useState(0)
+  const [now, setNow] = useState(() => countdownEnabled ? Date.now() : 0)
 
   useEffect(() => {
     if (!countdownEnabled) return
 
+    let completed = false
     let timer
-    const firstFrame = window.requestAnimationFrame(() => {
-      const initialTime = Date.now()
-      if (launchAt <= initialTime) {
-        onComplete()
+    let completionTimer
+
+    function updateCountdown() {
+      if (completed) return
+      const currentTime = Date.now()
+      if (currentTime >= launchAt) {
+        completed = true
+        setNow(launchAt)
+        window.clearInterval(timer)
+        completionTimer = window.setTimeout(onComplete, 750)
         return
       }
-      setNow(initialTime)
+      setNow(currentTime)
+    }
 
-      timer = window.setInterval(() => {
-        const currentTime = Date.now()
-        if (currentTime >= launchAt) {
-          window.clearInterval(timer)
-          onComplete()
-          return
-        }
-        setNow(currentTime)
-      }, 1000)
-    })
+    updateCountdown()
+    timer = window.setInterval(updateCountdown, 1000)
+    document.addEventListener('visibilitychange', updateCountdown)
 
     return () => {
-      window.cancelAnimationFrame(firstFrame)
       if (timer) window.clearInterval(timer)
+      if (completionTimer) window.clearTimeout(completionTimer)
+      document.removeEventListener('visibilitychange', updateCountdown)
     }
   }, [countdownEnabled, launchAt, onComplete])
 
   const remainingSeconds = countdownEnabled && now > 0
-    ? Math.max(1, Math.ceil((launchAt - now) / 1000))
+    ? Math.max(0, Math.ceil((launchAt - now) / 1000))
     : null
   const days = Math.floor((remainingSeconds || 0) / 86400)
   const hours = Math.floor(((remainingSeconds || 0) % 86400) / 3600)
@@ -56,6 +58,9 @@ export default function LaunchScreen({ onComplete }) {
   const showDiscordLink = showMessage
     && launch.showDiscordLink !== false
     && isSafeExternalUrl(discordUrl)
+  const additionalLinks = showMessage && Array.isArray(launch.links)
+    ? launch.links.filter((link) => link?.enabled !== false && link?.label?.trim() && isSafeExternalUrl(link.url))
+    : []
   const units = [
     { value: String(days).padStart(2, '0'), label: copy.units.days },
     { value: pad(hours), label: copy.units.hours },
@@ -94,17 +99,33 @@ export default function LaunchScreen({ onComplete }) {
               ))}
             </div>
           )}
-          {showDiscordLink && (
-            <a
-              className="launch-discord-link"
-              href={discordUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={copy.discordAria}
-            >
-              {copy.discordLabel}
-              <span aria-hidden="true">↗</span>
-            </a>
+          {(showDiscordLink || additionalLinks.length > 0) && (
+            <div className="launch-links">
+              {showDiscordLink && (
+                <a
+                  className="launch-link"
+                  href={discordUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={copy.discordAria}
+                >
+                  {copy.discordLabel}
+                  <span aria-hidden="true">↗</span>
+                </a>
+              )}
+              {additionalLinks.map((link) => (
+                <a
+                  className="launch-link"
+                  href={link.url}
+                  key={link.label + '-' + link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {link.label}
+                  <span aria-hidden="true">↗</span>
+                </a>
+              ))}
+            </div>
           )}
         </div>
       </main>

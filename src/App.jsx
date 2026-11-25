@@ -64,6 +64,20 @@ function SectionNavigation() {
   )
 }
 
+function shouldShowLaunchScreen() {
+  const launch = siteConfig.launch
+  if (!launch.enabled) return false
+
+  const countdownMode = ['timer', 'both'].includes(launch.mode)
+  const launchAt = Date.parse(launch.launchAt)
+  const countdownHasExpired = countdownMode
+    && launch.launchAt
+    && Number.isFinite(launchAt)
+    && launchAt <= Date.now()
+
+  return !countdownHasExpired
+}
+
 function UpdateNotice() {
   const [updateAvailable, setUpdateAvailable] = useState(false)
 
@@ -189,8 +203,11 @@ function MainSite() {
 }
 
 export default function App() {
-  const [launchActive, setLaunchActive] = useState(siteConfig.launch.enabled)
-  const completeLaunch = useCallback(() => setLaunchActive(false), [])
+  const [launchActive, setLaunchActive] = useState(shouldShowLaunchScreen)
+  const completeLaunch = useCallback(() => {
+    setLaunchActive(false)
+    window.location.reload()
+  }, [])
 
   return launchActive
     ? <LaunchScreen onComplete={completeLaunch} />

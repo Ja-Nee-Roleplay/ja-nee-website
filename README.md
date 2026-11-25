@@ -116,10 +116,10 @@ Leave `enabled` as `false` while you edit and preview the site. When the launch 
 Choose `mode` to control what visitors see:
 
 - `timer`: the candle and countdown only.
-- `message`: the candle, title, message, and Discord link, with no countdown. This is useful before the launch date is decided.
-- `both`: the candle, title, message, countdown, and Discord link.
+- `message`: the candle, title, message, and links, with no countdown. This is useful before the launch date is decided.
+- `both`: the candle, title, message, countdown, and links.
 
-For example, set `enabled: true`, `mode: "both"`, and add your date to `launchAt` when you are ready to publish the countdown. When a valid countdown reaches its date and time, the full website automatically returns. A message-only announcement stays visible until you turn `enabled` off. The timer uses the visitor’s clock, so the date must include the correct offset. `discordUrl` can override the main invite for this screen; leave it blank to use the `discord.inviteUrl` setting. Turn `showDiscordLink` off if you want to hide that link. Countdown labels are editable in `copy.launch`. The candle animation stops for visitors who request reduced motion.
+For example, set `enabled: true`, `mode: "both"`, and use a valid date such as `2026-12-01T18:00:00+02:00` in `launchAt`. A malformed or missing date hides the countdown, so keep the `T`, hour, minutes, seconds, and a valid timezone offset. When a valid countdown reaches zero, the page reloads and automatically shows the normal website; the expired date also keeps the launch screen hidden for visitors who arrive later. No config edit is needed at expiry. A message-only announcement stays visible until you turn `enabled` off. The timer uses the visitor’s clock, so the date must include the correct offset. `discordUrl` can override the main invite for this screen; leave it blank to use the `discord.inviteUrl` setting. Turn `showDiscordLink` off if you want to hide that link. Add `{ label: "Rules", url: "https://..." }` entries to `launch.links` for additional buttons beside Discord; only valid HTTP or HTTPS links are shown. Countdown labels are editable in `copy.launch`. The candle continues to animate.
 
 ## Configure the Discord invite
 
