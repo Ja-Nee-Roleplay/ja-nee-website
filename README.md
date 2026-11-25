@@ -145,7 +145,7 @@ The custom cursor is used only with a fine mouse pointer. It is hidden on touchs
 
 The GitHub repository is the source of truth. **.github/workflows/deploy.yml** runs the lint check, builds the site for the root of a custom domain, and can upload only the finished **dist/** files to cPanel over FTPS. It does not upload your source files, Git history, or `node_modules`. The site is static, so cPanel does not need to run Node.js or a database.
 
-The upload is disabled until you add the cPanel connection details in GitHub and set `CPANEL_DEPLOY_ENABLED` to `true`. For the complete domain, cPanel, GitHub, first-deploy, and rollback instructions, follow **[docs/CPANEL-DEPLOYMENT.md](docs/CPANEL-DEPLOYMENT.md)**. The workflow can be run manually from GitHub Actions or automatically on pushes to `main` or `master`.
+The upload is disabled until you add the cPanel connection details in GitHub and set `CPANEL_DEPLOY_ENABLED` to `true`. `CPANEL_FTP_SERVER_DIR` is the primary destination; an optional `CPANEL_FTP_SECONDARY_SERVER_DIR` can send a second copy to another folder, such as `janeerp.co.za/` when the FTP account starts in `public_html`. That second copy is public and is not a versioned recovery backup. For the complete domain, cPanel, GitHub, first-deploy, and rollback instructions, follow **[docs/CPANEL-DEPLOYMENT.md](docs/CPANEL-DEPLOYMENT.md)**. The workflow can be run manually from GitHub Actions or automatically on pushes to `main` or `master`.
 
 The Vite configuration continues to use a repository subpath for GitHub Pages builds. The cPanel workflow sets `VITE_BASE_PATH=/`, so the same site and asset paths work at the root of your custom domain. The workflow no longer creates GitHub Pages artifacts.
 
@@ -164,6 +164,7 @@ The site uses landmark elements, a skip link, labelled navigation, keyboard-focu
 - **An image is missing:** Check the filename and path relative to the public folder. Paths in siteConfig start with assets/, not public/.
 - **cPanel did not update:** Check that `CPANEL_DEPLOY_ENABLED` is exactly `true`, `CPANEL_DEPLOY_DRY_RUN` is `false`, the cPanel secrets are set, and the FTPS hostname, protocol, port, and document-root path match Hyper Layer’s details. Inspect the “Upload built website to cPanel over FTPS” step in the Actions run.
 - **The deployed site has a blank page or missing files:** Confirm `CPANEL_FTP_SERVER_DIR` is the domain’s document root and ends in `/`; it should not point at the repository directory. Check that the built assets were uploaded alongside `index.html`.
+- **The main site updates but the secondary folder does not:** Add `CPANEL_FTP_SECONDARY_SERVER_DIR` as a repository variable with the folder path relative to the FTP account’s starting directory, then confirm the optional second-upload step succeeded in Actions.
 - **The custom domain does not open over HTTPS:** Confirm its DNS records point to the Hyper Layer hosting service, then check cPanel’s SSL/TLS Status and AutoSSL state.
 - **The workflow says FTPS authentication or connection failed:** Verify the host’s exact FTP hostname, username, password, supported FTPS mode, and port with Hyper Layer. Do not change the protocol to unencrypted FTP to work around an error.
 - **The workflow does not start:** Push to main or master, or add your branch name to deploy.yml.

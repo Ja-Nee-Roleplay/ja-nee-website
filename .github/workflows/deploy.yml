@@ -52,6 +52,19 @@ jobs:
           server-dir: ${{ vars.CPANEL_FTP_SERVER_DIR || './' }}
           dry-run: ${{ vars.CPANEL_DEPLOY_DRY_RUN == 'true' }}
 
+      - name: Upload a second copy to an optional cPanel folder
+        if: ${{ vars.CPANEL_DEPLOY_ENABLED == 'true' && vars.CPANEL_FTP_SECONDARY_SERVER_DIR != '' }}
+        uses: SamKirkland/FTP-Deploy-Action@110f9186c050f71550953127052e77650219c287 # v4.4.0
+        with:
+          server: ${{ secrets.CPANEL_FTP_HOST }}
+          username: ${{ secrets.CPANEL_FTP_USERNAME }}
+          password: ${{ secrets.CPANEL_FTP_PASSWORD }}
+          protocol: ${{ vars.CPANEL_FTP_PROTOCOL || 'ftps' }}
+          port: ${{ vars.CPANEL_FTP_PORT || '21' }}
+          local-dir: ./dist/
+          server-dir: ${{ vars.CPANEL_FTP_SECONDARY_SERVER_DIR }}
+          dry-run: ${{ vars.CPANEL_DEPLOY_DRY_RUN == 'true' }}
+
       - name: Explain that cPanel deployment is not enabled yet
         if: ${{ vars.CPANEL_DEPLOY_ENABLED != 'true' }}
         run: echo "::notice title=cPanel deployment is disabled::Build passed. Configure the documented GitHub secrets and variables, then set CPANEL_DEPLOY_ENABLED to true."

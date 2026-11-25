@@ -1,6 +1,6 @@
 # Publish Ja-Nee RP from GitHub to Hyper Layer cPanel
 
-This project is a static React/Vite website. GitHub Actions builds it, then uploads the finished `dist/` folder to the cPanel document root over FTPS. GitHub remains the place where you edit, review, and keep the source code. cPanel serves the built files on your custom domain.
+This project is a static React/Vite website. GitHub Actions builds it, then uploads the finished `dist/` folder to the primary cPanel destination over FTPS. An optional second destination can receive another copy. GitHub remains the place where you edit, review, and keep the source code. cPanel serves the built files on your custom domain.
 
 The cPanel account does not need Node.js, React, Git, or a database to serve the finished website. The build runs on GitHub’s runner. The deployment workflow does not upload `src/`, `.git/`, `node_modules/`, or your FTP credentials.
 
@@ -56,6 +56,7 @@ Then add these **repository variables**:
 | `CPANEL_FTP_PROTOCOL` | `ftps` | Secure explicit FTPS. Use another value only if Hyper Layer confirms the mode: `ftps-legacy` for implicit FTPS. |
 | `CPANEL_FTP_PORT` | `21` | Replace this with the port Hyper Layer provides. Implicit FTPS commonly uses `990`, but confirm it with the host. |
 | `CPANEL_FTP_SERVER_DIR` | `./` | Path to the document root relative to the FTP account’s starting folder; keep the final `/`. |
+| `CPANEL_FTP_SECONDARY_SERVER_DIR` | Leave unset to skip | Optional second upload folder, also relative to the FTP account’s starting folder; keep the final `/`. |
 
 Do not add the cPanel password to `siteConfig.js`, the workflow file, or the README. GitHub masks Actions secrets in logs; the workflow references them only as secrets. If you ever expose the FTP password, change it in cPanel and update the GitHub secret.
 
@@ -64,8 +65,8 @@ Do not add the cPanel password to `siteConfig.js`, the workflow file, or the REA
 1. Leave `CPANEL_DEPLOY_ENABLED` set to `false` until all three secrets and the path/protocol variables are saved. Push the prepared changes to GitHub; the workflow will lint and build the site, then report that cPanel upload is still disabled.
 2. Confirm the build succeeds in the repository’s **Actions** tab.
 3. When you are ready to test the server connection, set `CPANEL_DEPLOY_ENABLED` to `true` and leave `CPANEL_DEPLOY_DRY_RUN` set to `true`.
-4. Open **Actions → Build and deploy Ja-Nee RP to cPanel → Run workflow** and run it on `main`. Review the upload step. It should connect and list changes under the intended document root without changing the website.
-5. If it cannot connect, check the hostname, FTP username, password, secure mode, port, and server directory with Hyper Layer. Keep dry-run enabled until that preview points to the correct empty or backed-up document root.
+4. Open **Actions → Build and deploy Ja-Nee RP to cPanel → Run workflow** and run it on `main`. Review the primary upload step. If you set `CPANEL_FTP_SECONDARY_SERVER_DIR`, review the optional second-upload step too. Each should list the intended files and destination without changing the website.
+5. If either step cannot connect, check the hostname, FTP username, password, secure mode, port, and server directory with Hyper Layer. Keep dry-run enabled until each configured preview points to its intended folder.
 
 The action does not use its “clean slate” option. Even so, the document root must be dedicated to this site: deploying replaces files with matching names, and files left over from an unrelated prior site may remain. Do not point it at a directory containing another website.
 
@@ -79,7 +80,7 @@ The action does not use its “clean slate” option. Even so, the document root
 6. If you deployed to a preview subdomain, change `CPANEL_FTP_SERVER_DIR` to the production domain’s document root, run a dry-run again, then run the live deployment.
 7. After the cPanel site is confirmed, remove the old GitHub Pages custom-domain setting in **Settings → Pages** if one was previously configured. Update or remove DNS records that still point the production domain at GitHub Pages. You can disable Pages if you no longer want it as a separate preview.
 
-After this, every push to `main` or `master` runs lint and build. If both succeed and `CPANEL_DEPLOY_ENABLED` remains `true`, GitHub Actions uploads the new `dist/` files. You can also start an upload manually from **Actions**.
+After this, every push to `main` or `master` runs lint and build. If both succeed and `CPANEL_DEPLOY_ENABLED` remains `true`, GitHub Actions uploads the new `dist/` files to the primary destination and, if configured, the secondary destination. You can also start an upload manually from **Actions**.
 
 ## 7. Edit, publish, and roll back
 
@@ -111,9 +112,11 @@ If a bad change is already live, revert its commit and push the revert. That pre
 ## Notes on the deployment design
 
 - GitHub is the source repository; cPanel is the static-file host. Treat cPanel’s document root as generated output, not as the editable source tree.
+- The primary destination stays `./` for an FTP account whose starting folder is the website’s `public_html` root. If that account starts in `public_html`, `janeerp.co.za/` as the secondary destination uploads a copy into `/public_html/janeerp.co.za/`.
+- The secondary destination is another public copy of the current build, not a historical backup. It does not preserve prior versions for recovery, and visitors may be able to open it under the matching URL path.
 - The workflow builds on GitHub with `VITE_BASE_PATH=/`, so hashed JavaScript, CSS, fonts, and images resolve from the custom domain root.
 - The FTP deployment action is pinned to the exact upstream commit for v4.4.0. Review and deliberately update that pin when adopting a newer release.
-- The upload target receives `dist/` only. It does not upload the React source or run `npm install` on Hyper Layer.
+- Each configured upload target receives `dist/` only. The workflow does not upload the React source or run `npm install` on Hyper Layer.
 - The current rulebook PDF is about 9.9 MB and is included in `dist/`. Visitors download it only if they open the Rules link; it is not part of the page’s initial download.
 - The workflow does not use GitHub Pages’ artifact upload/deploy steps, which avoids the Pages artifact handoff that caused earlier failures.
 - GitHub Actions uses FTPS (encrypted FTP) by default. Hyper Layer’s public page confirms FTP access but not the exact TLS mode, host, or port; verify those with the provider before turning deployment on.
