@@ -1507,6 +1507,7 @@ body {
 
 .launch-screen::before {
   position: absolute;
+  z-index: 0;
   inset: 0;
   background-image: linear-gradient(color-mix(in srgb, var(--color-white) 4%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in srgb, var(--color-white) 4%, transparent) 1px, transparent 1px);
   background-size: 72px 72px;
@@ -1517,6 +1518,7 @@ body {
 
 .launch-card {
   position: relative;
+  z-index: 2;
   width: min(920px, 100%);
   padding: clamp(32px, 7vw, 82px);
   border: 1px solid color-mix(in srgb, var(--color-gold) 24%, transparent);
@@ -1528,18 +1530,25 @@ body {
 }
 
 .launch-candle {
-  position: relative;
-  width: 76px;
-  height: 112px;
-  margin: 0 auto 23px;
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  right: clamp(18px, 7vw, 124px);
+  width: 180px;
+  height: 320px;
+  margin: 0;
+  opacity: .78;
+  pointer-events: none;
+  transform: translateY(-44%);
+  filter: drop-shadow(0 20px 48px rgba(0, 0, 0, .55));
 }
 
 .launch-candle-glow {
   position: absolute;
-  bottom: 22px;
+  bottom: 54px;
   left: 50%;
-  width: 104px;
-  height: 104px;
+  width: 260px;
+  height: 260px;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(225, 171, 66, .2), rgba(225, 171, 66, .06) 42%, transparent 72%);
   filter: blur(4px);
@@ -1551,10 +1560,10 @@ body {
   position: absolute;
   bottom: 0;
   left: 50%;
-  width: 34px;
-  height: 54px;
+  width: 74px;
+  height: 124px;
   border: 1px solid rgba(255, 232, 173, .34);
-  border-radius: 7px 7px 5px 5px;
+  border-radius: 13px 13px 8px 8px;
   background: linear-gradient(90deg, #83704b 0%, #dbc68d 20%, #f1dfad 49%, #c1a66c 100%);
   box-shadow: 0 10px 24px rgba(0, 0, 0, .35), inset 0 1px rgba(255, 255, 255, .45);
   transform: translateX(-50%);
@@ -1562,10 +1571,10 @@ body {
 
 .launch-candle-wax::before {
   position: absolute;
-  top: -4px;
-  left: -2px;
-  width: calc(100% + 4px);
-  height: 8px;
+  top: -6px;
+  left: -4px;
+  width: calc(100% + 8px);
+  height: 12px;
   border: 1px solid rgba(255, 240, 199, .58);
   border-radius: 50%;
   background: #f4e5bd;
@@ -1574,10 +1583,10 @@ body {
 
 .launch-candle-wax::after {
   position: absolute;
-  top: 9px;
-  right: 5px;
-  width: 5px;
-  height: 14px;
+  top: 22px;
+  right: 12px;
+  width: 9px;
+  height: 32px;
   border-radius: 0 0 5px 5px;
   background: linear-gradient(#e8d49e, rgba(232, 212, 158, .1));
   content: '';
@@ -1585,11 +1594,11 @@ body {
 
 .launch-candle-wick {
   position: absolute;
-  bottom: 52px;
+  bottom: 121px;
   left: 50%;
   z-index: 1;
-  width: 2px;
-  height: 10px;
+  width: 3px;
+  height: 19px;
   border-radius: 2px;
   background: #342317;
   transform: translateX(-50%);
@@ -1597,11 +1606,11 @@ body {
 
 .launch-candle-flame {
   position: absolute;
-  bottom: 59px;
+  bottom: 133px;
   left: 50%;
   z-index: 2;
-  width: 18px;
-  height: 29px;
+  width: 34px;
+  height: 56px;
   border-radius: 56% 44% 55% 45% / 68% 66% 34% 32%;
   background: radial-gradient(ellipse at 53% 72%, #fff5cc 0 15%, #ffd76d 39%, #f6a738 70%, #e77a23 100%);
   box-shadow: 0 0 12px rgba(255, 181, 67, .55), 0 0 26px rgba(239, 139, 43, .42);
@@ -1612,10 +1621,10 @@ body {
 
 .launch-candle-flame::after {
   position: absolute;
-  right: 5px;
-  bottom: 3px;
-  left: 5px;
-  height: 15px;
+  right: 9px;
+  bottom: 6px;
+  left: 9px;
+  height: 29px;
   border-radius: 50% 50% 44% 44%;
   background: rgba(255, 249, 215, .9);
   filter: blur(2px);
@@ -1750,6 +1759,28 @@ body {
   .launch-candle-flame,
   .launch-candle-glow {
     animation: none;
+  }
+}
+
+@media (max-width: 1100px) {
+  .launch-candle {
+    right: 10px;
+    opacity: .42;
+    transform: translateY(-50%) scale(.72);
+  }
+}
+
+@media (max-width: 560px) {
+  .launch-candle {
+    top: 5%;
+    right: -16px;
+    opacity: .3;
+    transform: scale(.56);
+    transform-origin: top right;
+  }
+
+  .launch-card {
+    background: color-mix(in srgb, var(--surface-glass, rgba(18, 35, 24, .82)) 84%, transparent);
   }
 }
 

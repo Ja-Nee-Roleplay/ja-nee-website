@@ -70,13 +70,13 @@ export default function LaunchScreen({ onComplete }) {
         aria-labelledby={showMessage ? 'launch-title' : undefined}
         aria-label={showMessage ? undefined : copy.timerOnlyAria}
       >
+        <div className="launch-candle" aria-hidden="true">
+          <span className="launch-candle-glow" />
+          <span className="launch-candle-flame" />
+          <span className="launch-candle-wick" />
+          <span className="launch-candle-wax" />
+        </div>
         <div className="launch-card">
-          <div className="launch-candle" aria-hidden="true">
-            <span className="launch-candle-glow" />
-            <span className="launch-candle-flame" />
-            <span className="launch-candle-wick" />
-            <span className="launch-candle-wax" />
-          </div>
           {showMessage && (
             <>
               <p className="launch-eyebrow">{copy.eyebrow}</p>
