@@ -1,4 +1,4 @@
-\\\\\\/**
+/**
  * JA-NEE RP SITE SETTINGS
  * Each heading below names the part of the website it controls.
  * Assets in src/assets are found recursively, including nested folders.
