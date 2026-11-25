@@ -1,4 +1,4 @@
-/**
+\\\\\\/**
  * JA-NEE RP SITE SETTINGS
  * Each heading below names the part of the website it controls.
  * Assets in src/assets are found recursively, including nested folders.
@@ -561,7 +561,7 @@ const siteConfig = {
   // FULL-SCREEN LAUNCH ANNOUNCEMENT AND COUNTDOWN
   launch: {
     // Leave false while editing. Set true when the launch screen is ready to publish.
-    enabled: false,
+    enabled: true,
     // Choose "timer" (timer only), "message" (message only), or "both" (message + timer).
     mode: "message",
     // Use YYYY-MM-DDTHH:mm:ss+02:00 for South African local time.
