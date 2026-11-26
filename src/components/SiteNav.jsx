@@ -21,24 +21,41 @@ export function ServerStatusCard({ status }) {
     lastUpdated: null,
     message: siteConfig.copy.status.waiting,
   }
-  const count = currentStatus.players !== null && siteConfig.fivem.showPlayerCount
-    ? currentStatus.maxPlayers !== null
-      ? currentStatus.players + ' / ' + currentStatus.maxPlayers + ' ' + siteConfig.copy.status.playersSuffix
-      : currentStatus.players + ' ' + siteConfig.copy.status.playersSuffix
-    : null
+  const copy = siteConfig.copy.status
+  const hasPlayerCount = siteConfig.fivem.showPlayerCount && currentStatus.players !== null
+  const statusMessage = currentStatus.message
+    || copy.stateMessages?.[currentStatus.state]
+    || copy.stateMessages?.unknown
+    || copy.waiting
+  const playerCountLabel = hasPlayerCount
+    ? currentStatus.players + ' ' + copy.playersSuffix
+      + (currentStatus.maxPlayers !== null ? ', ' + currentStatus.maxPlayers + ' ' + copy.playerCapacitySuffix : '')
+    : ''
 
   return (
     <div className="server-status-card" data-state={currentStatus.state} aria-live="polite">
       <div className="server-status-top">
-        <span className="status-label">{siteConfig.copy.status.heading}</span>
+        <span className="status-label">{copy.heading}</span>
         <StatusPill state={currentStatus.state} />
       </div>
       <div className="server-status-bottom">
-        <span className="server-status-name">{siteConfig.copy.status.serverName}</span>
-        {count && <span className="server-player-count">{count}</span>}
+        <div className="server-status-overview">
+          <span className="server-status-name">{copy.serverName}</span>
+          <p className="server-status-message">{statusMessage}</p>
+        </div>
+        {hasPlayerCount && (
+          <div className="server-player-count" role="group" aria-label={playerCountLabel}>
+            <span className="server-player-count-value" aria-hidden="true">{currentStatus.players}</span>
+            <span className="server-player-count-copy" aria-hidden="true">
+              <span>{copy.playersSuffix}</span>
+              {currentStatus.maxPlayers !== null && (
+                <span>{currentStatus.maxPlayers} {copy.playerCapacitySuffix}</span>
+              )}
+            </span>
+          </div>
+        )}
       </div>
       <div className="server-status-foot">
-        <span>{currentStatus.message || siteConfig.copy.status.waiting}</span>
         <span className="status-last-updated">{formatUpdated(currentStatus.lastUpdated)}</span>
       </div>
     </div>
