@@ -2791,7 +2791,12 @@ body {
   }
 }
 
-/* Correctly crop each half of the split-flap digits around one full glyph. */
+/* Split-flap countdown: one cropped glyph per tile with a real hinged digit change. */
+.flip-clock-digit {
+  animation: none;
+  transform-style: preserve-3d;
+}
+
 .flip-clock-half {
   display: block;
   align-items: initial;
@@ -2827,4 +2832,104 @@ body {
 
 .flip-clock-half--bottom .flip-clock-number {
   top: -100%;
+}
+
+.flip-clock-flap {
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  transform: rotateX(0);
+  transform-origin: 50% 100%;
+  transform-style: preserve-3d;
+  animation: split-flap-down 560ms cubic-bezier(.35, .02, .2, 1) both;
+}
+
+.flip-clock-flap-face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  backface-visibility: hidden;
+  background: linear-gradient(180deg, #192b1f 0%, #111d15 100%);
+}
+
+.flip-clock-flap-face--back {
+  transform: rotateX(180deg);
+}
+
+@keyframes split-flap-down {
+  0% { filter: brightness(1.14); transform: rotateX(0); }
+  48% { filter: brightness(.92); }
+  100% { filter: brightness(1); transform: rotateX(-180deg); }
+}
+
+/* Keep the candle beside the card on wide screens, and below it on compact screens. */
+.launch-candle {
+  z-index: 2;
+  right: clamp(24px, calc(50vw - 850px), 180px);
+  bottom: 12px;
+  left: auto;
+  opacity: .96;
+  transform: scale(.86);
+  transform-origin: bottom right;
+}
+
+@media (min-width: 1351px) {
+  .launch-screen::after {
+    left: calc(50% + 28vw);
+  }
+}
+
+@media (max-width: 1350px) {
+  .launch-screen {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 220px;
+    align-content: center;
+    justify-items: center;
+    row-gap: 0;
+    overflow: hidden;
+    padding: 30px clamp(16px, 4vw, 44px) 0;
+  }
+
+  .launch-screen::after {
+    left: 50%;
+  }
+
+  .launch-card {
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  .launch-candle {
+    position: relative;
+    grid-row: 2;
+    grid-column: 1;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    width: 180px;
+    height: 220px;
+    margin: -22px 0 0;
+    opacity: .98;
+    transform: scale(.82);
+    transform-origin: top center;
+  }
+}
+
+@media (max-width: 560px) {
+  .launch-screen {
+    grid-template-rows: auto 196px;
+    padding: 16px 16px 0;
+  }
+
+  .launch-card {
+    padding: 31px 18px;
+  }
+
+  .launch-candle {
+    margin-top: -18px;
+    transform: scale(.72);
+  }
 }

@@ -8,6 +8,49 @@ function pad(value) {
   return String(value).padStart(2, '0')
 }
 
+function FlipDigit({ value }) {
+  const previousValue = useRef(value)
+  const flipSequence = useRef(0)
+  const [flip, setFlip] = useState(null)
+
+  useEffect(() => {
+    const from = previousValue.current
+    if (from === value) return undefined
+
+    previousValue.current = value
+    flipSequence.current += 1
+    const flipId = flipSequence.current
+    setFlip({ from, to: value, id: flipId })
+
+    const timeout = window.setTimeout(() => {
+      setFlip((activeFlip) => activeFlip?.id === flipId ? null : activeFlip)
+    }, 560)
+
+    return () => window.clearTimeout(timeout)
+  }, [value])
+
+  return (
+    <span className="flip-clock-digit">
+      <span className="flip-clock-half flip-clock-half--top">
+        <span className="flip-clock-number">{flip ? flip.from : value}</span>
+      </span>
+      <span className="flip-clock-half flip-clock-half--bottom">
+        <span className="flip-clock-number">{value}</span>
+      </span>
+      {flip && (
+        <span className="flip-clock-flap" key={flip.id}>
+          <span className="flip-clock-flap-face flip-clock-flap-face--front">
+            <span className="flip-clock-number">{flip.from}</span>
+          </span>
+          <span className="flip-clock-flap-face flip-clock-flap-face--back">
+            <span className="flip-clock-number">{flip.to}</span>
+          </span>
+        </span>
+      )}
+    </span>
+  )
+}
+
 export default function LaunchScreen({ onComplete }) {
   const launch = siteConfig.launch
   const copy = siteConfig.copy.launch
@@ -134,14 +177,7 @@ export default function LaunchScreen({ onComplete }) {
                 <div className="launch-countdown-unit" key={unit.label}>
                   <span className="flip-clock-pair" aria-hidden="true">
                     {unit.value.split('').map((digit, index) => (
-                      <span className="flip-clock-digit" key={`${unit.label}-${index}-${digit}`}>
-                        <span className="flip-clock-half flip-clock-half--top">
-                          <span className="flip-clock-number">{digit}</span>
-                        </span>
-                        <span className="flip-clock-half flip-clock-half--bottom">
-                          <span className="flip-clock-number">{digit}</span>
-                        </span>
-                      </span>
+                      <FlipDigit key={unit.label + '-' + index} value={digit} />
                     ))}
                   </span>
                   <span className="launch-countdown-label">{unit.label}</span>
