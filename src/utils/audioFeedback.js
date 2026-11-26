@@ -1,6 +1,7 @@
 let audioContext = null
 let countdownBusyUntil = 0
 let interfaceBusyUntil = 0
+let mascotBusyUntil = 0
 
 function getAudioContext() {
   if (audioContext) return audioContext
@@ -26,11 +27,11 @@ function scheduleClick(context, volume, type) {
   const isCountdown = type === 'countdown'
   if (volume <= 0) return
   if (isCountdown) {
-    if (now < countdownBusyUntil) return
+    if (now < countdownBusyUntil || now < mascotBusyUntil) return
     countdownBusyUntil = now + 0.07
   } else {
-    // A UI click must never duck or overlap the more important timer tick.
-    if (now < interfaceBusyUntil || now < countdownBusyUntil) return
+    // UI sounds never overlap countdown ticks or the mascot's entrance/exit cue.
+    if (now < interfaceBusyUntil || now < countdownBusyUntil || now < mascotBusyUntil) return
     interfaceBusyUntil = now + 0.045
   }
 
@@ -97,4 +98,32 @@ export function playCountdownClick(volume) {
   // Do not create/resume audio from a timer callback; wait for a user gesture first.
   if (!audioContext || audioContext.state !== 'running') return
   scheduleClick(audioContext, clampVolume(volume), 'countdown')
+}
+
+export function playMascotCue(volume, phase = 'appear') {
+  if (!audioContext || audioContext.state !== 'running') return
+
+  const safeVolume = clampVolume(volume)
+  if (safeVolume <= 0) return
+
+  const now = audioContext.currentTime
+  if (now < mascotBusyUntil || now < countdownBusyUntil || now < interfaceBusyUntil) return
+
+  const duration = 0.14
+  mascotBusyUntil = now + duration
+
+  const tone = audioContext.createOscillator()
+  tone.type = 'sine'
+  tone.frequency.setValueAtTime(phase === 'appear' ? 590 : 760, now)
+  tone.frequency.exponentialRampToValueAtTime(phase === 'appear' ? 810 : 520, now + duration)
+
+  const envelope = audioContext.createGain()
+  envelope.gain.setValueAtTime(0.0001, now)
+  envelope.gain.exponentialRampToValueAtTime(Math.max(0.0001, safeVolume), now + 0.012)
+  envelope.gain.exponentialRampToValueAtTime(0.0001, now + duration)
+
+  tone.connect(envelope)
+  envelope.connect(audioContext.destination)
+  tone.start(now)
+  tone.stop(now + duration)
 }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import siteConfig from '../config/siteConfig.js'
 import { assetUrl } from '../utils/siteHelpers.js'
+import { playMascotCue as playMascotSoundCue } from '../utils/audioFeedback.js'
 
 function randomBetween(minimum, maximum, fallback) {
   const min = Number(minimum)
@@ -163,6 +164,12 @@ export default function RoamingMascot() {
       nextTimer = undefined
     }
 
+    function playMascotCue(phase) {
+      const audio = siteConfig.audio
+      if (!audio.enabled || !audio.mascotCuesEnabled) return
+      playMascotSoundCue(audio.mascotCueVolume, phase)
+    }
+
     function scheduleNextVisit() {
       if (!active || document.visibilityState === 'hidden') return
       const delay = firstVisit
@@ -321,6 +328,7 @@ export default function RoamingMascot() {
         if (!active) return
         animationFrame = window.requestAnimationFrame(() => {
           if (!active) return
+          playMascotCue('appear')
           setScene((current) => current?.id === visitId
             ? { ...current, x: destinationX, y: destinationY, phase: 'walking' }
             : current)
@@ -333,7 +341,9 @@ export default function RoamingMascot() {
         if (active) setScene((current) => current?.id === visitId ? { ...current, phase: 'acting' } : current)
       }, walkDuration)
       leaveTimer = window.setTimeout(() => {
-        if (active) setScene((current) => current?.id === visitId
+        if (!active) return
+        playMascotCue('disappear')
+        setScene((current) => current?.id === visitId
           ? { ...current, phase: 'leaving', x: visit.exitX, walkDirection }
           : current)
       }, walkDuration + stayDuration)

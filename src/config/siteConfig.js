@@ -893,7 +893,9 @@ const siteConfig = {
     interfaceClicksEnabled: true,
     interfaceClickVolume: 0.04,
     countdownClicksEnabled: true,
-    countdownClickVolume: 0.07
+    countdownClickVolume: 0.07,
+    mascotCuesEnabled: true,
+    mascotCueVolume: 0.025
   },
   // FIVEM STATUS CONNECTION SETTINGS
   fivem: {

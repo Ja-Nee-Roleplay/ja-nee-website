@@ -2229,7 +2229,8 @@ body {
   display: block;
   max-width: 100%;
   height: auto;
-  color: inherit;
+  color: #fff;
+  fill: #fff;
   image-rendering: pixelated;
   shape-rendering: crispEdges;
 }
