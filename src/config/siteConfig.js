@@ -215,22 +215,186 @@ const siteConfig = {
       roast: [
         "One marshmallow, coming right up.",
         "Getting that just right.",
-        "A tiny campfire break."
+        "A tiny campfire break.",
+        "Campfire chef on duty!",
+        "Careful. This one's almost perfect.",
+        "A snack for the road."
       ],
       point: [
         "This looks like a good next stop.",
         "Found something for you.",
-        "That one caught my eye."
+        "That one caught my eye.",
+        "Psst! Have a look over there.",
+        "I think you will like this one.",
+        "Your next stop is right here!"
       ],
       wave: [
         "Oh, hi there.",
         "Just passing through.",
-        "Taking a little look around."
+        "Taking a little look around.",
+        "Good to see you, friend!",
+        "Welcome to the neighborhood.",
+        "I was hoping you would stop by."
       ],
       inspect: [
         "Hmm. Looking good so far.",
         "Just checking the details.",
-        "I like this little corner."
+        "I like this little corner.",
+        "Quality check: looking sharp.",
+        "Everything is in its right place.",
+        "A fine little detail, that."
+      ],
+      dance: [
+        "A little celebration never hurts.",
+        "I call this the city shuffle!",
+        "One step closer to opening day.",
+        "The soundtrack is in my head.",
+        "Dance break. You are welcome.",
+        "I have been practicing that move."
+      ],
+      salute: [
+        "Reporting for roleplay duty!",
+        "At your service, boss.",
+        "The city is in good hands.",
+        "A salute to your next story.",
+        "Standing by and looking sharp.",
+        "Ready when you are."
+      ],
+      stretch: [
+        "Long patrol. Quick stretch.",
+        "Gotta stay limber out here.",
+        "That feels much better.",
+        "Warming up for the big day.",
+        "Stretch break complete!",
+        "These pixel legs need a moment."
+      ],
+      nap: [
+        "Just resting my eyes for a sec.",
+        "Wake me when the city opens.",
+        "Tiny break. Big dreams.",
+        "I can nap with one eye open.",
+        "Saving my energy for launch day.",
+        "Five more minutes... maybe."
+      ],
+      think: [
+        "What story should we tell first?",
+        "I have a plan. Almost.",
+        "Hmm... the plot thickens.",
+        "Thinking cap: activated.",
+        "There is an idea in here somewhere.",
+        "This calls for a dramatic pause."
+      ],
+      cheer: [
+        "You made it! That deserves a cheer.",
+        "The city is better with you here!",
+        "Big things are on the way!",
+        "Here is to your next chapter!",
+        "You are going to fit right in.",
+        "Let us make this a story to tell."
+      ],
+      read: [
+        "Checking the latest city notes.",
+        "Every good story starts somewhere.",
+        "Just brushing up on the details.",
+        "One more page, then I patrol.",
+        "The lore is getting interesting.",
+        "I should really get a bookmark."
+      ],
+      thumbsUp: [
+        "You have got this!",
+        "Looking good from here!",
+        "That deserves a thumbs up.",
+        "You are doing great, friend.",
+        "Solid choice. I approve.",
+        "A little encouragement for you!"
+      ],
+      thumbsDown: [
+        "Wait, I think we missed something.",
+        "Not quite, but no stress.",
+        "Let us take another look.",
+        "Something feels a little off.",
+        "Back to the drawing board?",
+        "I would tweak that one thing."
+      ],
+      sit: [
+        "I am taking five.",
+        "Mind if I sit a while?",
+        "Good view from this seat.",
+        "Rest stop reached.",
+        "This spot will do nicely.",
+        "A tiny break before the next story."
+      ],
+      lean: [
+        "Just leaning on the job.",
+        "A quiet corner suits me.",
+        "Keeping watch over the city.",
+        "All clear from this side.",
+        "Taking in the view.",
+        "I will be right here if you need me."
+      ],
+      crossArms: [
+        "All right, what is the plan?",
+        "Waiting for the next chapter.",
+        "I can stand here all day.",
+        "I will keep an eye on things.",
+        "Your move, city.",
+        "Looking serious. Feeling friendly."
+      ],
+      shrug: [
+        "Could go either way.",
+        "Your story, your call.",
+        "No pressure, friend.",
+        "I did my best.",
+        "That is a mystery for another day.",
+        "I am just the mascot around here."
+      ],
+      laugh: [
+        "Okay, that got me.",
+        "I have heard worse jokes.",
+        "Still laughing over here.",
+        "That was a good one!",
+        "Somebody tell me another.",
+        "Ha! I needed that."
+      ],
+      flex: [
+        "Been hitting the pixel gym.",
+        "Strong enough for one more story.",
+        "Not bad for a tiny guy.",
+        "Built for the city.",
+        "Nailed the workout.",
+        "These pixels are pure muscle."
+      ],
+      talk: [
+        "Quick question for you.",
+        "Got a second?",
+        "I have a thought.",
+        "Let me tell you about the city.",
+        "Could this be the start?",
+        "Every great story starts with hello."
+      ],
+      facepalm: [
+        "I walked into that one.",
+        "Well, that could have gone better.",
+        "Oh no. What did I miss?",
+        "I may have made a tiny mistake.",
+        "We can pretend that did not happen.",
+        "That was not my finest moment."
+      ],
+      sleep: [
+        "Wake me when the city opens.",
+        "Saving my energy for launch day.",
+        "Five more minutes... maybe.",
+        "Tiny nap. Big dreams.",
+        "I can nap with one eye open.",
+        "Even mascots need a quick recharge."
+      ],
+      sitByFire: [
+        "Keeping the little fire company.",
+        "Evening stories by the fire.",
+        "This is a nice place to pause.",
+        "The city is almost ready.",
+        "Warm up before you head in.",
+        "I brought snacks. Well, one marshmallow."
       ]
     },
     status: {
@@ -607,6 +771,27 @@ const siteConfig = {
     frontSprite: "assets/mascot/ja-nee-front.png",
     walkingLeftSprite: "assets/mascot/ja-nee-left.png",
     walkingRightSprite: "assets/mascot/ja-nee-right.png",
+    // Transparent pose cutouts from the supplied emote sheet. Width ratios preserve each pose.
+    actionSprites: {
+      wave: { src: "assets/mascot/emotes/wave.png", widthRatio: 0.776 },
+      roast: { src: "assets/mascot/emotes/marshmallow.png", widthRatio: 0.911 },
+      pointLeft: { src: "assets/mascot/emotes/point-left.png", widthRatio: 0.776 },
+      pointRight: { src: "assets/mascot/emotes/point-right.png", widthRatio: 0.769 },
+      thumbsUp: { src: "assets/mascot/emotes/thumbs-up.png", widthRatio: 0.588 },
+      thumbsDown: { src: "assets/mascot/emotes/thumbs-down.png", widthRatio: 0.668 },
+      sit: { src: "assets/mascot/emotes/sit.png", widthRatio: 0.622 },
+      lean: { src: "assets/mascot/emotes/lean.png", widthRatio: 0.700 },
+      crossArms: { src: "assets/mascot/emotes/cross-arms.png", widthRatio: 0.578 },
+      dance: { src: "assets/mascot/emotes/dance.png", widthRatio: 0.887 },
+      cheer: { src: "assets/mascot/emotes/cheer.png", widthRatio: 0.778 },
+      shrug: { src: "assets/mascot/emotes/shrug.png", widthRatio: 0.790 },
+      laugh: { src: "assets/mascot/emotes/laugh.png", widthRatio: 0.785 },
+      flex: { src: "assets/mascot/emotes/flex.png", widthRatio: 0.849 },
+      talk: { src: "assets/mascot/emotes/talk.png", widthRatio: 0.821 },
+      facepalm: { src: "assets/mascot/emotes/facepalm.png", widthRatio: 0.825 },
+      sleep: { src: "assets/mascot/emotes/sleep.png", widthRatio: 0.749 },
+      sitByFire: { src: "assets/mascot/emotes/sit-by-fire.png", widthRatio: 0.912 }
+    },
     desktopHeight: 142,
     mobileHeight: 106,
     firstVisitDelayMinMs: 3500,
@@ -624,6 +809,44 @@ const siteConfig = {
     waveWeight: 16,
     inspectEnabled: true,
     inspectWeight: 12,
+    danceEnabled: true,
+    danceWeight: 12,
+    saluteEnabled: true,
+    saluteWeight: 8,
+    stretchEnabled: true,
+    stretchWeight: 8,
+    napEnabled: true,
+    napWeight: 5,
+    thinkEnabled: true,
+    thinkWeight: 9,
+    cheerEnabled: true,
+    cheerWeight: 9,
+    readEnabled: true,
+    readWeight: 7,
+    thumbsUpEnabled: true,
+    thumbsUpWeight: 9,
+    thumbsDownEnabled: true,
+    thumbsDownWeight: 3,
+    sitEnabled: true,
+    sitWeight: 7,
+    leanEnabled: true,
+    leanWeight: 6,
+    crossArmsEnabled: true,
+    crossArmsWeight: 6,
+    shrugEnabled: true,
+    shrugWeight: 6,
+    laughEnabled: true,
+    laughWeight: 6,
+    flexEnabled: true,
+    flexWeight: 5,
+    talkEnabled: true,
+    talkWeight: 5,
+    facepalmEnabled: true,
+    facepalmWeight: 3,
+    sleepEnabled: true,
+    sleepWeight: 3,
+    sitByFireEnabled: true,
+    sitByFireWeight: 6,
     respectReducedMotion: false
   },
   // LIVE UPDATE CHECKS (cPanel still needs a successful GitHub deploy first)
@@ -638,7 +861,7 @@ const siteConfig = {
     interfaceClicksEnabled: true,
     interfaceClickVolume: 0.04,
     countdownClicksEnabled: true,
-    countdownClickVolume: 0.1
+    countdownClickVolume: 0.07
   },
   // FIVEM STATUS CONNECTION SETTINGS
   fivem: {
@@ -731,26 +954,26 @@ const siteConfig = {
     pointerImage: "assets/cursors/ja-nee-hover.png",
     textImage: "assets/cursors/ja-nee-text.png",
     interactionImage: "assets/cursors/ja-nee-link.png",
-    width: 48,
-    height: 48,
-    hotspotX: 7,
-    hotspotY: 6,
+    width: 40,
+    height: 40,
+    hotspotX: 6,
+    hotspotY: 5,
     hotspots: {
       default: {
-        x: 7,
-        y: 6
+        x: 6,
+        y: 5
       },
       pointer: {
-        x: 7,
-        y: 6
+        x: 6,
+        y: 5
       },
       text: {
-        x: 19,
-        y: 24
+        x: 16,
+        y: 20
       },
       interaction: {
-        x: 18,
-        y: 5
+        x: 15,
+        y: 4
       }
     },
     animate: false

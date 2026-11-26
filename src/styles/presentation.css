@@ -2043,6 +2043,152 @@ body {
   content: '';
 }
 
+/* Extra launch-only mascot business: the same small sprite gets new pixel-art actions. */
+.roaming-mascot--dance[data-phase="acting"] .roaming-mascot__sprite {
+  animation: mascot-dance 520ms steps(2, end) infinite;
+}
+
+.roaming-mascot--salute[data-phase="acting"] .roaming-mascot__sprite {
+  animation: mascot-salute 900ms ease-in-out infinite alternate;
+}
+
+.roaming-mascot--stretch[data-phase="acting"] .roaming-mascot__sprite {
+  animation: mascot-stretch 1.1s ease-in-out infinite alternate;
+}
+
+.roaming-mascot--nap[data-phase="acting"] .roaming-mascot__sprite {
+  animation: mascot-nap 1.6s ease-in-out infinite alternate;
+}
+
+.roaming-mascot--think[data-phase="acting"] .roaming-mascot__sprite,
+.roaming-mascot--read[data-phase="acting"] .roaming-mascot__sprite {
+  animation: mascot-think 1.25s ease-in-out infinite alternate;
+}
+
+.roaming-mascot--cheer[data-phase="acting"] .roaming-mascot__sprite {
+  animation: mascot-cheer 560ms cubic-bezier(.2, .8, .3, 1) infinite alternate;
+}
+
+.roaming-mascot--thumbsUp[data-phase="acting"] .roaming-mascot__sprite,
+.roaming-mascot--flex[data-phase="acting"] .roaming-mascot__sprite {
+  animation: mascot-proud 780ms ease-in-out infinite alternate;
+}
+
+.roaming-mascot--thumbsDown[data-phase="acting"] .roaming-mascot__sprite,
+.roaming-mascot--facepalm[data-phase="acting"] .roaming-mascot__sprite {
+  animation: mascot-disappointed 1s ease-in-out infinite alternate;
+}
+
+.roaming-mascot--sit[data-phase="acting"] .roaming-mascot__sprite,
+.roaming-mascot--sitByFire[data-phase="acting"] .roaming-mascot__sprite {
+  animation: mascot-sit 1.5s ease-in-out infinite alternate;
+}
+
+.roaming-mascot--sleep[data-phase="acting"] .roaming-mascot__sprite {
+  animation: mascot-nap 1.6s ease-in-out infinite alternate;
+}
+
+.roaming-mascot--talk[data-phase="acting"] .roaming-mascot__sprite,
+.roaming-mascot--laugh[data-phase="acting"] .roaming-mascot__sprite {
+  animation: mascot-talk 420ms ease-in-out infinite alternate;
+}
+
+.roaming-mascot--lean[data-phase="acting"] .roaming-mascot__sprite {
+  animation: mascot-lean 1.2s ease-in-out infinite alternate;
+}
+
+.roaming-mascot--shrug[data-phase="acting"] .roaming-mascot__sprite {
+  animation: mascot-shrug 1s ease-in-out infinite alternate;
+}
+
+.roaming-mascot__salute-arm {
+  top: 27%;
+  right: 12%;
+  width: 16px;
+  animation: mascot-salute-arm 550ms ease-in-out infinite alternate;
+}
+
+.roaming-mascot__action-arms {
+  position: absolute;
+  z-index: 2;
+  top: 48%;
+  right: 6%;
+  left: 6%;
+  height: 7px;
+  pointer-events: none;
+}
+
+.roaming-mascot__action-arms::before,
+.roaming-mascot__action-arms::after {
+  position: absolute;
+  top: 0;
+  width: 25px;
+  height: 7px;
+  border: 2px solid #332012;
+  border-radius: 1px;
+  background: #d89155;
+  box-shadow: 0 0 0 1px rgba(225, 162, 87, .8);
+  content: '';
+}
+
+.roaming-mascot__action-arms::before { left: -8px; transform-origin: right center; }
+.roaming-mascot__action-arms::after { right: -8px; transform-origin: left center; }
+.roaming-mascot--stretch .roaming-mascot__action-arms::before { animation: mascot-stretch-arm-left 1.1s ease-in-out infinite alternate; }
+.roaming-mascot--stretch .roaming-mascot__action-arms::after { animation: mascot-stretch-arm-right 1.1s ease-in-out infinite alternate; }
+.roaming-mascot--cheer .roaming-mascot__action-arms::before { animation: mascot-cheer-arm-left 560ms ease-in-out infinite alternate; }
+.roaming-mascot--cheer .roaming-mascot__action-arms::after { animation: mascot-cheer-arm-right 560ms ease-in-out infinite alternate; }
+
+.roaming-mascot__prop {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.roaming-mascot__prop--read {
+  right: 4%;
+  bottom: 17%;
+  width: 28px;
+  height: 19px;
+  border: 2px solid #382714;
+  border-radius: 2px 4px 3px 2px;
+  background: linear-gradient(90deg, #e5c879 0 48%, #f5e4ad 49% 100%);
+  box-shadow: 2px 2px 0 #986f32, 0 0 0 1px rgba(255, 230, 166, .65);
+  transform: rotate(-9deg);
+  transform-origin: bottom center;
+  animation: mascot-book-read 800ms ease-in-out infinite alternate;
+}
+
+.roaming-mascot__prop--read::after {
+  position: absolute;
+  top: 4px;
+  right: 5px;
+  left: 5px;
+  height: 2px;
+  background: #9c793f;
+  box-shadow: 0 4px #b08d4d;
+  content: '';
+}
+
+.roaming-mascot__prop--nap {
+  right: 2%;
+  bottom: 2%;
+  width: 40px;
+  height: 13px;
+  border: 2px solid #372515;
+  border-radius: 50%;
+  background: #efe0ad;
+  box-shadow: 0 2px 0 #a98549;
+}
+
+.roaming-mascot--dance .roaming-mascot__emote,
+.roaming-mascot--cheer .roaming-mascot__emote {
+  animation: mascot-emote-pop 240ms cubic-bezier(.2, .8, .2, 1.2) both, mascot-party 560ms steps(2, end) infinite;
+}
+
+.roaming-mascot--nap .roaming-mascot__emote { animation: mascot-sleepy 1.2s ease-in-out infinite alternate; }
+.roaming-mascot--think .roaming-mascot__emote { animation: mascot-thought 950ms ease-in-out infinite alternate; }
+.roaming-mascot--read .roaming-mascot__emote { top: 23%; animation: mascot-book-read 800ms ease-in-out infinite alternate; }
+
 @keyframes mascot-walk-cycle {
   0%, 100% { transform: translateX(-50%) translateY(0) rotate(0); }
   22% { transform: translateX(-50%) translateY(-3px) rotate(-1deg); }
@@ -2100,6 +2246,111 @@ body {
 @keyframes mascot-skewer-sway {
   from { rotate: -24deg; }
   to { rotate: -18deg; }
+}
+
+@keyframes mascot-dance {
+  0%, 100% { transform: translateX(-50%) translateY(0) rotate(-5deg) scaleX(.97); }
+  50% { transform: translateX(-50%) translateY(-6px) rotate(5deg) scaleX(1.03); }
+}
+
+@keyframes mascot-salute {
+  from { transform: translateX(-50%) translateY(0) rotate(0); }
+  to { transform: translateX(-50%) translateY(-2px) rotate(-2deg); }
+}
+
+@keyframes mascot-salute-arm {
+  from { transform: rotate(-44deg); }
+  to { transform: rotate(-76deg); }
+}
+
+@keyframes mascot-stretch {
+  from { transform: translateX(-50%) scaleY(1); }
+  to { transform: translateX(-50%) translateY(-5px) scaleY(1.045); }
+}
+
+@keyframes mascot-stretch-arm-left {
+  from { transform: rotate(-8deg); }
+  to { transform: rotate(-35deg) translateX(-2px); }
+}
+
+@keyframes mascot-stretch-arm-right {
+  from { transform: rotate(8deg); }
+  to { transform: rotate(35deg) translateX(2px); }
+}
+
+@keyframes mascot-cheer {
+  from { transform: translateX(-50%) translateY(0); }
+  to { transform: translateX(-50%) translateY(-8px) rotate(2deg); }
+}
+
+@keyframes mascot-cheer-arm-left {
+  from { transform: rotate(10deg); }
+  to { transform: rotate(-52deg); }
+}
+
+@keyframes mascot-cheer-arm-right {
+  from { transform: rotate(-10deg); }
+  to { transform: rotate(52deg); }
+}
+
+@keyframes mascot-nap {
+  from { transform: translateX(-50%) translateY(0) rotate(-2deg); }
+  to { transform: translateX(-50%) translateY(3px) rotate(2deg); }
+}
+
+@keyframes mascot-think {
+  from { transform: translateX(-50%) translateY(0) rotate(-1deg); }
+  to { transform: translateX(-50%) translateY(-2px) rotate(1deg); }
+}
+
+@keyframes mascot-book-read {
+  from { rotate: -9deg; translate: 0 0; }
+  to { rotate: -3deg; translate: 0 -2px; }
+}
+
+@keyframes mascot-party {
+  from { transform: rotate(-8deg) scale(.94); }
+  to { transform: rotate(8deg) scale(1.08); }
+}
+
+@keyframes mascot-sleepy {
+  from { transform: translateY(0) scale(.9); opacity: .7; }
+  to { transform: translateY(-9px) scale(1.08); opacity: 1; }
+}
+
+@keyframes mascot-thought {
+  from { transform: translateY(1px) rotate(-5deg); }
+  to { transform: translateY(-5px) rotate(5deg); }
+}
+
+@keyframes mascot-proud {
+  from { transform: translateX(-50%) translateY(0) scale(1); filter: drop-shadow(0 5px 7px rgba(0, 0, 0, .5)); }
+  to { transform: translateX(-50%) translateY(-3px) scale(1.025); filter: drop-shadow(0 7px 10px rgba(0, 0, 0, .55)); }
+}
+
+@keyframes mascot-disappointed {
+  from { transform: translateX(-50%) translateY(0) rotate(-1deg); }
+  to { transform: translateX(-50%) translateY(2px) rotate(1deg); }
+}
+
+@keyframes mascot-sit {
+  from { transform: translateX(-50%) translateY(0); }
+  to { transform: translateX(-50%) translateY(-2px); }
+}
+
+@keyframes mascot-talk {
+  from { transform: translateX(-50%) translateY(0) rotate(-.5deg); }
+  to { transform: translateX(-50%) translateY(-1px) rotate(.5deg); }
+}
+
+@keyframes mascot-lean {
+  from { transform: translateX(-50%) rotate(-1deg); }
+  to { transform: translateX(-50%) rotate(1deg); }
+}
+
+@keyframes mascot-shrug {
+  from { transform: translateX(-50%) translateY(1px) rotate(-.5deg); }
+  to { transform: translateX(-50%) translateY(-2px) rotate(.5deg); }
 }
 
 @media (max-width: 620px) {

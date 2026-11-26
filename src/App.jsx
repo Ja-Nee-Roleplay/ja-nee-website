@@ -199,7 +199,6 @@ function MainSite() {
         {siteConfig.sections.socials && <Socials />}
       </main>
       {siteConfig.sections.footer && <SiteFooter />}
-      <CustomCursor />
     </div>
   )
 }
@@ -214,6 +213,7 @@ export default function App() {
   return (
     <>
       <InteractionSounds />
+      <CustomCursor />
       {launchActive
         ? <>
           {/* The mascot belongs to both launch modes, never the normal website. */}

@@ -1,5 +1,6 @@
 let audioContext = null
-let soundBusyUntil = 0
+let countdownBusyUntil = 0
+let interfaceBusyUntil = 0
 
 function getAudioContext() {
   if (audioContext) return audioContext
@@ -22,10 +23,17 @@ function scheduleClick(context, volume, type) {
   if (!context || context.state !== 'running') return
 
   const now = context.currentTime
-  if (now < soundBusyUntil || volume <= 0) return
-  soundBusyUntil = now + 0.07
-
   const isCountdown = type === 'countdown'
+  if (volume <= 0) return
+  if (isCountdown) {
+    if (now < countdownBusyUntil) return
+    countdownBusyUntil = now + 0.07
+  } else {
+    // A UI click must never duck or overlap the more important timer tick.
+    if (now < interfaceBusyUntil || now < countdownBusyUntil) return
+    interfaceBusyUntil = now + 0.045
+  }
+
   const duration = isCountdown ? 0.032 : 0.026
   const noiseBuffer = context.createBuffer(
     1,
@@ -35,7 +43,10 @@ function scheduleClick(context, volume, type) {
   const noiseData = noiseBuffer.getChannelData(0)
   for (let index = 0; index < noiseData.length; index += 1) {
     const decay = 1 - index / noiseData.length
-    noiseData[index] = (Math.random() * 2 - 1) * decay * decay
+    // Fixed, repeatable noise keeps each countdown tick at the same perceived level.
+    const seed = Math.sin((index + 1) * 12.9898) * 43758.5453
+    const sample = (seed - Math.floor(seed)) * 2 - 1
+    noiseData[index] = sample * decay * decay
   }
 
   const noise = context.createBufferSource()

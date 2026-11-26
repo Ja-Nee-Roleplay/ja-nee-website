@@ -17,6 +17,13 @@ function clamp(value, minimum, maximum) {
   return Math.max(minimum, Math.min(maximum, value))
 }
 
+function getActionSpriteKey(action, direction = 'right') {
+  if (action === 'roast') return 'roast'
+  if (action === 'point') return direction === 'left' ? 'pointLeft' : 'pointRight'
+  if (action === 'nap') return 'sleep'
+  return action
+}
+
 const pixelGlyphs = {
   A: ['01110', '10001', '10001', '11111', '10001', '10001', '10001'],
   B: ['11110', '10001', '10001', '11110', '10001', '10001', '11110'],
@@ -57,6 +64,7 @@ const pixelGlyphs = {
   '.': ['00000', '00000', '00000', '00000', '00000', '00110', '00110'],
   ',': ['00000', '00000', '00000', '00000', '00110', '00110', '00100'],
   "'": ['00100', '00100', '00010', '00000', '00000', '00000', '00000'],
+  '’': ['00100', '00100', '00010', '00000', '00000', '00000', '00000'],
   '!': ['00100', '00100', '00100', '00100', '00100', '00000', '00100'],
   '?': ['01110', '10001', '00001', '00010', '00100', '00000', '00100'],
   '-': ['00000', '00000', '00000', '11111', '00000', '00000', '00000'],
@@ -142,6 +150,8 @@ export default function RoamingMascot() {
     let active = true
     let sceneActive = false
     let firstVisit = true
+    let previousAction = null
+    let previousSpeech = null
     let nextTimer
     let walkTimer
     let leaveTimer
@@ -185,15 +195,46 @@ export default function RoamingMascot() {
       addOption('point', config.pointAtLinksEnabled && link, config.pointAtLinksWeight)
       addOption('wave', config.waveEnabled, config.waveWeight)
       addOption('inspect', config.inspectEnabled, config.inspectWeight)
+      addOption('dance', config.danceEnabled, config.danceWeight)
+      addOption('salute', config.saluteEnabled, config.saluteWeight)
+      addOption('stretch', config.stretchEnabled, config.stretchWeight)
+      addOption('nap', config.napEnabled, config.napWeight)
+      addOption('think', config.thinkEnabled, config.thinkWeight)
+      addOption('cheer', config.cheerEnabled, config.cheerWeight)
+      addOption('read', config.readEnabled, config.readWeight)
+      addOption('thumbsUp', config.thumbsUpEnabled, config.thumbsUpWeight)
+      addOption('thumbsDown', config.thumbsDownEnabled, config.thumbsDownWeight)
+      addOption('sit', config.sitEnabled, config.sitWeight)
+      addOption('lean', config.leanEnabled, config.leanWeight)
+      addOption('crossArms', config.crossArmsEnabled, config.crossArmsWeight)
+      addOption('shrug', config.shrugEnabled, config.shrugWeight)
+      addOption('laugh', config.laughEnabled, config.laughWeight)
+      addOption('flex', config.flexEnabled, config.flexWeight)
+      addOption('talk', config.talkEnabled, config.talkWeight)
+      addOption('facepalm', config.facepalmEnabled, config.facepalmWeight)
+      addOption('sleep', config.sleepEnabled, config.sleepWeight)
+      addOption('sitByFire', config.sitByFireEnabled, config.sitByFireWeight)
       if (!options.length) return null
 
-      const totalWeight = options.reduce((total, option) => total + option.weight, 0)
+      const variedOptions = options.length > 1
+        ? options.filter((option) => option.type !== previousAction)
+        : options
+
+      const totalWeight = variedOptions.reduce((total, option) => total + option.weight, 0)
       let roll = Math.random() * totalWeight
-      for (const option of options) {
+      for (const option of variedOptions) {
         roll -= option.weight
         if (roll < 0) return option.type
       }
-      return options[options.length - 1].type
+      return variedOptions[variedOptions.length - 1].type
+    }
+
+    function chooseMessage(action) {
+      const pool = Array.isArray(messages[action]) ? messages[action] : messages.wave
+      const choices = pool.length > 1 ? pool.filter((message) => message !== previousSpeech) : pool
+      const speech = choose(choices.length ? choices : pool)
+      previousSpeech = speech
+      return speech
     }
 
     function showVisit() {
@@ -211,11 +252,17 @@ export default function RoamingMascot() {
         scheduleNextVisit()
         return
       }
+      previousAction = action
 
       const width = window.innerWidth
       const height = window.innerHeight
       const mascotHeight = width <= 620 ? config.mobileHeight : config.desktopHeight
-      const mascotWidth = mascotHeight * 0.54
+      const defaultSprite = config.actionSprites?.[getActionSpriteKey(action)]
+      const configuredWidthRatio = Number(defaultSprite?.widthRatio)
+      const widthRatio = Number.isFinite(configuredWidthRatio) && configuredWidthRatio > 0
+        ? configuredWidthRatio
+        : 0.54
+      const actionWidth = mascotHeight * widthRatio
       let destinationX
       let destinationY
       let targetDirection = 'right'
@@ -223,30 +270,30 @@ export default function RoamingMascot() {
 
       if (action === 'roast' && candle) {
         const rect = candle.rect
-        destinationX = rect.left - mascotWidth * 0.15
+        destinationX = rect.left - actionWidth * 0.15
         destinationY = rect.bottom - mascotHeight + 5
-        speech = choose(messages.roast)
+        speech = chooseMessage(action)
       } else if (action === 'point' && link) {
         const rect = link.getBoundingClientRect()
         const targetCenter = rect.left + rect.width / 2
-        const standOnLeft = rect.left > mascotWidth + 18
+        const standOnLeft = rect.left > actionWidth + 18
         destinationX = standOnLeft
-          ? rect.left - mascotWidth * 0.36
-          : rect.right + mascotWidth * 0.36
+          ? rect.left - actionWidth * 0.36
+          : rect.right + actionWidth * 0.36
         destinationY = rect.top + rect.height / 2 - mascotHeight * 0.56
         targetDirection = targetCenter >= destinationX ? 'right' : 'left'
-        speech = choose(messages.point)
+        speech = chooseMessage(action)
       } else {
         destinationX = width * (0.22 + Math.random() * 0.56)
         destinationY = height - mascotHeight - 16
-        speech = choose(action === 'inspect' ? messages.inspect : messages.wave)
+        speech = chooseMessage(action)
       }
 
-      destinationX = clamp(destinationX, mascotWidth / 2 + 8, width - mascotWidth / 2 - 8)
+      destinationX = clamp(destinationX, actionWidth / 2 + 8, width - actionWidth / 2 - 8)
       destinationY = clamp(destinationY, 26, height - mascotHeight - 12)
 
       const startsFromLeft = destinationX > width / 2
-      const startX = startsFromLeft ? -mascotWidth : width + mascotWidth
+      const startX = startsFromLeft ? -actionWidth : width + actionWidth
       const startY = clamp(destinationY + Math.min(116, mascotHeight * 0.82), 26, height - mascotHeight - 12)
       const walkDirection = startsFromLeft ? 'right' : 'left'
       const visitId = Date.now() + Math.random()
@@ -257,8 +304,9 @@ export default function RoamingMascot() {
         y: startY,
         destinationX,
         destinationY,
-        exitX: walkDirection === 'right' ? width + mascotWidth : -mascotWidth,
+        exitX: walkDirection === 'right' ? width + actionWidth : -actionWidth,
         height: mascotHeight,
+        widthRatio,
         walkDirection,
         targetDirection,
         phase: 'entering',
@@ -329,12 +377,21 @@ export default function RoamingMascot() {
 
   if (!config.enabled || !scene) return null
 
-  const sprite = scene.phase === 'acting'
-    ? (scene.action === 'roast' || scene.action === 'wave' || scene.action === 'inspect'
+  const actionSpriteKey = getActionSpriteKey(scene.action, scene.targetDirection)
+  const actionSprite = siteConfig.mascot.actionSprites?.[actionSpriteKey]
+  const hasActionSprite = scene.phase === 'acting' && Boolean(actionSprite?.src)
+  const sprite = hasActionSprite
+    ? actionSprite.src
+    : scene.phase === 'acting'
       ? siteConfig.mascot.frontSprite
-      : scene.targetDirection === 'left' ? siteConfig.mascot.walkingLeftSprite : siteConfig.mascot.walkingRightSprite)
     : scene.walkDirection === 'left' ? siteConfig.mascot.walkingLeftSprite : siteConfig.mascot.walkingRightSprite
-  const emote = scene.action === 'roast' ? '✦' : scene.action === 'point' ? (scene.targetDirection === 'left' ? '←' : '→') : scene.action === 'wave' ? '✦' : '…'
+  const emotes = {
+    roast: '*', point: scene.targetDirection === 'left' ? '<' : '>', wave: '*', inspect: '?',
+    dance: '♪', salute: '!', stretch: '+', nap: 'Zz', think: '?', cheer: '!', read: '...',
+    thumbsUp: '+', thumbsDown: '!', sit: '...', lean: '...', crossArms: '!', shrug: '?',
+    laugh: '*', flex: '+', talk: '!', facepalm: '!', sleep: 'Zz', sitByFire: '*'
+  }
+  const emote = emotes[scene.action] || '*'
 
   return (
     <div
@@ -346,7 +403,7 @@ export default function RoamingMascot() {
         '--mascot-x': `${scene.x}px`,
         '--mascot-y': `${scene.y}px`,
         '--mascot-height': `${scene.height}px`,
-        '--mascot-width': `${scene.height * 0.54}px`,
+        '--mascot-width': `${scene.height * scene.widthRatio}px`,
         '--mascot-walk-duration': `${Math.max(400, Number(config.walkDurationMs) || 2700)}ms`,
       }}
     >
@@ -361,14 +418,23 @@ export default function RoamingMascot() {
         alt=""
         draggable="false"
       />
-      {scene.phase === 'acting' && scene.action === 'point' && (
+      {scene.phase === 'acting' && !hasActionSprite && scene.action === 'point' && (
         <span className="roaming-mascot__point-arm" />
       )}
-      {scene.phase === 'acting' && scene.action === 'wave' && (
+      {scene.phase === 'acting' && !hasActionSprite && scene.action === 'wave' && (
         <span className="roaming-mascot__wave-arm" />
       )}
-      {scene.phase === 'acting' && <span className="roaming-mascot__emote">{emote}</span>}
-      {scene.action === 'roast' && scene.phase === 'acting' && (
+      {scene.phase === 'acting' && !hasActionSprite && scene.action === 'salute' && (
+        <span className="roaming-mascot__wave-arm roaming-mascot__salute-arm" />
+      )}
+      {scene.phase === 'acting' && !hasActionSprite && ['stretch', 'cheer'].includes(scene.action) && (
+        <span className="roaming-mascot__action-arms" />
+      )}
+      {scene.phase === 'acting' && !hasActionSprite && ['read', 'nap'].includes(scene.action) && (
+        <span className={`roaming-mascot__prop roaming-mascot__prop--${scene.action}`} />
+      )}
+      {scene.phase === 'acting' && !hasActionSprite && <span className="roaming-mascot__emote">{emote}</span>}
+      {scene.action === 'roast' && scene.phase === 'acting' && !hasActionSprite && (
         <span className="roaming-mascot__skewer" />
       )}
     </div>
