@@ -214,9 +214,12 @@ export default function App() {
   return (
     <>
       <InteractionSounds />
-      <RoamingMascot />
       {launchActive
-        ? <LaunchScreen onComplete={completeLaunch} />
+        ? <>
+          {/* The mascot belongs to both launch modes, never the normal website. */}
+          <RoamingMascot />
+          <LaunchScreen onComplete={completeLaunch} />
+        </>
         : <MainSite />}
     </>
   )

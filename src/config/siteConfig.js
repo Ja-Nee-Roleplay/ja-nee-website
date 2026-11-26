@@ -609,8 +609,8 @@ const siteConfig = {
     walkingRightSprite: "assets/mascot/ja-nee-right.png",
     desktopHeight: 142,
     mobileHeight: 106,
-    firstVisitDelayMinMs: 18000,
-    firstVisitDelayMaxMs: 36000,
+    firstVisitDelayMinMs: 3500,
+    firstVisitDelayMaxMs: 7000,
     returnDelayMinMs: 38000,
     returnDelayMaxMs: 72000,
     walkDurationMs: 1900,
@@ -624,7 +624,7 @@ const siteConfig = {
     waveWeight: 16,
     inspectEnabled: true,
     inspectWeight: 12,
-    respectReducedMotion: true
+    respectReducedMotion: false
   },
   // LIVE UPDATE CHECKS (cPanel still needs a successful GitHub deploy first)
   updates: {
