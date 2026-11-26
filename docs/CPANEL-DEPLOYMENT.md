@@ -119,7 +119,7 @@ If a bad change is already live, revert its commit and push the revert. That pre
 - The workflow builds on GitHub with `VITE_BASE_PATH=/`, so hashed JavaScript, CSS, fonts, and images resolve from the custom domain root.
 - The FTP deployment action is pinned to the exact upstream commit for v4.4.0. Review and deliberately update that pin when adopting a newer release.
 - Each configured upload target receives `dist/` only, including the generated PHP status relay under `api/`. The workflow does not upload the React source or run `npm install` on Hyper Layer.
-- The status relay is generated from `src/config/siteConfig.js`, uses only the configured FiveM IP and port, and returns UNKNOWN when the upstream cannot be verified. PHP must be enabled on cPanel and outbound HTTP access must be allowed for it to report a live status.
+- The status relay is generated from `src/config/siteConfig.js`. It checks the configured CFX join code over HTTPS first, then falls back to the configured FiveM IP and port; it returns UNKNOWN when neither source can verify the server. PHP and outbound HTTPS access must be available on cPanel for the CFX lookup. The CFX single-server listing endpoint can change; the direct FiveM endpoint remains as a fallback.
 - The current rulebook PDF is about 9.9 MB and is included in `dist/`. Visitors download it only if they open the Rules link; it is not part of the page’s initial download.
 - The workflow does not use GitHub Pages’ artifact upload/deploy steps, which avoids the Pages artifact handoff that caused earlier failures.
 - GitHub Actions uses FTPS (encrypted FTP) by default. Hyper Layer’s public page confirms FTP access but not the exact TLS mode, host, or port; verify those with the provider before turning deployment on.

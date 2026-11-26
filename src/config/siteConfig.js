@@ -867,6 +867,9 @@ const siteConfig = {
   fivem: {
     serverIp: '102.209.116.70',
     serverPort: 21357,
+    // Public CFX join code; the relay checks the listing over HTTPS before trying the direct endpoint.
+    cfxJoinCode: '4gbdm99',
+    cfxApiBaseUrl: 'https://frontend.cfx-services.net/api/servers/single/',
     // Relative path keeps status working at both the domain root and backup subfolder.
     statusApiEndpoint: 'api/fivem-status.php',
     directEndpointPath: '/dynamic.json',
