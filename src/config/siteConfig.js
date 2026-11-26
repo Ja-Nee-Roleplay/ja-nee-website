@@ -613,7 +613,7 @@ const siteConfig = {
     firstVisitDelayMaxMs: 7000,
     returnDelayMinMs: 38000,
     returnDelayMaxMs: 72000,
-    walkDurationMs: 1900,
+    walkDurationMs: 2700,
     stayDurationMinMs: 4200,
     stayDurationMaxMs: 6800,
     roastMarshmallowEnabled: true,
