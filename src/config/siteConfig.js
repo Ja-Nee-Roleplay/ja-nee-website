@@ -779,7 +779,7 @@ const siteConfig = {
   // FULL-SCREEN LAUNCH ANNOUNCEMENT AND COUNTDOWN
   launch: {
     // Leave false while editing. Set true when the launch screen is ready to publish.
-    enabled: false,
+    enabled: true,
     // Choose "timer" (timer only), "message" (message only), or "both" (message + timer).
     mode: "message",
     // Use any future ISO date/time; +02:00 is South African local time. A few minutes ahead is fine for testing.
