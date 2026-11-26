@@ -5,7 +5,7 @@ import { assetUrl, getVisibleSocials, imageBackgroundStyle } from '../utils/site
 
 export default function Socials() {
   const socials = getVisibleSocials()
-  const copy = siteConfig.copy.socials
+  const section = siteConfig.socialsSection
 
   return (
     <section
@@ -18,10 +18,10 @@ export default function Socials() {
         <div className="socials-heading-row">
           <SectionHeading
             id="socials-title"
-            eyebrow={copy.eyebrow}
-            title={copy.title}
-            description={copy.description}
-            index={siteConfig.socialsSection.index}
+            eyebrow={section.eyebrow}
+            title={section.title}
+            description={section.description}
+            index={section.index}
           />
           <div className="social-orbit" aria-hidden="true"><Icon name="spark" size={30} /></div>
         </div>
@@ -51,10 +51,10 @@ export default function Socials() {
           <div className="social-empty" data-reveal>
             <span className="social-empty-mark"><Icon name="spark" size={20} /></span>
             <div>
-              <strong>{copy.emptyTitle}</strong>
-              <p>{copy.emptyDescription}</p>
+              <strong>{section.emptyTitle}</strong>
+              <p>{section.emptyDescription}</p>
             </div>
-            <span className="social-empty-meta">{copy.emptyIndex}</span>
+            <span className="social-empty-meta">{section.emptyIndex}</span>
           </div>
         )}
       </div>

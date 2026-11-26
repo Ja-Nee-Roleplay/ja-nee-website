@@ -474,14 +474,6 @@ const siteConfig = {
       emptyState: "No questions in this topic yet.",
       emptyStateHint: "Add one in the FAQ list in siteConfig.js."
     },
-    socials: {
-      eyebrow: "05 / FOLLOW THE STORY",
-      title: "Find Ja-Nee out there.",
-      description: "Choose a channel below to follow Ja-Nee RP around the web.",
-      emptyTitle: "Your community, around the web.",
-      emptyDescription: "No social links have been added yet.",
-      emptyIndex: "SOCIALS / 00"
-    },
     common: {
       warningPrefix: "WARNING:"
     },
@@ -713,9 +705,15 @@ const siteConfig = {
     title: "Before you step inside.",
     description: "A few quick answers to make the first steps feel simple."
   },
-  // SOCIALS SECTION HEADING
+  // SOCIALS SECTION HEADING AND EMPTY-STATE MESSAGES
   socialsSection: {
-    index: "07"
+    index: "07",
+    eyebrow: "FOLLOW THE STORY",
+    title: "Find Ja-Nee out there.",
+    description: "Choose a channel below to follow Ja-Nee RP around the web.",
+    emptyTitle: "Your community, around the web.",
+    emptyDescription: "No social links have been added yet.",
+    emptyIndex: "SOCIALS / 00"
   },
   // OFFICIAL DISCORD INVITE URL
   discord: {

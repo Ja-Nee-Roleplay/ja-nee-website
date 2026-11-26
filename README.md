@@ -60,6 +60,8 @@ For cPanel, `public/.htaccess` is copied into the build root. It prevents stale 
 
 Edit **src/config/siteConfig.js** for site changes. It contains the page metadata, palette, fonts, every section's text, navigation, section visibility, logos and images, social and invite links, FiveM status source, cursor art, motion, launch announcement, pixel mascot, staff team, and footer content. The `statusSection` settings control the dedicated live-status chapter and its state glow; `copy.status.buttonLabel` controls the status button above the home logo. Each major group has a comment explaining what it controls, and the launch and mascot options are documented next to their settings.
 
+The seventh section's heading and empty-state messages are in `socialsSection`. Edit each social card's name, description, URL, image, and accent in the `socials` list directly below it.
+
 The **design** group controls the site-wide layout widths and gutters, desktop and mobile section spacing, hero and navigation sizing, text scale, corner radii, translucent surface colours, blur, shadows, and transition feel. For a one-off detail that has no named setting, add CSS to **design.cssOverrides** at the bottom of that group. Enter it as a JavaScript template string, for example:
 
 ~~~js
