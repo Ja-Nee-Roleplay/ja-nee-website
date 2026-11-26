@@ -724,7 +724,7 @@ const siteConfig = {
     {
       name: "TikTok",
       icon: "tiktok",
-      url: "https://www.tiktok.com/@janeerp?is_from_webapp=1&sender_device=pc",
+      url: "https://www.tiktok.com/@janeerp",
       image: "",
       description: "Short clips and moments from the city.",
       color: "#D4AF37"
@@ -794,7 +794,7 @@ const siteConfig = {
     showDiscordLink: true,
     // Add { label: "Rules", url: "https://..." } entries for optional links beside Discord.
     // Leave empty to show only the Discord link.
-    links: []
+    links: [{ label: "TikTok", url: "https://www.tiktok.com/@janeerp"}]
   },
   // PIXEL MASCOT: OCCASIONAL SITE VISITS AND SMALL INTERACTIONS
   mascot: {
