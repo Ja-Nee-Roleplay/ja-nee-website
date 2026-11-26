@@ -585,10 +585,10 @@ const siteConfig = {
     // Leave false while editing. Set true when the launch screen is ready to publish.
     enabled: true,
     // Choose "timer" (timer only), "message" (message only), or "both" (message + timer).
-    mode: "both",
+    mode: "message",
     // Use any future ISO date/time; +02:00 is South African local time. A few minutes ahead is fine for testing.
-    // TEMPORARY TEST VALUE: 2026-11-26 02:20 SAST. Replace before the real launch.
-    launchAt: "2026-11-26T03:10:00+02:00",
+    // TEMPORARY TEST VALUE: 2026-11-26T03:10:00+02:00. Replace before the real launch.
+    launchAt: "",
     // Candle begins shrinking during this many final minutes before launch.
     candleBurnMinutes: 15,
     title: "A new chapter is on the horizon.",
