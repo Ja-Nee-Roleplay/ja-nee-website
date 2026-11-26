@@ -747,7 +747,7 @@ const siteConfig = {
   // FULL-SCREEN LAUNCH ANNOUNCEMENT AND COUNTDOWN
   launch: {
     // Leave false while editing. Set true when the launch screen is ready to publish.
-    enabled: true,
+    enabled: false,
     // Choose "timer" (timer only), "message" (message only), or "both" (message + timer).
     mode: "message",
     // Use any future ISO date/time; +02:00 is South African local time. A few minutes ahead is fine for testing.
@@ -865,14 +865,14 @@ const siteConfig = {
   },
   // FIVEM STATUS CONNECTION SETTINGS
   fivem: {
-    serverIp: "",
-    serverPort: 30120,
-    statusApiEndpoint: "",
-    directEndpointPath: "/dynamic.json",
-    refreshIntervalMs: 60000,
-    timeoutMs: 7000,
-    showPlayerCount: true
-  },
+  serverIp: '102.209.116.70',
+  serverPort: 21357,
+  statusApiEndpoint: '',
+  directEndpointPath: '/dynamic.json',
+  refreshIntervalMs: 60000,
+  timeoutMs: 7000,
+  showPlayerCount: true,
+},
   // SECTION BACKGROUNDS, CROPPING, AND OVERLAYS
   images: {
     hero: {

@@ -1882,7 +1882,7 @@ body {
   border-radius: 3px;
   color: var(--color-white);
   background: rgba(9, 20, 13, .96);
-  box-shadow: 0 0 0 2px rgba(8, 15, 10, .92), 4px 4px 0 rgba(0, 0, 0, .34);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.92), 4px 4px 0 rgba(255, 255, 255, 0.34);
   animation: mascot-speech-pop 300ms cubic-bezier(.16, .84, .22, 1) both;
 }
 
