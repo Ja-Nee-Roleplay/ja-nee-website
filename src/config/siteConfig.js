@@ -867,7 +867,7 @@ const siteConfig = {
   fivem: {
   serverIp: '102.209.116.70',
   serverPort: 21357,
-  statusApiEndpoint: '',
+  statusApiEndpoint: 'https://cfx.re/join/4gbdm99',
   directEndpointPath: '/dynamic.json',
   refreshIntervalMs: 60000,
   timeoutMs: 7000,
