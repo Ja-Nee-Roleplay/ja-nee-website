@@ -10,7 +10,7 @@ const siteConfig = {
     title: "Ja-Nee RP | A city for your next story",
     description: "Discover Ja-Nee RP, explore the community, and find the details you need before joining.",
     locale: "en-ZA",
-    themeColor: "#0C1A12",
+    themeColor: "#101411",
     favicon: "assets/images/favicon.svg",
     openGraph: {
       title: "Ja-Nee RP | A city for your next story",
@@ -33,19 +33,19 @@ const siteConfig = {
     ink: "#F6F5EE",
     inkSoft: "#D0D8D0",
     forest: "#165209",
-    forestDeep: "#0C1A12",
-    panel: "#1B3022",
-    panelHover: "#284431",
-    navSurface: "#0C1A12",
-    footerSurface: "#070E09",
-    paper: "#0D1711",
-    paperWarm: "#111F16",
+    forestDeep: "#101411",
+    panel: "#1A201C",
+    panelHover: "#242B26",
+    navSurface: "#0C100E",
+    footerSurface: "#080B09",
+    paper: "#0D110F",
+    paperWarm: "#151B17",
     white: "#F6F5EE",
     muted: "#B5C1B8",
     mutedLight: "#D0D8D0",
-    line: "#2B3C30",
-    lineDark: "#36503C",
-    gold: "#D4AF37",
+    line: "#2B342E",
+    lineDark: "#3B453E",
+    gold: "#D8B66A",
     coral: "#C89D59",
     amber: "#E8CD7D",
     neutral: "#A6B0A4",
@@ -99,9 +99,9 @@ const siteConfig = {
       pillRadius: "999px"
     },
     surfaces: {
-      glass: "rgba(18, 35, 24, .82)",
-      darkGlass: "rgba(8, 20, 12, .78)",
-      raisedGlass: "rgba(38, 64, 45, .72)",
+      glass: "rgba(21, 25, 22, .86)",
+      darkGlass: "rgba(9, 12, 10, .84)",
+      raisedGlass: "rgba(34, 39, 35, .78)",
       glassBlur: "12px",
       shadowSoft: "0 24px 76px rgba(0, 0, 0, .25)",
       shadowCard: "0 18px 48px rgba(0, 0, 0, .28)"
@@ -138,6 +138,10 @@ const siteConfig = {
       label: "Home"
     },
     {
+      id: "status",
+      label: "Status"
+    },
+    {
       id: "about",
       label: "About"
     },
@@ -160,6 +164,7 @@ const siteConfig = {
   ],
   // TOGGLE WHOLE PAGE SECTIONS ON OR OFF
   sections: {
+    status: true,
     about: true,
     features: true,
     rules: true,
@@ -399,6 +404,7 @@ const siteConfig = {
     },
     status: {
       heading: "FIVEM SERVER STATUS",
+      buttonLabel: "CITY STATUS",
       serverName: "JA-NEE RP",
       noUpdate: "No successful update yet",
       updatedPrefix: "Updated",
@@ -496,9 +502,24 @@ const siteConfig = {
     imageAlt: "Illustrated city skyline at dusk",
     showScrollCue: true
   },
+  // LIVE SERVER STATUS CHAPTER, SHOWN DIRECTLY AFTER THE HOMEPAGE
+  statusSection: {
+    index: "02",
+    eyebrow: "LIVE FROM THE CITY",
+    title: "The city, at a glance.",
+    description: "Check the live FiveM connection before you head into the next chapter.",
+    linkLabel: "View live server details",
+    glow: {
+      online: "rgba(91, 184, 112, .24)",
+      offline: "rgba(190, 91, 78, .24)",
+      restarting: "rgba(222, 164, 75, .23)",
+      maintenance: "rgba(183, 149, 91, .2)",
+      unknown: "rgba(216, 182, 106, .2)"
+    }
+  },
   // ABOUT SECTION COPY AND IMAGE
   about: {
-    index: "01",
+    index: "03",
     eyebrow: "ABOUT JA-NEE",
     title: "A place for the stories you bring.",
     introduction: "Ja-Nee RP is a roleplay community with room for new characters, unexpected turns, and stories made together.",
@@ -512,7 +533,7 @@ const siteConfig = {
   },
   // FEATURES SECTION HEADING AND INTRODUCTION
   featureSection: {
-    index: "02",
+    index: "04",
     eyebrow: "THE JA-NEE EXPERIENCE",
     title: "What could your story hold?",
     description: "A few small things that make a shared story feel worth coming back to."
@@ -566,7 +587,7 @@ const siteConfig = {
   ],
   // RULES INTRODUCTION, CATEGORIES, AND RULE TEXT
   rules: {
-    index: "03",
+    index: "05",
     eyebrow: "BEFORE YOU PLAY",
     title: "A good scene starts with shared ground.",
     description: "A little shared understanding makes it easier for everyone to settle in and enjoy the story.",
@@ -674,14 +695,14 @@ const siteConfig = {
   ],
   // FAQ SECTION HEADING AND INTRODUCTION
   faqSection: {
-    index: "04",
+    index: "06",
     eyebrow: "QUICK ANSWERS",
     title: "Before you step inside.",
     description: "A few quick answers to make the first steps feel simple."
   },
   // SOCIALS SECTION HEADING
   socialsSection: {
-    index: "05"
+    index: "07"
   },
   // OFFICIAL DISCORD INVITE URL
   discord: {
@@ -880,15 +901,17 @@ const siteConfig = {
   // SECTION BACKGROUNDS, CROPPING, AND OVERLAYS
   images: {
     hero: {
-      src: "assets/images/hero-city.svg",
+      src: "assets/images/background_img.png",
       position: "center",
       size: "cover",
       repeat: "no-repeat",
-      overlayColor: "#102416",
-      overlayOpacity: 0.28,
-      imageOpacity: 0.64,
-      gradient: "linear-gradient(90deg, rgba(13, 29, 17, .96) 0%, rgba(13, 29, 17, .82) 48%, rgba(13, 29, 17, .36) 100%)",
-      blur: 12
+      // Replace this path with any image in src/assets (including nested folders) for a custom home backdrop.
+      // The page applies this blur and the green edge glow automatically.
+      overlayColor: "#080B09",
+      overlayOpacity: 0.34,
+      imageOpacity: 0.78,
+      gradient: "radial-gradient(ellipse at 50% 48%, rgba(22, 82, 9, .28) 0%, rgba(9, 13, 10, .42) 57%, rgba(7, 10, 8, .83) 100%)",
+      blur: 15
     },
     about: {
       src: "",

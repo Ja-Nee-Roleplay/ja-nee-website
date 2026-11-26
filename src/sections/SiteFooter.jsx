@@ -29,7 +29,7 @@ export default function SiteFooter() {
             <Brand className="brand--footer" alternate />
             <p>{siteConfig.footer.description}</p>
             {siteConfig.footer.statusLinkEnabled && (
-              <a className="footer-status-link" href="#home">
+              <a className="footer-status-link" href={siteConfig.sections.status ? '#status' : '#home'}>
                 <span className="footer-status-dot" /> {siteConfig.copy.status.checkLink} <Icon name="arrow" size={15} />
               </a>
             )}

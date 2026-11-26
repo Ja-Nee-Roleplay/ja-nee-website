@@ -3,7 +3,6 @@ import siteConfig from '../config/siteConfig.js'
 import Brand from './Brand.jsx'
 import Icon from './Icon.jsx'
 import StatusPill from './StatusPill.jsx'
-import { useServerStatus } from '../utils/useServerStatus.js'
 import { isSafeExternalUrl } from '../utils/siteHelpers.js'
 
 function formatUpdated(date) {
@@ -14,27 +13,33 @@ function formatUpdated(date) {
   }).format(date)
 }
 
-export function ServerStatusCard() {
-  const status = useServerStatus()
-  const count = status.players !== null && siteConfig.fivem.showPlayerCount
-    ? status.maxPlayers !== null
-      ? status.players + ' / ' + status.maxPlayers + ' ' + siteConfig.copy.status.playersSuffix
-      : status.players + ' ' + siteConfig.copy.status.playersSuffix
+export function ServerStatusCard({ status }) {
+  const currentStatus = status || {
+    state: 'unknown',
+    players: null,
+    maxPlayers: null,
+    lastUpdated: null,
+    message: siteConfig.copy.status.waiting,
+  }
+  const count = currentStatus.players !== null && siteConfig.fivem.showPlayerCount
+    ? currentStatus.maxPlayers !== null
+      ? currentStatus.players + ' / ' + currentStatus.maxPlayers + ' ' + siteConfig.copy.status.playersSuffix
+      : currentStatus.players + ' ' + siteConfig.copy.status.playersSuffix
     : null
 
   return (
-    <div className="server-status-card" aria-live="polite">
+    <div className="server-status-card" data-state={currentStatus.state} aria-live="polite">
       <div className="server-status-top">
         <span className="status-label">{siteConfig.copy.status.heading}</span>
-        <StatusPill state={status.state} />
+        <StatusPill state={currentStatus.state} />
       </div>
       <div className="server-status-bottom">
         <span className="server-status-name">{siteConfig.copy.status.serverName}</span>
         {count && <span className="server-player-count">{count}</span>}
       </div>
       <div className="server-status-foot">
-        <span>{status.message || siteConfig.copy.status.waiting}</span>
-        <span className="status-last-updated">{formatUpdated(status.lastUpdated)}</span>
+        <span>{currentStatus.message || siteConfig.copy.status.waiting}</span>
+        <span className="status-last-updated">{formatUpdated(currentStatus.lastUpdated)}</span>
       </div>
     </div>
   )

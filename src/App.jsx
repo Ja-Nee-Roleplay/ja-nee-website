@@ -4,6 +4,7 @@ import themeStyle from './config/siteTheme.js'
 import CustomCursor from './components/CustomCursor.jsx'
 import SiteNav from './components/SiteNav.jsx'
 import Hero from './sections/Hero.jsx'
+import ServerStatusSection from './sections/ServerStatus.jsx'
 import About from './sections/About.jsx'
 import Features from './sections/Features.jsx'
 import Rules from './sections/Rules.jsx'
@@ -14,9 +15,11 @@ import { useActiveSection } from './utils/useActiveSection.js'
 import LaunchScreen from './components/LaunchScreen.jsx'
 import InteractionSounds from './components/InteractionSounds.jsx'
 import RoamingMascot from './components/RoamingMascot.jsx'
+import { useServerStatus } from './utils/useServerStatus.js'
 
 const sectionIds = [
   'home',
+  ...(siteConfig.sections.status ? ['status'] : []),
   ...(siteConfig.sections.about ? ['about'] : []),
   ...(siteConfig.sections.features ? ['features'] : []),
   ...(siteConfig.sections.rules ? ['rules'] : []),
@@ -139,6 +142,8 @@ function UpdateNotice() {
 }
 
 function MainSite() {
+  const serverStatus = useServerStatus()
+
   useEffect(() => {
     if (!siteConfig.animations.enabled || !siteConfig.animations.scrollReveal) {
       document.querySelectorAll('[data-reveal]').forEach((element) => element.classList.add('is-visible'))
@@ -191,7 +196,8 @@ function MainSite() {
       <UpdateNotice />
       <SectionNavigation />
       <main id="main-content">
-        <Hero />
+        <Hero status={serverStatus} />
+        {siteConfig.sections.status && <ServerStatusSection status={serverStatus} />}
         {siteConfig.sections.about && <About />}
         {siteConfig.sections.features && <Features />}
         {siteConfig.sections.rules && <Rules />}
