@@ -911,7 +911,7 @@ const siteConfig = {
       overlayOpacity: 0.34,
       imageOpacity: 0.78,
       gradient: "radial-gradient(ellipse at 50% 48%, rgba(22, 82, 9, .28) 0%, rgba(9, 13, 10, .42) 57%, rgba(7, 10, 8, .83) 100%)",
-      blur: 15
+      blur: 5
     },
     about: {
       src: "",
