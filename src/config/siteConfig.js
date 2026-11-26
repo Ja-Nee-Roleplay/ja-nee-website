@@ -409,6 +409,11 @@ const siteConfig = {
       noUpdate: "No successful update yet",
       updatedPrefix: "Updated",
       waiting: "Waiting for a verified status source.",
+      connectionInstruction: "In FiveM, press F8, then enter:",
+      connectionCopyLabel: "Copy F8 command",
+      connectionCopiedLabel: "Command copied",
+      connectionCopyUnavailable: "Select the command above and copy it manually.",
+      connectionLinkLabel: "Join Ja-Nee RP",
       stateMessages: {
         online: "The FiveM status source is responding.",
         offline: "The server is currently offline.",

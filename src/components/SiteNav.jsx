@@ -31,6 +31,25 @@ export function ServerStatusCard({ status }) {
     ? currentStatus.players + ' ' + copy.playersSuffix
       + (currentStatus.maxPlayers !== null ? ', ' + currentStatus.maxPlayers + ' ' + copy.playerCapacitySuffix : '')
     : ''
+  const [connectionFeedback, setConnectionFeedback] = useState('')
+  const joinCode = String(siteConfig.fivem.cfxJoinCode || '').trim()
+  const hasValidJoinCode = /^[a-z0-9]{5,12}$/i.test(joinCode)
+  const joinUrl = hasValidJoinCode ? 'https://cfx.re/join/' + joinCode : ''
+  const joinCommand = hasValidJoinCode ? 'connect cfx.re/join/' + joinCode : ''
+
+  async function copyJoinCommand() {
+    if (!navigator.clipboard?.writeText) {
+      setConnectionFeedback(copy.connectionCopyUnavailable)
+      return
+    }
+
+    try {
+      await navigator.clipboard.writeText(joinCommand)
+      setConnectionFeedback(copy.connectionCopiedLabel)
+    } catch {
+      setConnectionFeedback(copy.connectionCopyUnavailable)
+    }
+  }
 
   return (
     <div className="server-status-card" data-state={currentStatus.state} aria-live="polite">
@@ -58,6 +77,23 @@ export function ServerStatusCard({ status }) {
       <div className="server-status-foot">
         <span className="status-last-updated">{formatUpdated(currentStatus.lastUpdated)}</span>
       </div>
+      {hasValidJoinCode && (
+        <div className="server-connect">
+          <div className="server-connect-instructions">
+            <p>{copy.connectionInstruction}</p>
+            <code data-cursor="text">{joinCommand}</code>
+          </div>
+          <div className="server-connect-actions">
+            <button className="server-connect-copy" type="button" onClick={copyJoinCommand}>
+              {copy.connectionCopyLabel}
+            </button>
+            <a className="server-connect-link" href={joinUrl} target="_blank" rel="noopener noreferrer">
+              {copy.connectionLinkLabel} <Icon name="external" size={14} />
+            </a>
+          </div>
+          <span className="server-connect-feedback" role="status" aria-live="polite">{connectionFeedback}</span>
+        </div>
+      )}
     </div>
   )
 }

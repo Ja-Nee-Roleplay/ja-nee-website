@@ -3898,6 +3898,90 @@ body {
   color: var(--color-muted);
 }
 
+.server-status-display .server-connect {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 13px 18px;
+  margin-top: 3px;
+  padding-top: 19px;
+  border-top: 1px solid rgba(246, 245, 238, .1);
+}
+
+.server-connect-instructions p {
+  margin: 0 0 8px;
+  color: var(--color-muted-light);
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.server-connect-instructions code {
+  display: inline-block;
+  padding: 7px 10px;
+  border: 1px solid rgba(216, 182, 106, .18);
+  border-radius: 10px;
+  color: var(--color-gold);
+  background: rgba(10, 13, 11, .7);
+  font-family: var(--font-mono);
+  font-size: clamp(10px, 1vw, 12px);
+  user-select: text;
+}
+
+.server-connect-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 9px;
+}
+
+.server-connect-copy,
+.server-connect-link {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 12px;
+  border: 1px solid color-mix(in srgb, var(--color-gold) 28%, var(--color-line));
+  border-radius: var(--radius-pill, 999px);
+  color: var(--color-white);
+  background: rgba(30, 35, 31, .78);
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 800;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background var(--effect-fast-transition, 180ms) ease, border-color var(--effect-fast-transition, 180ms) ease, transform var(--effect-fast-transition, 180ms) ease;
+}
+
+.server-connect-copy:hover,
+.server-connect-link:hover {
+  transform: translateY(-1px);
+  border-color: var(--color-gold);
+  background: rgba(44, 50, 45, .92);
+}
+
+.server-connect-link {
+  color: var(--color-forest-deep);
+  border-color: var(--color-gold);
+  background: var(--color-gold);
+}
+
+.server-connect-link:hover {
+  color: var(--color-forest-deep);
+  background: var(--color-amber);
+}
+
+.server-connect-feedback {
+  grid-column: 1 / -1;
+  min-height: 1.2em;
+  color: var(--color-muted);
+  font-family: var(--font-body);
+  font-size: 10px;
+}
+
 @media (max-width: 560px) {
   .server-status-display {
     padding: 17px;
@@ -3922,6 +4006,15 @@ body {
 
   .server-player-count-value {
     font-size: 57px;
+  }
+
+  .server-status-display .server-connect {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 13px;
+  }
+
+  .server-connect-actions {
+    justify-content: flex-start;
   }
 }
 

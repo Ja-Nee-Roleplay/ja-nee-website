@@ -153,7 +153,7 @@ The relay returns `status: online` with player counts when the CFX listing or di
 
 The CFX single-server listing endpoint is not guaranteed as a stable public API and can change. Cfx staff recommend querying the server’s own `info.json`/`dynamic.json` endpoints; this relay keeps that direct query as a fallback. If CFX changes the listing API and the host still cannot reach the game port, status will return UNKNOWN until the connection path is changed. See [Cfx’s note about the server-list endpoint](https://forum.cfx.re/t/what-happened-to-the-fivem-server-single-endpoint/5329241).
 
-The status card is part of the normal homepage hero. While `launch.enabled` is true, `launch.mode` is `message`, and that announcement is active, the launch page intentionally hides the normal homepage. Temporarily set `launch.enabled` to `false` while checking the hero status card, then restore it when ready.
+The status card is in the dedicated Server Status section immediately after the homepage. That card also shows the F8 command `connect cfx.re/join/<code>` and a direct CFX join link, both generated from `fivem.cfxJoinCode`; change that one setting to update both. While `launch.enabled` is true, `launch.mode` is `message`, and that announcement is active, the launch page intentionally hides the normal website, including its status and join command.
 
 ## Configure the custom cursor
 
