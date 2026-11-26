@@ -16,7 +16,7 @@ The original project folder did not contain an existing site, Discord invite, se
 6. Add your logo, cursor pack, and any preferred background images.
 7. Add an absolute HTTPS URL for the Open Graph image after the site URL is known.
 
-The page deliberately says UNKNOWN when no status source is configured or the status service cannot be reached.
+The page shows UNKNOWN when the status cannot be confirmed. It reports OFFLINE when the CFX listing says the join code is not listed and the direct server endpoint cannot confirm the server; other unclear lookup failures remain UNKNOWN.
 
 ## Requirements
 
@@ -87,7 +87,7 @@ Other asset folders are ready for logos and custom interface icons. The site bun
 
 ## Change colours and copy
 
-The theme group contains the main palette and font stacks. The default palette uses #165209 as a forest-green accent, charcoal and near-black page surfaces, neutral glass panels, and #D8B66A warm-gold accents. The default headers use STIX Two Text; Montserrat is used for supporting copy and controls, with ExtraBold emphasis on key subtext. The design group sits alongside it for layout and effect controls. The general group contains the browser title, site description, locale, favicon, theme colour, and Open Graph title, description, and image.
+The theme group contains the main palette and font stacks. The default palette uses #165209 as a forest-green accent, black-green page surfaces, glass panels with a restrained green glow, and #D8B66A warm-gold accents. Thin gold rules separate the site sections. The default headers use STIX Two Text; Montserrat is used for supporting copy and controls, with ExtraBold emphasis on key subtext. The design group sits alongside it for layout and effect controls. The general group contains the browser title, site description, locale, favicon, theme colour, and Open Graph title, description, and image.
 
 Edit the hero group for the intro heading, description, and buttons. Edit `statusSection` for the new second-chapter heading, description, section number, and glow colours, and set `sections.status` to show or hide it. Edit about for the community introduction and philosophy, featureSection for the experience heading, faqSection for FAQ headings, and rules for the rules heading and chapters. Set the official Discord invite URL in the discord group; its call-to-action and footer wording are in copy. The included About text is generic starter copy; set starterCopy to false after replacing it with approved wording. Set section visibility switches in sections to hide a complete section. Navigation entries are generated from the navigation list.
 
@@ -149,7 +149,7 @@ FiveM’s `dynamic.json` is an HTTP endpoint. A browser page served over HTTPS m
 
 During `npm run dev`, Vite proxies the direct configured URL to `directEndpointPath` on your FiveM host, so the local website can check the live response without browser CORS. A static `npm run preview` server and GitHub Pages cannot execute the PHP endpoint; for deployed status, use the cPanel build and upload workflow. The PHP relay only calls the fixed CFX base URL/code and fixed server address configured in siteConfig.js; it never accepts a host or join code from a request, so it is not an open proxy.
 
-The relay returns `status: online` with player counts when the CFX listing or direct endpoint provides recognizable server data. Failed, timed-out, blocked, malformed, or unlisted responses show UNKNOWN; the page never guesses OFFLINE from a failed network request. The last successful update and player count are shown only when available. Player labels, capacity labels, and fallback descriptions for each verified state are in `copy.status` in `siteConfig.js`. You can test the API directly by visiting `https://your-domain.example/api/fivem-status.php`; the response should be JSON with `status`, `players`, and `maxPlayers`. For the backup subfolder, add `/janeerp.co.za/` before `api/` in that URL.
+The relay returns `status: online` with player counts when the CFX listing or direct endpoint provides recognizable server data. It reports OFFLINE when the CFX listing returns 404 and the direct endpoint does not confirm the server. A valid direct response takes priority, and other unclear lookup failures remain UNKNOWN. The last successful update and player count are shown only when available. Status wording is editable in `copy.status.stateMessages` in `siteConfig.js`. You can check the API directly by visiting `https://your-domain.example/api/fivem-status.php`; the response should be JSON with `status`, `players`, and `maxPlayers`. For the backup subfolder, add `/janeerp.co.za/` before `api/` in that URL.
 
 The CFX single-server listing endpoint is not guaranteed as a stable public API and can change. Cfx staff recommend querying the server’s own `info.json`/`dynamic.json` endpoints; this relay keeps that direct query as a fallback. If CFX changes the listing API and the host still cannot reach the game port, status will return UNKNOWN until the connection path is changed. See [Cfx’s note about the server-list endpoint](https://forum.cfx.re/t/what-happened-to-the-fivem-server-single-endpoint/5329241).
 

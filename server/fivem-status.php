@@ -84,6 +84,13 @@ function parseStatusJson($response)
 
     $players = parsePlayerCount(isset($data['clients']) ? $data['clients'] : (isset($data['players']) ? $data['players'] : null));
     $maxPlayers = parsePlayerCount(isset($data['sv_maxclients']) ? $data['sv_maxclients'] : (isset($data['svMaxclients']) ? $data['svMaxclients'] : (isset($data['maxPlayers']) ? $data['maxPlayers'] : null)));
+    $reportedState = isset($data['status']) && is_string($data['status'])
+        ? strtolower(trim($data['status']))
+        : (isset($data['state']) && is_string($data['state']) ? strtolower(trim($data['state'])) : '');
+    if (in_array($reportedState, array('online', 'offline', 'restarting', 'maintenance'), true)) {
+        return array('status' => $reportedState, 'players' => $players, 'maxPlayers' => $maxPlayers);
+    }
+
     $hasHostname = isset($data['hostname']) && is_string($data['hostname']) && $data['hostname'] !== '';
 
     if ($players === null && $maxPlayers === null && !$hasHostname) {
@@ -94,6 +101,7 @@ function parseStatusJson($response)
 }
 
 // Try the CFX listing over HTTPS first so cPanel does not need to reach the game port.
+$cfxResponse = null;
 if ($cfxJoinCode !== '' && preg_match('/^[a-z0-9]{5,12}$/i', $cfxJoinCode)) {
     $cfxResponse = fetchStatusJson($cfxApiBaseUrl . rawurlencode($cfxJoinCode), 3);
     $cfxStatus = parseStatusJson($cfxResponse);
@@ -110,7 +118,12 @@ if ($directStatus !== null) {
     respondWithStatus($directStatus);
 }
 
+// A CFX 404 plus no valid direct endpoint response means the server is not available.
+// A valid direct response above still takes priority if the listing is temporarily missing.
+if (isset($cfxResponse['httpStatus']) && (int) $cfxResponse['httpStatus'] === 404) {
+    respondWithStatus(array('status' => 'offline'));
+}
+
 respondWithStatus(array(
     'status' => 'unknown',
-    'message' => 'The CFX listing and direct FiveM endpoint did not return verifiable server data.',
 ));
