@@ -907,7 +907,7 @@ const siteConfig = {
     // Relative path keeps status working at both the domain root and backup subfolder.
     statusApiEndpoint: 'api/fivem-status.php',
     directEndpointPath: '/dynamic.json',
-    refreshIntervalMs: 60000,
+    refreshIntervalMs: 15000,
     timeoutMs: 7000,
     showPlayerCount: true,
   },

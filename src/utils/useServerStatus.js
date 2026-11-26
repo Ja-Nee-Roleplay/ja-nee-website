@@ -77,6 +77,8 @@ export function useServerStatus() {
     if (!url) return undefined
 
     async function refreshStatus() {
+      if (stopped || activeController || document.visibilityState === 'hidden') return
+
       const controller = new AbortController()
       activeController = controller
       const timeoutId = window.setTimeout(
@@ -139,12 +141,19 @@ export function useServerStatus() {
     refreshStatus()
     intervalId = window.setInterval(
       refreshStatus,
-      Math.max(15000, siteConfig.fivem.refreshIntervalMs),
+      Math.max(5000, Number(siteConfig.fivem.refreshIntervalMs) || 15000),
     )
+
+    function refreshWhenVisible() {
+      if (document.visibilityState === 'visible') refreshStatus()
+    }
+
+    document.addEventListener('visibilitychange', refreshWhenVisible)
 
     return () => {
       stopped = true
       window.clearInterval(intervalId)
+      document.removeEventListener('visibilitychange', refreshWhenVisible)
       activeController?.abort()
     }
   }, [url])

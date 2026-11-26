@@ -141,9 +141,17 @@ function UpdateNotice() {
   )
 }
 
-function MainSite() {
+function StatusSections() {
   const serverStatus = useServerStatus()
+  return (
+    <>
+      <Hero status={serverStatus} />
+      {siteConfig.sections.status && <ServerStatusSection status={serverStatus} />}
+    </>
+  )
+}
 
+function MainSite() {
   useEffect(() => {
     if (!siteConfig.animations.enabled || !siteConfig.animations.scrollReveal) {
       document.querySelectorAll('[data-reveal]').forEach((element) => element.classList.add('is-visible'))
@@ -196,8 +204,7 @@ function MainSite() {
       <UpdateNotice />
       <SectionNavigation />
       <main id="main-content">
-        <Hero status={serverStatus} />
-        {siteConfig.sections.status && <ServerStatusSection status={serverStatus} />}
+        <StatusSections />
         {siteConfig.sections.about && <About />}
         {siteConfig.sections.features && <Features />}
         {siteConfig.sections.rules && <Rules />}
