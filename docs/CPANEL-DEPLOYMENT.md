@@ -1,8 +1,8 @@
 # Publish Ja-Nee RP from GitHub to Hyper Layer cPanel
 
-This project is a static React/Vite website. GitHub Actions builds it, then uploads the finished `dist/` folder to the primary cPanel destination over FTPS. An optional second destination can receive another copy. GitHub remains the place where you edit, review, and keep the source code. cPanel serves the built files on your custom domain.
+This project is a static React/Vite website with a tiny PHP endpoint for FiveM status. GitHub Actions builds it, packages the PHP relay from `siteConfig.js`, then uploads the finished `dist/` folder to the primary cPanel destination over FTPS. An optional second destination can receive another copy. GitHub remains the place where you edit, review, and keep the source code. cPanel serves the built files and runs the status endpoint on your custom domain.
 
-The cPanel account does not need Node.js, React, Git, or a database to serve the finished website. The build runs on GitHub’s runner. The deployment workflow does not upload `src/`, `.git/`, `node_modules/`, or your FTP credentials.
+The cPanel account does not need Node.js, React, Git, or a database to serve the finished website. PHP must be enabled for the live status endpoint; the rest of the site is static. The build runs on GitHub’s runner. The deployment workflow does not upload `src/`, `.git/`, `node_modules/`, or your FTP credentials.
 
 ## Important hosting details to confirm
 
@@ -82,7 +82,7 @@ The action does not use its “clean slate” option. Even so, the document root
 
 After this, every push to `main` or `master` runs lint and build. If both succeed and `CPANEL_DEPLOY_ENABLED` remains `true`, GitHub Actions uploads the new `dist/` files to the primary destination and, if configured, the secondary destination. You can also start an upload manually from **Actions**.
 
-The build includes `public/.htaccess` as a hidden file in the document root. On Apache hosting, it prevents browsers from holding on to old `index.html` and `version.json` responses, while long-cache fingerprinted build assets remain safe because each build gives them a new filename. The page checks for a new version every 15 seconds and offers a refresh button after the upload has completed; it does not reload visitors without asking. If the notice does not appear, enable **Show Hidden Files** in cPanel File Manager and confirm `.htaccess` is beside `index.html`. A separate host or proxy cache may need to be cleared independently.
+The build includes `public/.htaccess` as a hidden file in the document root and the generated `api/fivem-status.php` endpoint. On Apache hosting, `.htaccess` prevents browsers from holding on to old `index.html` and `version.json` responses, while long-cache fingerprinted build assets remain safe because each build gives them a new filename. The page checks for a new version every 15 seconds and offers a refresh button after the upload has completed; it does not reload visitors without asking. If the notice does not appear, enable **Show Hidden Files** in cPanel File Manager and confirm `.htaccess` is beside `index.html`. A separate host or proxy cache may need to be cleared independently.
 
 ## 7. Edit, publish, and roll back
 
@@ -118,7 +118,8 @@ If a bad change is already live, revert its commit and push the revert. That pre
 - The secondary destination is another public copy of the current build, not a historical backup. It does not preserve prior versions for recovery, and visitors may be able to open it under the matching URL path.
 - The workflow builds on GitHub with `VITE_BASE_PATH=/`, so hashed JavaScript, CSS, fonts, and images resolve from the custom domain root.
 - The FTP deployment action is pinned to the exact upstream commit for v4.4.0. Review and deliberately update that pin when adopting a newer release.
-- Each configured upload target receives `dist/` only. The workflow does not upload the React source or run `npm install` on Hyper Layer.
+- Each configured upload target receives `dist/` only, including the generated PHP status relay under `api/`. The workflow does not upload the React source or run `npm install` on Hyper Layer.
+- The status relay is generated from `src/config/siteConfig.js`, uses only the configured FiveM IP and port, and returns UNKNOWN when the upstream cannot be verified. PHP must be enabled on cPanel and outbound HTTP access must be allowed for it to report a live status.
 - The current rulebook PDF is about 9.9 MB and is included in `dist/`. Visitors download it only if they open the Rules link; it is not part of the page’s initial download.
 - The workflow does not use GitHub Pages’ artifact upload/deploy steps, which avoids the Pages artifact handoff that caused earlier failures.
 - GitHub Actions uses FTPS (encrypted FTP) by default. Hyper Layer’s public page confirms FTP access but not the exact TLS mode, host, or port; verify those with the provider before turning deployment on.

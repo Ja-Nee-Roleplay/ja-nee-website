@@ -52,6 +52,8 @@ npm run preview
 
 The production build is written to the dist folder. The preview command serves that built site locally. The build creates a small version.json file used by the deployed-update notice. Visitors are prompted within 15 seconds of a new successful deployment and choose when to refresh; the site never reloads while they are reading. Set `updates.enabled` or `updates.checkIntervalMs` in `siteConfig.js` to change this behavior. Live changes still need the GitHub build and cPanel upload to finish; for immediate editing feedback, use the local Vite preview above.
 
+For the cPanel version, use `npm run build:cpanel`. It adds the PHP FiveM status relay to `dist/api/`; the GitHub deploy workflow uses this command automatically. `npm run dev` uses Vite’s local proxy for status testing. `npm run preview` is a static file preview and cannot execute the PHP relay.
+
 For cPanel, `public/.htaccess` is copied into the build root. It prevents stale copies of `index.html` and `version.json` from being reused, gives fingerprinted build assets long-lived caching, and keeps ordinary assets on a short revalidation interval. If the host or a separate proxy has its own cache, that cache may also need clearing after a deploy.
 
 ## The central settings file
@@ -141,11 +143,15 @@ The site does not embed a Discord server preview. Its invite button opens the co
 
 ## Configure FiveM status
 
-The fivem group in siteConfig.js contains serverIp, serverPort, statusApiEndpoint, directEndpointPath, refreshIntervalMs, timeoutMs, and showPlayerCount.
+The fivem group in siteConfig.js contains `serverIp`, `serverPort`, `statusApiEndpoint`, `directEndpointPath`, `refreshIntervalMs`, `timeoutMs`, and `showPlayerCount`. The supplied server IP and port are already entered. The endpoint path is `api/fivem-status.php` (keep it relative, without a leading slash) so it works both at the domain root and in the optional `janeerp.co.za/` backup folder.
 
-The default direct path is /dynamic.json. Cfx.re documents the public server information endpoint at /info.json and the dynamic server endpoint in its proxy guide. A browser request can still fail because of HTTPS mixed-content rules or CORS. When the site is served over HTTPS, a plain HTTP FiveM endpoint may be blocked by the browser. For dependable deployed status, use a public HTTPS status endpoint or a small proxy you control, with CORS enabled. Do not put private API keys in siteConfig.js.
+FiveM’s `dynamic.json` is an HTTP endpoint. A browser page served over HTTPS may not be allowed to fetch it directly because of mixed-content restrictions, and direct cross-origin requests can also fail CORS checks. The site therefore asks its own same-origin PHP endpoint for status. The build script generates that endpoint from `serverIp` and `serverPort` in this one config file, and the cPanel workflow uploads it as `api/fivem-status.php`. cPanel must have PHP enabled and allow outbound connections to the FiveM server. No API key or credential is needed or added to the website.
 
-When statusApiEndpoint is set, it takes priority over the direct host. The response can use a status field with online, offline, restarting, or maintenance and optional players and maxPlayers values. It can also use players and capacity fields such as those returned by dynamic.json; those fields indicate online when the response is valid. An unreachable, timed-out, blocked, malformed, or unconfigured endpoint shows UNKNOWN. The page never guesses OFFLINE from a failed network request. The last successful update and player count are shown only when available.
+During `npm run dev`, Vite proxies the same configured URL to `directEndpointPath` on your FiveM host, so the local website can check the live response without browser CORS. A static `npm run preview` server and GitHub Pages cannot execute the PHP endpoint; for deployed status, use the cPanel build and upload workflow. The PHP relay only calls the fixed server configured in siteConfig.js and never accepts a host from the request, so it is not an open proxy.
+
+The relay returns `status: online` with player counts when it receives a valid `dynamic.json` response containing `clients`, `sv_maxclients`, or a hostname. An unreachable, timed-out, blocked, malformed, or unconfigured endpoint shows UNKNOWN. The page never guesses OFFLINE from a failed network request. The last successful update and player count are shown only when available. You can test the API directly by visiting `https://your-domain.example/api/fivem-status.php`; the response should be JSON with `status`, `players`, and `maxPlayers`. For the backup subfolder, add `/janeerp.co.za/` before `api/` in that URL.
+
+The status card is part of the normal homepage hero. While `launch.enabled` is true, `launch.mode` is `message`, and that announcement is active, the launch page intentionally hides the normal homepage. Temporarily set `launch.enabled` to `false` while checking the hero status card, then restore it when ready.
 
 ## Configure the custom cursor
 
@@ -171,7 +177,8 @@ The site uses landmark elements, a skip link, labelled navigation, keyboard-focu
 
 ## Troubleshooting
 
-- **Status remains UNKNOWN:** Confirm the server host or HTTPS status endpoint, port, endpoint path, timeout, response format, CORS headers, and HTTPS compatibility. UNKNOWN is expected when the browser cannot confirm the source.
+- **Status remains UNKNOWN:** Confirm the cPanel endpoint opens as JSON, PHP is enabled, outbound HTTP from the host is allowed, and the game server is publicly reachable on the configured host and port. Check `dynamic.json` from outside the game host, then confirm `serverIp` and `serverPort` in siteConfig.js. UNKNOWN is expected when the endpoint cannot confirm the source.
+- **Status card is not visible:** The card appears on the normal homepage hero. Set `launch.enabled` to `false` temporarily to reveal the homepage while testing.
 - **Discord invite button is unavailable:** Add a complete official HTTPS invite URL in the discord group.
 - **An image is missing:** Check the filename and path relative to the public folder. Paths in siteConfig start with assets/, not public/.
 - **cPanel did not update:** Check that `CPANEL_DEPLOY_ENABLED` is exactly `true`, `CPANEL_DEPLOY_DRY_RUN` is `false`, the cPanel secrets are set, and the FTPS hostname, protocol, port, and document-root path match Hyper Layer’s details. Inspect the “Upload built website to cPanel over FTPS” step in the Actions run.

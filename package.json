@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:cpanel": "npm run build && node scripts/package-fivem-status.mjs",
     "lint": "oxlint",
     "preview": "vite preview",
     "check": "npm run lint && npm run build"

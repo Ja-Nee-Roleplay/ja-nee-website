@@ -865,14 +865,15 @@ const siteConfig = {
   },
   // FIVEM STATUS CONNECTION SETTINGS
   fivem: {
-  serverIp: '102.209.116.70',
-  serverPort: 21357,
-  statusApiEndpoint: '/api/fivem-status',
-  directEndpointPath: '/dynamic.json',
-  refreshIntervalMs: 60000,
-  timeoutMs: 7000,
-  showPlayerCount: true,
-},
+    serverIp: '102.209.116.70',
+    serverPort: 21357,
+    // Relative path keeps status working at both the domain root and backup subfolder.
+    statusApiEndpoint: 'api/fivem-status.php',
+    directEndpointPath: '/dynamic.json',
+    refreshIntervalMs: 60000,
+    timeoutMs: 7000,
+    showPlayerCount: true,
+  },
   // SECTION BACKGROUNDS, CROPPING, AND OVERLAYS
   images: {
     hero: {

@@ -34,10 +34,10 @@ jobs:
       - name: Run code checks
         run: npm run lint
 
-      - name: Build static website for the custom domain root
+      - name: Build website and package the cPanel FiveM endpoint
         env:
           VITE_BASE_PATH: /
-        run: npm run build
+        run: npm run build:cpanel
 
       - name: Upload built website to cPanel over FTPS
         if: ${{ vars.CPANEL_DEPLOY_ENABLED == 'true' }}

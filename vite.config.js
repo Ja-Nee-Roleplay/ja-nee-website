@@ -10,6 +10,22 @@ const githubPagesBase = process.env.GITHUB_ACTIONS === 'true' && repositoryName
 // Set VITE_BASE_PATH=/ for cPanel's custom-domain root; GitHub Pages keeps its repository path.
 const base = process.env.VITE_BASE_PATH || githubPagesBase
 const buildId = process.env.GITHUB_SHA || new Date().toISOString()
+const fivemHost = String(siteConfig.fivem.serverIp || '').trim().replace(/^https?:\/\//i, '').replace(/\/$/, '')
+const fivemPort = Number(siteConfig.fivem.serverPort)
+const fivemApiPath = '/' + String(siteConfig.fivem.statusApiEndpoint || '')
+  .replace(/^https?:\/\/[^/]+/i, '')
+  .replace(/^\/+/, '')
+const fivemDevProxy = fivemHost && Number.isInteger(fivemPort) && fivemPort > 0
+  ? {
+      [fivemApiPath]: {
+        target: 'http://' + fivemHost + ':' + fivemPort,
+        changeOrigin: true,
+        rewrite: () => siteConfig.fivem.directEndpointPath || '/dynamic.json',
+        timeout: siteConfig.fivem.timeoutMs,
+        proxyTimeout: siteConfig.fivem.timeoutMs,
+      },
+    }
+  : undefined
 
 function escapeAttribute(value) {
   return String(value)
@@ -57,6 +73,10 @@ function siteMetadataPlugin() {
 export default defineConfig({
   base,
   plugins: [react(), siteMetadataPlugin()],
+  server: {
+    // Local Vite preview relays the browser request to FiveM, avoiding browser CORS/mixed-content blocks.
+    proxy: fivemDevProxy,
+  },
   define: {
     __BUILD_ID__: JSON.stringify(buildId),
   },
