@@ -588,7 +588,7 @@ const siteConfig = {
     mode: "both",
     // Use any future ISO date/time; +02:00 is South African local time. A few minutes ahead is fine for testing.
     // TEMPORARY TEST VALUE: 2026-11-26 02:20 SAST. Replace before the real launch.
-    launchAt: "2026-11-26T02:20:00+02:00",
+    launchAt: "2026-11-26T02:56:00+02:00",
     // Candle begins shrinking during this many final minutes before launch.
     candleBurnMinutes: 15,
     title: "A new chapter is on the horizon.",
