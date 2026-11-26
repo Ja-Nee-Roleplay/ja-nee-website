@@ -211,6 +211,28 @@ const siteConfig = {
         seconds: "SECONDS"
       }
     },
+    mascot: {
+      roast: [
+        "One marshmallow, coming right up.",
+        "Getting that just right.",
+        "A tiny campfire break."
+      ],
+      point: [
+        "This looks like a good next stop.",
+        "Found something for you.",
+        "That one caught my eye."
+      ],
+      wave: [
+        "Oh, hi there.",
+        "Just passing through.",
+        "Taking a little look around."
+      ],
+      inspect: [
+        "Hmm. Looking good so far.",
+        "Just checking the details.",
+        "I like this little corner."
+      ]
+    },
     status: {
       heading: "FIVEM SERVER STATUS",
       serverName: "JA-NEE RP",
@@ -565,7 +587,7 @@ const siteConfig = {
     // Choose "timer" (timer only), "message" (message only), or "both" (message + timer).
     mode: "both",
     // Use any future ISO date/time; +02:00 is South African local time. A few minutes ahead is fine for testing.
-    // TEMPORARY TEST VALUE: 2026-11-26 01:50 SAST. Replace before the real launch.
+    // TEMPORARY TEST VALUE: 2026-11-26 02:20 SAST. Replace before the real launch.
     launchAt: "2026-11-26T02:20:00+02:00",
     // Candle begins shrinking during this many final minutes before launch.
     candleBurnMinutes: 15,
@@ -577,6 +599,32 @@ const siteConfig = {
     // Add { label: "Rules", url: "https://..." } entries for optional links beside Discord.
     // Leave empty to show only the Discord link.
     links: []
+  },
+  // PIXEL MASCOT: OCCASIONAL SITE VISITS AND SMALL INTERACTIONS
+  mascot: {
+    enabled: true,
+    // These images were cut from the supplied mascot sheet; paths are relative to public/.
+    frontSprite: "assets/mascot/ja-nee-front.png",
+    walkingLeftSprite: "assets/mascot/ja-nee-left.png",
+    walkingRightSprite: "assets/mascot/ja-nee-right.png",
+    desktopHeight: 142,
+    mobileHeight: 106,
+    firstVisitDelayMinMs: 18000,
+    firstVisitDelayMaxMs: 36000,
+    returnDelayMinMs: 38000,
+    returnDelayMaxMs: 72000,
+    walkDurationMs: 1900,
+    stayDurationMinMs: 4200,
+    stayDurationMaxMs: 6800,
+    roastMarshmallowEnabled: true,
+    roastMarshmallowWeight: 30,
+    pointAtLinksEnabled: true,
+    pointAtLinksWeight: 42,
+    waveEnabled: true,
+    waveWeight: 16,
+    inspectEnabled: true,
+    inspectWeight: 12,
+    respectReducedMotion: true
   },
   // LIVE UPDATE CHECKS (cPanel still needs a successful GitHub deploy first)
   updates: {
