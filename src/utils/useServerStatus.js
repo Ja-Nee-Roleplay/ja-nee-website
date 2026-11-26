@@ -27,7 +27,14 @@ function readServerPayload(payload) {
   const normalisedState = typeof rawState === 'string' ? rawState.toLowerCase().trim() : ''
   const validStates = ['online', 'offline', 'restarting', 'maintenance']
 
-  if (normalisedState === 'unknown') return { state: 'unknown', players: null, maxPlayers: null }
+  if (normalisedState === 'unknown') {
+    return {
+      state: 'unknown',
+      players: null,
+      maxPlayers: null,
+      message: typeof data.message === 'string' ? data.message : '',
+    }
+  }
 
   const players = parseCount(
     data.players ?? data.clients ?? data.currentPlayers ?? data.playerCount,
@@ -89,6 +96,17 @@ export function useServerStatus() {
         const payload = await response.json()
         const parsed = readServerPayload(payload)
         if (!parsed) throw new Error('unsupported')
+
+        if (parsed.state === 'unknown') {
+          if (!stopped) {
+            setStatus({
+              ...parsed,
+              lastUpdated: lastSuccessfulUpdate,
+              message: parsed.message || siteConfig.copy.status.unreachable,
+            })
+          }
+          return
+        }
 
         lastSuccessfulUpdate = new Date()
         if (!stopped) {

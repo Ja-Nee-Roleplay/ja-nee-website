@@ -61,12 +61,20 @@ if (function_exists('curl_init')) {
 }
 
 if ($responseBody === false || $httpStatus < 200 || $httpStatus >= 300) {
-    respondWithStatus(array('status' => 'unknown'));
+    respondWithStatus(array(
+        'status' => 'unknown',
+        'message' => $responseBody === false
+            ? 'The hosting server could not reach FiveM on the configured endpoint.'
+            : 'FiveM returned HTTP ' . $httpStatus . '.',
+    ));
 }
 
 $data = json_decode($responseBody, true);
 if (!is_array($data)) {
-    respondWithStatus(array('status' => 'unknown'));
+    respondWithStatus(array(
+        'status' => 'unknown',
+        'message' => 'FiveM returned data that was not valid JSON.',
+    ));
 }
 
 $players = parsePlayerCount(isset($data['clients']) ? $data['clients'] : null);
@@ -74,7 +82,10 @@ $maxPlayers = parsePlayerCount(isset($data['sv_maxclients']) ? $data['sv_maxclie
 $hasHostname = isset($data['hostname']) && is_string($data['hostname']) && $data['hostname'] !== '';
 
 if ($players === null && $maxPlayers === null && !$hasHostname) {
-    respondWithStatus(array('status' => 'unknown'));
+    respondWithStatus(array(
+        'status' => 'unknown',
+        'message' => 'FiveM returned JSON without recognizable server or player fields.',
+    ));
 }
 
 respondWithStatus(array(
